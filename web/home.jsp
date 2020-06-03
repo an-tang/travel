@@ -11,6 +11,6 @@
     <title>$Title$</title>
 </head>
 <body>
-BBBBB
+<h1>HOME</h1>
 </body>
 </html>

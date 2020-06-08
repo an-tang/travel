@@ -27,8 +27,6 @@ public class HomeServlet extends HttpServlet {
 //        int status = 1;
 
         UserModel user = new UserModel("An", "123456", "Hoang An", "123456", "0977765121", 1);
-
-
         try {
             service = new UserService();
             service.CreateUser(user);

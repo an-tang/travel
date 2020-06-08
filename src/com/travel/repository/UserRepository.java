@@ -3,10 +3,7 @@ package com.travel.repository;
 import com.travel.dbconnection.DBConnection;
 import com.travel.model.UserModel;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class UserRepository extends BaseRepository {
     Connection connection = null;
@@ -38,6 +35,30 @@ public class UserRepository extends BaseRepository {
         }
     }
 
+    public UserModel GetUserByUserName(String userName) {
+        UserModel user = null;
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM USERS WHERE (user_name = ?);";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, userName);
+            ResultSet rs = preparedStatement.executeQuery();
+            System.out.println(rs);
+            while(rs.next()){
+                System.out.println("========");
+                String name = rs.getString("name");
+                String phone = rs.getString("phone");
+                String email  = rs.getString("email");
+                int status  = rs.getInt("status");
+                user = new UserModel(userName, name, email, phone, status);
+                System.out.println(name);
+                System.out.println(user);
+            }
+        }catch (Exception e){
+
+        }
+        return user;
+    }
     private void closeConnection() {
         try {
             if (preparedStatement != null) {

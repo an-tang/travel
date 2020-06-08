@@ -17,4 +17,14 @@ public class UserService {
             e.printStackTrace();
         }
     }
+
+    public UserModel GetUserByUserName(String userName){
+        UserModel user = null;
+        try {
+            user = userRepo.GetUserByUserName(userName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return user;
+    }
 }

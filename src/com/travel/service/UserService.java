@@ -4,6 +4,8 @@ import com.travel.model.UserModel;
 import com.travel.repository.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.ArrayList;
+
 public class UserService {
     UserRepository userRepo = null;
 
@@ -13,6 +15,11 @@ public class UserService {
 
     public void CreateUser(UserModel user, int type) {
         try {
+            UserModel loadUser = userRepo.GetUserByUserName(user.getUserName());
+            if (loadUser != null) {
+                System.out.println("User name already exists");
+                return;
+            }
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
             userRepo.CreateUser(user, type);
         } catch (Exception e) {
@@ -36,5 +43,10 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<UserModel> GetAllUsers(int page, int perPage) {
+        ArrayList<UserModel> listUsers = userRepo.GetAllUsers(page, perPage);
+        return listUsers;
     }
 }

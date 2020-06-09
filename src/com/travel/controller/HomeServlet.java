@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(urlPatterns = {"/home"})
 public class HomeServlet extends HttpServlet {
@@ -30,8 +31,14 @@ public class HomeServlet extends HttpServlet {
         UserStatus status = UserStatus.ACTIVE;
         UserModel user = new UserModel("admin", "123456", "Hoang An", "antang@gmail.com", "0977765121", status.getValue());
         try {
+//            service = new UserService();
+//            ArrayList<UserModel> listUsers = service.GetAllUsers(1, 5);
+//
+//            for(UserModel model : listUsers) {
+//                System.out.println(model.getId());
+//            }
             service = new UserService();
-            service.CreateUser(user, role.getValue()) ;
+            service.CreateUser(user, role.getValue());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -57,6 +57,14 @@ public class UserModel {
         this.status = status;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public UserModel(String userName, String password, String name, String email, String phone, int status) {
         this.userName = userName;
         this.password = password;
@@ -72,5 +80,13 @@ public class UserModel {
         this.email = email;
         this.phone = phone;
         this.status = status;
+    }
+
+    public UserModel(int id, String userName, String name, String email, String phone) {
+        this.id = id;
+        this.userName = userName;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
     }
 }

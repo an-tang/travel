@@ -4,6 +4,7 @@ import com.travel.dbconnection.DBConnection;
 import com.travel.model.UserModel;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class UserRepository extends BaseRepository {
     Connection connection = null;
@@ -71,6 +72,32 @@ public class UserRepository extends BaseRepository {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public ArrayList<UserModel> GetAllUsers(int page, int perPage){
+        ArrayList<UserModel> listUsers = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM users "
+                    + " where status = 1 ORDER BY id ASC "
+                    + " LIMIT ? OFFSET ?;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, page*perPage + perPage);
+            preparedStatement.setInt(2, page*perPage);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String userName = rs.getString("user_name");
+                String name = rs.getString("name");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                listUsers.add(new UserModel(id, userName, name, email, phone));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return listUsers;
     }
 
     private void createUserRole(int type, int id) throws SQLException {

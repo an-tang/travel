@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
     }
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        out.print("login-name" +request.getParameter("username") + " password" + request.getParameter("password"));
+        out.print("login-name" + request.getParameter(" username") + " password" + request.getParameter(" password"));
 
     }
 }

@@ -39,7 +39,8 @@ public class UserService {
 
     public boolean Login(String userName, String password) {
         UserModel user = userRepo.GetUserByUserName(userName);
-        if (BCrypt.checkpw(password, user.getPassword())) {
+//        if (BCrypt.checkpw(password, user.getPassword())) {
+        if (password.equals(user.getPassword())) {
             return true;
         }
         return false;

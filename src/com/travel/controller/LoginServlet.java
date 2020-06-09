@@ -1,6 +1,5 @@
 package com.travel.controller;
 
-import com.travel.model.UserModel;
 import com.travel.service.UserService;
 
 import javax.servlet.ServletException;
@@ -10,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = {"/login"})
+@WebServlet(urlPatterns = {"/login"}, name = "login")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     UserService userService = null;
@@ -27,13 +26,21 @@ public class LoginServlet extends HttpServlet {
             boolean check = userService.Login(username, password);
             if (check){
                 // ....save session
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
                 session.setAttribute("username", username);
             }else{
+                request.setAttribute("errorMessage", "Invalid User name or Password. Please try again!");
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
                 // .... direct error page
             }
         } catch (Exception ex) {
             System.out.println(ex);
         }
+
+    }
+    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        out.print("login-name" +request.getParameter("username") + " password" + request.getParameter("password"));
 
     }
 }

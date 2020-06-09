@@ -1,8 +1,8 @@
 package com.travel.controller;
 
-import com.travel.dbconnection.DBConnection;
+import com.travel.enumerize.Role;
+import com.travel.enumerize.UserStatus;
 import com.travel.model.UserModel;
-import com.travel.repository.UserRepository;
 import com.travel.service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
 
 @WebServlet(urlPatterns = {"/home"})
 public class HomeServlet extends HttpServlet {
@@ -26,10 +25,13 @@ public class HomeServlet extends HttpServlet {
 //        String phone = request.getParameter("phone");
 //        int status = 1;
 
-        UserModel user = new UserModel("An", "123456", "Hoang An", "123456", "0977765121", 1);
+        //if else role of user
+        Role role = Role.ADMIN;
+        UserStatus status = UserStatus.ACTIVE;
+        UserModel user = new UserModel("admin", "123456", "Hoang An", "antang@gmail.com", "0977765121", status.getValue());
         try {
             service = new UserService();
-            service.CreateUser(user);
+            service.CreateUser(user, role.getValue()) ;
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -13,12 +13,12 @@ public class UserRepository extends BaseRepository {
         super();
     }
 
-    public void CreateUser(UserModel user) throws SQLException {
+    public void CreateUser(UserModel user, int type) throws SQLException {
         try {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO USERS (user_name, password, name, email, phone, status, created_at, updated_at) VALUES "
                     + " (? , ?, ?, ?, ?, ?, now(), now());";
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getName());
@@ -26,10 +26,24 @@ public class UserRepository extends BaseRepository {
             preparedStatement.setString(5, user.getPhone());
             preparedStatement.setInt(6, user.getStatus());
 
-            preparedStatement.execute();
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1);
+                    createUserRole(type, id);
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         } finally {
             closeConnection();
         }
@@ -42,23 +56,31 @@ public class UserRepository extends BaseRepository {
             String sql = "SELECT * FROM USERS WHERE (user_name = ?);";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userName);
+            System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
-            System.out.println(rs);
-            while(rs.next()){
-                System.out.println("========");
+
+            while (rs.next()) {
                 String name = rs.getString("name");
                 String phone = rs.getString("phone");
-                String email  = rs.getString("email");
-                int status  = rs.getInt("status");
-                user = new UserModel(userName, name, email, phone, status);
-                System.out.println(name);
-                System.out.println(user);
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                int status = rs.getInt("status");
+                user = new UserModel(userName, password, name, email, phone, status);
             }
-        }catch (Exception e){
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return user;
     }
+
+    private void createUserRole(int type, int id) throws SQLException {
+        String sql = "INSERT INTO user_roles (user_id, role_id, created_at, updated_at) VALUES " + "( ?, ?, now(), now());";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        preparedStatement.setInt(2, type);
+        preparedStatement.execute();
+    }
+
     private void closeConnection() {
         try {
             if (preparedStatement != null) {

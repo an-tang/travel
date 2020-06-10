@@ -32,7 +32,7 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
-            <form class="login100-form validate-form" action="/" method="post">
+            <form class="login100-form validate-form" action="/signUp" method="post">
 					<span class="login100-form-title p-b-34">
 						Sign Up
 					</span>

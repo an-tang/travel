@@ -46,7 +46,7 @@ public class UserRepository extends BaseRepository {
             e.printStackTrace();
             throw e;
         } finally {
-            closeConnection();
+            BaseRepository.closeConnection(preparedStatement, connection);
         }
     }
 
@@ -70,11 +70,13 @@ public class UserRepository extends BaseRepository {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            BaseRepository.closeConnection(preparedStatement, connection);
         }
         return user;
     }
 
-    public ArrayList<UserModel> GetAllUsers(int page, int perPage){
+    public ArrayList<UserModel> GetAllUsers(int page, int perPage) {
         ArrayList<UserModel> listUsers = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
@@ -82,11 +84,11 @@ public class UserRepository extends BaseRepository {
                     + " where status = 1 ORDER BY id ASC "
                     + " LIMIT ? OFFSET ?;";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, page*perPage + perPage);
-            preparedStatement.setInt(2, page*perPage);
+            preparedStatement.setInt(1, page * perPage + perPage);
+            preparedStatement.setInt(2, page * perPage);
 
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String userName = rs.getString("user_name");
                 String name = rs.getString("name");
@@ -94,18 +96,20 @@ public class UserRepository extends BaseRepository {
                 String email = rs.getString("email");
                 listUsers.add(new UserModel(id, userName, name, email, phone));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            BaseRepository.closeConnection(preparedStatement, connection);
         }
         return listUsers;
     }
 
-    public int UpdateUser(UserModel user){
+    public int UpdateUser(UserModel user) {
         int count = 0;
-        try{
+        try {
             connection = DBConnection.getConnect();
             String sql = "UPDATE users SET password = ?, name = ?, phone = ?, email = ?, updated_at = NOW()"
-                    +" WHERE user_name = ?;";
+                    + " WHERE user_name = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getPassword());
             preparedStatement.setString(2, user.getName());
@@ -113,8 +117,10 @@ public class UserRepository extends BaseRepository {
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getUserName());
             count = preparedStatement.executeUpdate();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            BaseRepository.closeConnection(preparedStatement, connection);
         }
         return count;
     }
@@ -127,20 +133,4 @@ public class UserRepository extends BaseRepository {
         preparedStatement.execute();
     }
 
-    private void closeConnection() {
-        try {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

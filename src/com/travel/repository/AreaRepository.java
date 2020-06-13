@@ -17,7 +17,7 @@ public class AreaRepository extends BaseRepository {
         super();
     }
 
-    public ArrayList<AreaModel> GetListArea(){
+    public ArrayList<AreaModel> GetListArea() {
         ArrayList<AreaModel> listAreas = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
@@ -25,16 +25,17 @@ public class AreaRepository extends BaseRepository {
             preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 listAreas.add(new AreaModel(id, name));
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            BaseRepository.closeConnection(preparedStatement, connection);
         }
 
         return listAreas;
     }
-
 }

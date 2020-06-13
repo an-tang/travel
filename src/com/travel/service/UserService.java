@@ -46,6 +46,8 @@ public class UserService {
     }
 
     public ArrayList<UserModel> GetAllUsers(int page, int perPage) {
+        page = Math.max(page, 0);
+        perPage = perPage < 0 ? 10 : perPage;
         ArrayList<UserModel> listUsers = userRepo.GetAllUsers(page, perPage);
         return listUsers;
     }

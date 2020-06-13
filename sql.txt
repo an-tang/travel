@@ -1,3 +1,28 @@
 INSERT INTO public.roles(
 	role, created_at, updated_at)
 	VALUES ( 'admin', now(), now()), ('customer', now(), now());
+
+CREATE OR REPLACE FUNCTION convertNonUnicode (x text) RETURNS text AS
+$$
+DECLARE
+ cdau text; kdau text; r text;
+BEGINk
+ cdau = 'áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ';
+ kdau = 'aaaaaaaaaaaaaaaaadeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyyAAAAAAAAAAAAAAAAADEEEEEEEEEEEIIIIIOOOOOOOOOOOOOOOOOUUUUUUUUUUUYYYYY';
+ r = x;
+ FOR i IN 0..length(cdau)
+ LOOP
+ r = replace(r, substr(cdau,i,1), substr(kdau,i,1));
+ END LOOP;
+ RETURN r;
+END;
+$$ LANGUAGE plpgsql;
+
+ALTER TABLE tours
+RENAME COLUMN name to image_temp;
+
+ALTER TABLE tours
+RENAME COLUMN image to name;
+
+ALTER TABLE tours
+RENAME COLUMN image_temp to image;

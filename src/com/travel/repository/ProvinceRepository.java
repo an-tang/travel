@@ -26,47 +26,51 @@ public class ProvinceRepository extends BaseRepository {
             preparedStatement.setInt(1, id);
 
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 String name = rs.getString("name");
                 int areaID = rs.getInt("area_id");
                 province = new ProvinceModel(id, name, areaID);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            BaseRepository.closeConnection(preparedStatement, connection);
         }
 
         return province;
     }
 
-    public ArrayList<ProvinceModel> GetProvincesByAreaID(int areaID){
+    public ArrayList<ProvinceModel> GetProvincesByAreaID(int areaID) {
         ArrayList<ProvinceModel> listProvinces = new ArrayList<>();
-        try{
+        try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM provinces WHERE area_id = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, areaID);
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 listProvinces.add(new ProvinceModel(id, name, areaID));
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            BaseRepository.closeConnection(preparedStatement, connection);
         }
 
         return listProvinces;
     }
 
-    public ArrayList<ProvinceModel> GetProvincesByName(String keyword){
+    public ArrayList<ProvinceModel> GetProvincesByName(String keyword) {
         ArrayList<ProvinceModel> listProvinces = new ArrayList<>();
-        try{
+        try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM provinces WHERE to_tsvector(convertnonunicode(name)) @@ to_tsquery(convertnonunicode(?)) ORDER BY NAME ASC;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, keyword);
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int areaID = rs.getInt("area_id");
@@ -74,6 +78,8 @@ public class ProvinceRepository extends BaseRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            BaseRepository.closeConnection(preparedStatement, connection);
         }
 
         return listProvinces;

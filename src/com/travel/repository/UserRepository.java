@@ -100,6 +100,25 @@ public class UserRepository extends BaseRepository {
         return listUsers;
     }
 
+    public int UpdateUser(UserModel user){
+        int count = 0;
+        try{
+            connection = DBConnection.getConnect();
+            String sql = "UPDATE users SET password = ?, name = ?, phone = ?, email = ?, updated_at = NOW()"
+                    +" WHERE user_name = ?;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, user.getPassword());
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setString(3, user.getPhone());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getUserName());
+            count = preparedStatement.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     private void createUserRole(int type, int id) throws SQLException {
         String sql = "INSERT INTO user_roles (user_id, role_id, created_at, updated_at) VALUES " + "( ?, ?, now(), now());";
         preparedStatement = connection.prepareStatement(sql);

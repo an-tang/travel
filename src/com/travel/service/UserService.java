@@ -49,4 +49,10 @@ public class UserService {
         ArrayList<UserModel> listUsers = userRepo.GetAllUsers(page, perPage);
         return listUsers;
     }
+
+    public int UpdateUserByUserName(UserModel user){
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+        int count = userRepo.UpdateUser(user);
+        return count;
+    }
 }

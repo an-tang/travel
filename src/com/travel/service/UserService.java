@@ -7,22 +7,22 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.util.ArrayList;
 
 public class UserService {
-    UserDAO userRepo = null;
+    UserDAO userDAO = null;
 
     public UserService() throws Exception {
-        userRepo = new UserDAO();
+        userDAO = new UserDAO();
     }
 
     public void CreateUser(UserBean user, int type) {
         try {
             user = new UserBean("admin", "123456", "Hoang An", "antang@gmail.com", "0977765121", 12);
-            UserBean loadUser = userRepo.GetUserByUserName(user.getUserName());
+            UserBean loadUser = userDAO.GetUserByUserName(user.getUserName());
             if (loadUser != null) {
                 System.out.println("User name already exists");
                 return;
             }
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-            userRepo.CreateUser(user, type);
+            userDAO.CreateUser(user, type);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -31,7 +31,7 @@ public class UserService {
     public UserBean GetUserByUserName(String userName) {
         UserBean user = null;
         try {
-            user = userRepo.GetUserByUserName(userName);
+            user = userDAO.GetUserByUserName(userName);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class UserService {
     }
 
     public boolean Login(String userName, String password) {
-        UserBean user = userRepo.GetUserByUserName(userName);
+        UserBean user = userDAO.GetUserByUserName(userName);
         if (BCrypt.checkpw(password, user.getPassword())) {
             return true;
         }
@@ -49,13 +49,13 @@ public class UserService {
     public ArrayList<UserBean> GetAllUsers(int page, int perPage) {
         page = Math.max(page, 0);
         perPage = perPage < 0 ? 10 : perPage;
-        ArrayList<UserBean> listUsers = userRepo.GetAllUsers(page, perPage);
+        ArrayList<UserBean> listUsers = userDAO.GetAllUsers(page, perPage);
         return listUsers;
     }
 
     public int UpdateUserByUserName(UserBean user) {
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-        int count = userRepo.UpdateUser(user);
+        int count = userDAO.UpdateUser(user);
         return count;
     }
 }

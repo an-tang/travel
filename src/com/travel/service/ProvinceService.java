@@ -6,16 +6,16 @@ import com.travel.dao.ProvinceDAO;
 import java.util.ArrayList;
 
 public class ProvinceService {
-    ProvinceDAO provinceRepo = null;
+    ProvinceDAO provinceDAO = null;
 
     public ProvinceService() throws Exception{
-        provinceRepo = new ProvinceDAO();
+        provinceDAO = new ProvinceDAO();
     }
 
     public ProvinceBean GetProvinceByID(int id) {
         ProvinceBean province = null;
         try {
-            province = provinceRepo.GetProvinceByID(id);
+            province = provinceDAO.GetProvinceByID(id);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -25,7 +25,7 @@ public class ProvinceService {
     public ArrayList<ProvinceBean> GetProvincesByAreaID(int areaID){
         ArrayList<ProvinceBean> listProvinces = new ArrayList<>();
         try {
-            listProvinces = provinceRepo.GetProvincesByAreaID(areaID);
+            listProvinces = provinceDAO.GetProvincesByAreaID(areaID);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -36,7 +36,7 @@ public class ProvinceService {
         ArrayList<ProvinceBean> listProvinces = new ArrayList<>();
         try {
             keyword = keyword.replace(' ', '&');
-            listProvinces = provinceRepo.GetProvincesByName(keyword);
+            listProvinces = provinceDAO.GetProvincesByName(keyword);
         }catch (Exception e){
             e.printStackTrace();
         }

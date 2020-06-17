@@ -1,14 +1,15 @@
 package com.travel.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TourInfoBean {
+public class TourInfoBean implements Serializable {
     int id;
     String title;
     String detail;
     long price;
     int status;
-    int province_id;
+    int provinceID;
     ArrayList<ImageBean> images;
 
     public int getId() {
@@ -51,12 +52,12 @@ public class TourInfoBean {
         this.status = status;
     }
 
-    public int getProvince_id() {
-        return province_id;
+    public int getProvinceID() {
+        return provinceID;
     }
 
-    public void setProvince_id(int province_id) {
-        this.province_id = province_id;
+    public void setProvinceID(int provinceID) {
+        this.provinceID = provinceID;
     }
 
     public ArrayList<ImageBean> getImages() {
@@ -67,22 +68,35 @@ public class TourInfoBean {
         this.images = images;
     }
 
-    public TourInfoBean(int id, String title, String detail, long price, int status, int province_id, ArrayList<ImageBean> images) {
+    public TourInfoBean(int id, String title, String detail, long price, int status, int provinceID, ArrayList<ImageBean> images) {
         this.id = id;
         this.title = title;
         this.detail = detail;
         this.price = price;
         this.status = status;
-        this.province_id = province_id;
+        this.provinceID = provinceID;
         this.images = images;
     }
 
-    public TourInfoBean(String title, String detail, long price, int status, int province_id, ArrayList<ImageBean> images) {
+    public TourInfoBean(String title, String detail, long price, int status, int provinceID, ArrayList<ImageBean> images) {
         this.title = title;
         this.detail = detail;
         this.price = price;
         this.status = status;
-        this.province_id = province_id;
+        this.provinceID = provinceID;
         this.images = images;
+    }
+
+    @Override
+    public String toString() {
+        return "TourInfoBean{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", detail='" + detail + '\'' +
+                ", price=" + price +
+                ", status=" + status +
+                ", provinceID=" + provinceID +
+                ", images=" + images +
+                '}';
     }
 }

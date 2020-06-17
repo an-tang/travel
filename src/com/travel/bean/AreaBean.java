@@ -1,6 +1,8 @@
 package com.travel.bean;
 
-public class AreaBean {
+import java.io.Serializable;
+
+public class AreaBean implements Serializable {
     int id;
     String name;
 

@@ -19,6 +19,7 @@ public class TourService {
     public ArrayList<TourBean> GetAllTours(int page, int perPage) {
         page = Math.max(page, 0);
         perPage = perPage < 0 ? 10 : perPage;
+
         return tourDAO.GetAllTours(page, perPage);
     }
 
@@ -26,6 +27,12 @@ public class TourService {
         page = Math.max(page, 0);
         perPage = perPage < 0 ? 10 : perPage;
         String keyword = name.replace(" ", "&");
+
         return tourDAO.GetToursByName(keyword, page, perPage);
+    }
+
+    public ArrayList<TourBean> GetToursByAreaID(int areaID, int limit){
+        limit = Math.max(limit, 3);
+        return tourDAO.GetToursByAreaID(areaID, limit);
     }
 }

@@ -1,6 +1,8 @@
 package com.travel.bean;
 
-public class UserBean {
+import java.io.Serializable;
+
+public class UserBean implements Serializable {
     int id;
     String userName;
     String password;
@@ -9,6 +11,7 @@ public class UserBean {
     String email;
     String phone;
     int status;
+
     public String getUserName() {
         return userName;
     }

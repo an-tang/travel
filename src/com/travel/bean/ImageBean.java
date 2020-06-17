@@ -4,6 +4,7 @@ public class ImageBean {
     int id;
     String url;
     int tour_info_id;
+    String description;
 
     public int getId() {
         return id;
@@ -29,14 +30,34 @@ public class ImageBean {
         this.tour_info_id = tour_info_id;
     }
 
-    public ImageBean(int id, String url, int tour_info_id) {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ImageBean(int id, String url, int tour_info_id, String description) {
         this.id = id;
         this.url = url;
         this.tour_info_id = tour_info_id;
+        this.description = description;
     }
 
-    public ImageBean(String url, int tour_info_id) {
+    public ImageBean(String url, int tour_info_id, String description) {
         this.url = url;
         this.tour_info_id = tour_info_id;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "ImageBean{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", tour_info_id=" + tour_info_id +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

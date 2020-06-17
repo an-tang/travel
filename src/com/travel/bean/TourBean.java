@@ -1,10 +1,12 @@
 package com.travel.bean;
 
-public class TourBean {
+import java.io.Serializable;
+
+public class TourBean implements Serializable {
     int id;
     String name;
     String image;
-    int tour_info_id;
+    int provinceID;
 
     public int getId() {
         return id;
@@ -30,24 +32,34 @@ public class TourBean {
         this.image = image;
     }
 
-    public int getTour_info_id() {
-        return tour_info_id;
+    public int getProvinceID() {
+        return provinceID;
     }
 
-    public void setTour_info_id(int tour_info_id) {
-        this.tour_info_id = tour_info_id;
+    public void setProvinceID(int provinceID) {
+        this.provinceID = provinceID;
     }
 
-    public TourBean(int id, String name, String image, int tour_info_id) {
+    public TourBean(int id, String name, String image, int provinceID) {
         this.id = id;
         this.name = name;
         this.image = image;
-        this.tour_info_id = tour_info_id;
+        this.provinceID = provinceID;
     }
 
-    public TourBean(String name, String image, int tour_info_id) {
+    public TourBean(String name, String image, int provinceID) {
         this.name = name;
         this.image = image;
-        this.tour_info_id = tour_info_id;
+        this.provinceID = provinceID;
+    }
+
+    @Override
+    public String toString() {
+        return "TourBean{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", provinceID=" + provinceID +
+                '}';
     }
 }

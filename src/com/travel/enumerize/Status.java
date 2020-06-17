@@ -1,11 +1,11 @@
 package com.travel.enumerize;
 
-public enum UserStatus {
+public enum Status {
     DEACTIVE(0),
     ACTIVE(1);
 
     private final int userStatus;
-    UserStatus(int value) {
+    Status(int value) {
         this.userStatus = value;
     }
 

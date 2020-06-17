@@ -90,4 +90,39 @@ public class TourDAO extends BaseDAO {
         }
         return listTours;
     }
+
+    public ArrayList<TourBean> GetToursByAreaID(int areaID, int limit) {
+        ArrayList<TourBean> tours = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM ("
+                    + " SELECT t.id, a.name AS area_name, COUNT(t.id) as c FROM orders o inner join tours t on o.tour_id = t.id"
+                    + " INNER JOIN provinces p ON t.province_id = p.id"
+                    + " INNER JOIN areas a ON p.area_id = a.id"
+                    + " WHERE a.id = ?"
+                    + " GROUP BY t.id, a.name"
+                    + " ORDER BY count(t.id) DESC"
+                    + " LIMIT ?"
+                    + " ) AS tem INNER JOIN tours ON tem.id =tours.id"
+                    + " ORDER BY tem.c DESC;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, areaID);
+            preparedStatement.setInt(2, limit);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String image = rs.getString("image");
+                int provinceID = rs.getInt("province_id");
+                tours.add(new TourBean(id, name, image, provinceID));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return tours;
+    }
 }

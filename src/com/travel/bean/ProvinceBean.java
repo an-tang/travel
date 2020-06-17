@@ -1,6 +1,8 @@
 package com.travel.bean;
 
-public class ProvinceBean {
+import java.io.Serializable;
+
+public class ProvinceBean implements Serializable {
     int id;
     String name;
     int area_id;

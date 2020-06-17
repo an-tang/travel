@@ -1,4 +1,4 @@
-package com.travel.repository;
+package com.travel.dao;
 
 import com.travel.dbconnection.DBConnection;
 
@@ -6,10 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class BaseRepository {
+public class BaseDAO {
     private Connection connection = null;
 
-    public BaseRepository() throws Exception {
+    public BaseDAO() throws Exception {
         try {
             connection = DBConnection.getConnect();
         } catch (Exception e) {

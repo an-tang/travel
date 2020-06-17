@@ -1,4 +1,4 @@
-package com.travel.repository;
+package com.travel.dao;
 
 import com.travel.dbconnection.DBConnection;
 import com.travel.bean.TourBean;
@@ -9,11 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class TourRepository extends BaseRepository {
+public class TourDAO extends BaseDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    public TourRepository() throws Exception {
+    public TourDAO() throws Exception {
         super();
     }
 
@@ -37,7 +37,7 @@ public class TourRepository extends BaseRepository {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            BaseRepository.closeConnection(preparedStatement, connection);
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
         return tours;
     }
@@ -60,7 +60,7 @@ public class TourRepository extends BaseRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            BaseRepository.closeConnection(preparedStatement, connection);
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
         return tourBean;
     }
@@ -86,7 +86,7 @@ public class TourRepository extends BaseRepository {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            BaseRepository.closeConnection(preparedStatement, connection);
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
         return listTours;
     }

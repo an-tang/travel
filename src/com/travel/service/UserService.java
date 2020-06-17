@@ -1,16 +1,16 @@
 package com.travel.service;
 
 import com.travel.bean.UserBean;
-import com.travel.repository.UserRepository;
+import com.travel.dao.UserDAO;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
 
 public class UserService {
-    UserRepository userRepo = null;
+    UserDAO userRepo = null;
 
     public UserService() throws Exception {
-        userRepo = new UserRepository();
+        userRepo = new UserDAO();
     }
 
     public void CreateUser(UserBean user, int type) {

@@ -1,4 +1,4 @@
-package com.travel.repository;
+package com.travel.dao;
 
 import com.travel.dbconnection.DBConnection;
 import com.travel.bean.AreaBean;
@@ -8,11 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class AreaRepository extends BaseRepository {
+public class AreaDAO extends BaseDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    public AreaRepository() throws Exception {
+    public AreaDAO() throws Exception {
         super();
     }
 
@@ -32,7 +32,7 @@ public class AreaRepository extends BaseRepository {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            BaseRepository.closeConnection(preparedStatement, connection);
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return listAreas;

@@ -1,15 +1,15 @@
 package com.travel.service;
 
 import com.travel.bean.ProvinceBean;
-import com.travel.repository.ProvinceRepository;
+import com.travel.dao.ProvinceDAO;
 
 import java.util.ArrayList;
 
 public class ProvinceService {
-    ProvinceRepository provinceRepo = null;
+    ProvinceDAO provinceRepo = null;
 
     public ProvinceService() throws Exception{
-        provinceRepo = new ProvinceRepository();
+        provinceRepo = new ProvinceDAO();
     }
 
     public ProvinceBean GetProvinceByID(int id) {

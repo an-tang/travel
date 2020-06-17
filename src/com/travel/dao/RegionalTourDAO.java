@@ -1,4 +1,4 @@
-package com.travel.repository;
+package com.travel.dao;
 
 import com.travel.bean.HomeTourBean;
 import com.travel.bean.RegionalTourBean;

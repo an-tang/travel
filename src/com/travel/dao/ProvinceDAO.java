@@ -1,4 +1,4 @@
-package com.travel.repository;
+package com.travel.dao;
 
 import com.travel.dbconnection.DBConnection;
 import com.travel.bean.ProvinceBean;
@@ -9,11 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProvinceRepository extends BaseRepository {
+public class ProvinceDAO extends BaseDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    public ProvinceRepository() throws Exception {
+    public ProvinceDAO() throws Exception {
         super();
     }
 
@@ -34,7 +34,7 @@ public class ProvinceRepository extends BaseRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            BaseRepository.closeConnection(preparedStatement, connection);
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return province;
@@ -56,7 +56,7 @@ public class ProvinceRepository extends BaseRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            BaseRepository.closeConnection(preparedStatement, connection);
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return listProvinces;
@@ -79,7 +79,7 @@ public class ProvinceRepository extends BaseRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            BaseRepository.closeConnection(preparedStatement, connection);
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return listProvinces;

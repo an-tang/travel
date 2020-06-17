@@ -1,15 +1,15 @@
 package com.travel.service;
 
 import com.travel.bean.TourBean;
-import com.travel.repository.TourRepository;
+import com.travel.dao.TourDAO;
 
 import java.util.ArrayList;
 
 public class TourService {
-    TourRepository tourRepo = null;
+    TourDAO tourRepo = null;
 
     public TourService() throws Exception {
-        tourRepo = new TourRepository();
+        tourRepo = new TourDAO();
     }
 
     public TourBean GetTourByID(int id) {

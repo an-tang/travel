@@ -1,4 +1,4 @@
-package com.travel.repository;
+package com.travel.dao;
 
 import com.travel.dbconnection.DBConnection;
 import com.travel.bean.UserBean;
@@ -6,11 +6,11 @@ import com.travel.bean.UserBean;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UserRepository extends BaseRepository {
+public class UserDAO extends BaseDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    public UserRepository() throws Exception {
+    public UserDAO() throws Exception {
         super();
     }
 
@@ -46,7 +46,7 @@ public class UserRepository extends BaseRepository {
             e.printStackTrace();
             throw e;
         } finally {
-            BaseRepository.closeConnection(preparedStatement, connection);
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
     }
 
@@ -71,7 +71,7 @@ public class UserRepository extends BaseRepository {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            BaseRepository.closeConnection(preparedStatement, connection);
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
         return user;
     }
@@ -99,7 +99,7 @@ public class UserRepository extends BaseRepository {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            BaseRepository.closeConnection(preparedStatement, connection);
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
         return listUsers;
     }
@@ -120,7 +120,7 @@ public class UserRepository extends BaseRepository {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            BaseRepository.closeConnection(preparedStatement, connection);
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
         return count;
     }

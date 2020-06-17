@@ -1,6 +1,6 @@
-package com.travel.model;
+package com.travel.bean;
 
-public class UserModel {
+public class UserBean {
     int id;
     String userName;
     String password;
@@ -65,7 +65,7 @@ public class UserModel {
         this.id = id;
     }
 
-    public UserModel(String userName, String password, String name, String email, String phone, int status) {
+    public UserBean(String userName, String password, String name, String email, String phone, int status) {
         this.userName = userName;
         this.password = password;
         this.name = name;
@@ -74,7 +74,7 @@ public class UserModel {
         this.status = status;
     }
 
-    public UserModel(String userName, String name, String email, String phone, int status) {
+    public UserBean(String userName, String name, String email, String phone, int status) {
         this.userName = userName;
         this.name = name;
         this.email = email;
@@ -82,7 +82,7 @@ public class UserModel {
         this.status = status;
     }
 
-    public UserModel(int id, String userName, String name, String email, String phone) {
+    public UserBean(int id, String userName, String name, String email, String phone) {
         this.id = id;
         this.userName = userName;
         this.name = name;

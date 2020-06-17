@@ -1,8 +1,8 @@
-package com.travel.controller;
+package com.travel.servlet;
 
 import com.travel.enumerize.Role;
 import com.travel.enumerize.UserStatus;
-import com.travel.model.UserModel;
+import com.travel.bean.UserBean;
 import com.travel.service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -28,7 +28,7 @@ public class HomeServlet extends HttpServlet {
         //if else role of user
         Role role = Role.ADMIN;
         UserStatus status = UserStatus.ACTIVE;
-        UserModel user = new UserModel("admin", "123456", "Hoang An", "antang@gmail.com", "0977765121", status.getValue());
+        UserBean user = new UserBean("admin", "123456", "Hoang An", "antang@gmail.com", "0977765121", status.getValue());
         try {
             service = new UserService();
             boolean check = service.Login("admin", "123456");

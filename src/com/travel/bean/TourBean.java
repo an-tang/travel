@@ -1,6 +1,6 @@
-package com.travel.model;
+package com.travel.bean;
 
-public class TourModel {
+public class TourBean {
     int id;
     String name;
     String image;
@@ -38,14 +38,14 @@ public class TourModel {
         this.tour_info_id = tour_info_id;
     }
 
-    public TourModel(int id, String name, String image, int tour_info_id) {
+    public TourBean(int id, String name, String image, int tour_info_id) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.tour_info_id = tour_info_id;
     }
 
-    public TourModel(String name, String image, int tour_info_id) {
+    public TourBean(String name, String image, int tour_info_id) {
         this.name = name;
         this.image = image;
         this.tour_info_id = tour_info_id;

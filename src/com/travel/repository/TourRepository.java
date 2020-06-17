@@ -1,7 +1,7 @@
 package com.travel.repository;
 
 import com.travel.dbconnection.DBConnection;
-import com.travel.model.TourModel;
+import com.travel.bean.TourBean;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,8 +17,8 @@ public class TourRepository extends BaseRepository {
         super();
     }
 
-    public ArrayList<TourModel> GetAllTours(int page, int perPage) {
-        ArrayList<TourModel> tours = new ArrayList<>();
+    public ArrayList<TourBean> GetAllTours(int page, int perPage) {
+        ArrayList<TourBean> tours = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM tours ORDER BY NAME ASC LIMIT ? OFFSET ?;";
@@ -32,7 +32,7 @@ public class TourRepository extends BaseRepository {
                 String name = rs.getString("name");
                 String image = rs.getString("image");
                 int tourInfoID = rs.getInt("tour_info_id");
-                tours.add(new TourModel(id, name, image, tourInfoID));
+                tours.add(new TourBean(id, name, image, tourInfoID));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,8 +42,8 @@ public class TourRepository extends BaseRepository {
         return tours;
     }
 
-    public TourModel GetTourByID(int id) {
-        TourModel tourModel = null;
+    public TourBean GetTourByID(int id) {
+        TourBean tourBean = null;
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM";
@@ -55,18 +55,18 @@ public class TourRepository extends BaseRepository {
                 String name = rs.getString("name");
                 String image = rs.getString("image");
                 int tourInfoID = rs.getInt("tour_info_id");
-                tourModel = new TourModel(name, image, tourInfoID);
+                tourBean = new TourBean(name, image, tourInfoID);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             BaseRepository.closeConnection(preparedStatement, connection);
         }
-        return tourModel;
+        return tourBean;
     }
 
-    public ArrayList<TourModel> GetToursByName(String name, int page, int perPage) {
-        ArrayList<TourModel> listTours = new ArrayList<>();
+    public ArrayList<TourBean> GetToursByName(String name, int page, int perPage) {
+        ArrayList<TourBean> listTours = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM tours WHERE to_tsvector(convertnonunicode(name)) @@ to_tsquery(convertnonunicode(?))"
@@ -81,7 +81,7 @@ public class TourRepository extends BaseRepository {
                 String tourName = rs.getString("name");
                 String image = rs.getString("image");
                 int tourInfoID = rs.getInt("tour_info_id");
-                listTours.add(new TourModel(id, tourName, image, tourInfoID));
+                listTours.add(new TourBean(id, tourName, image, tourInfoID));
             }
         } catch (Exception e) {
             e.printStackTrace();

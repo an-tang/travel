@@ -1,15 +1,15 @@
-package com.travel.model;
+package com.travel.bean;
 
 import java.util.ArrayList;
 
-public class TourInfoModel {
+public class TourInfoBean {
     int id;
     String title;
     String detail;
     long price;
     int status;
     int province_id;
-    ArrayList<ImageModel> images;
+    ArrayList<ImageBean> images;
 
     public int getId() {
         return id;
@@ -59,15 +59,15 @@ public class TourInfoModel {
         this.province_id = province_id;
     }
 
-    public ArrayList<ImageModel> getImages() {
+    public ArrayList<ImageBean> getImages() {
         return images;
     }
 
-    public void setImages(ArrayList<ImageModel> images) {
+    public void setImages(ArrayList<ImageBean> images) {
         this.images = images;
     }
 
-    public TourInfoModel(int id, String title, String detail, long price, int status, int province_id, ArrayList<ImageModel> images) {
+    public TourInfoBean(int id, String title, String detail, long price, int status, int province_id, ArrayList<ImageBean> images) {
         this.id = id;
         this.title = title;
         this.detail = detail;
@@ -77,7 +77,7 @@ public class TourInfoModel {
         this.images = images;
     }
 
-    public TourInfoModel(String title, String detail, long price, int status, int province_id, ArrayList<ImageModel> images) {
+    public TourInfoBean(String title, String detail, long price, int status, int province_id, ArrayList<ImageBean> images) {
         this.title = title;
         this.detail = detail;
         this.price = price;

@@ -1,7 +1,7 @@
 package com.travel.repository;
 
 import com.travel.dbconnection.DBConnection;
-import com.travel.model.ProvinceModel;
+import com.travel.bean.ProvinceBean;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,8 +17,8 @@ public class ProvinceRepository extends BaseRepository {
         super();
     }
 
-    public ProvinceModel GetProvinceByID(int id) {
-        ProvinceModel province = null;
+    public ProvinceBean GetProvinceByID(int id) {
+        ProvinceBean province = null;
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM provinces WHERE id = ?";
@@ -29,7 +29,7 @@ public class ProvinceRepository extends BaseRepository {
             while (rs.next()) {
                 String name = rs.getString("name");
                 int areaID = rs.getInt("area_id");
-                province = new ProvinceModel(id, name, areaID);
+                province = new ProvinceBean(id, name, areaID);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,8 +40,8 @@ public class ProvinceRepository extends BaseRepository {
         return province;
     }
 
-    public ArrayList<ProvinceModel> GetProvincesByAreaID(int areaID) {
-        ArrayList<ProvinceModel> listProvinces = new ArrayList<>();
+    public ArrayList<ProvinceBean> GetProvincesByAreaID(int areaID) {
+        ArrayList<ProvinceBean> listProvinces = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM provinces WHERE area_id = ?";
@@ -51,7 +51,7 @@ public class ProvinceRepository extends BaseRepository {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                listProvinces.add(new ProvinceModel(id, name, areaID));
+                listProvinces.add(new ProvinceBean(id, name, areaID));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,8 +62,8 @@ public class ProvinceRepository extends BaseRepository {
         return listProvinces;
     }
 
-    public ArrayList<ProvinceModel> GetProvincesByName(String keyword) {
-        ArrayList<ProvinceModel> listProvinces = new ArrayList<>();
+    public ArrayList<ProvinceBean> GetProvincesByName(String keyword) {
+        ArrayList<ProvinceBean> listProvinces = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM provinces WHERE to_tsvector(convertnonunicode(name)) @@ to_tsquery(convertnonunicode(?)) ORDER BY NAME ASC;";
@@ -74,7 +74,7 @@ public class ProvinceRepository extends BaseRepository {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int areaID = rs.getInt("area_id");
-                listProvinces.add(new ProvinceModel(id, name, areaID));
+                listProvinces.add(new ProvinceBean(id, name, areaID));
             }
         } catch (SQLException e) {
             e.printStackTrace();

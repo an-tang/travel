@@ -1,6 +1,6 @@
-package com.travel.model;
+package com.travel.bean;
 
-public class ImageModel {
+public class ImageBean {
     int id;
     String url;
     int tour_info_id;
@@ -29,13 +29,13 @@ public class ImageModel {
         this.tour_info_id = tour_info_id;
     }
 
-    public ImageModel(int id, String url, int tour_info_id) {
+    public ImageBean(int id, String url, int tour_info_id) {
         this.id = id;
         this.url = url;
         this.tour_info_id = tour_info_id;
     }
 
-    public ImageModel(String url, int tour_info_id) {
+    public ImageBean(String url, int tour_info_id) {
         this.url = url;
         this.tour_info_id = tour_info_id;
     }

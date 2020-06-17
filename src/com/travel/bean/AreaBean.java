@@ -1,9 +1,8 @@
-package com.travel.model;
+package com.travel.bean;
 
-public class ProvinceModel {
+public class AreaBean {
     int id;
     String name;
-    int area_id;
 
     public int getId() {
         return id;
@@ -21,17 +20,9 @@ public class ProvinceModel {
         this.name = name;
     }
 
-    public int getArea_id() {
-        return area_id;
-    }
-
-    public void setArea_id(int area_id) {
-        this.area_id = area_id;
-    }
-
-    public ProvinceModel(int id, String name, int area_id) {
+    public AreaBean(int id, String name) {
         this.id = id;
         this.name = name;
-        this.area_id = area_id;
     }
 }
+

@@ -1,4 +1,4 @@
-package com.travel.controller;
+package com.travel.servlet;
 
 import com.travel.service.UserService;
 

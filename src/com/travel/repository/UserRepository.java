@@ -1,7 +1,7 @@
 package com.travel.repository;
 
 import com.travel.dbconnection.DBConnection;
-import com.travel.model.UserModel;
+import com.travel.bean.UserBean;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class UserRepository extends BaseRepository {
         super();
     }
 
-    public void CreateUser(UserModel user, int type) throws SQLException {
+    public void CreateUser(UserBean user, int type) throws SQLException {
         try {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO USERS (user_name, password, name, email, phone, status, created_at, updated_at) VALUES "
@@ -50,8 +50,8 @@ public class UserRepository extends BaseRepository {
         }
     }
 
-    public UserModel GetUserByUserName(String userName) {
-        UserModel user = null;
+    public UserBean GetUserByUserName(String userName) {
+        UserBean user = null;
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM USERS WHERE (user_name = ?);";
@@ -66,7 +66,7 @@ public class UserRepository extends BaseRepository {
                 String email = rs.getString("email");
                 String password = rs.getString("password");
                 int status = rs.getInt("status");
-                user = new UserModel(userName, password, name, email, phone, status);
+                user = new UserBean(userName, password, name, email, phone, status);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,8 +76,8 @@ public class UserRepository extends BaseRepository {
         return user;
     }
 
-    public ArrayList<UserModel> GetAllUsers(int page, int perPage) {
-        ArrayList<UserModel> listUsers = new ArrayList<>();
+    public ArrayList<UserBean> GetAllUsers(int page, int perPage) {
+        ArrayList<UserBean> listUsers = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM users "
@@ -94,7 +94,7 @@ public class UserRepository extends BaseRepository {
                 String name = rs.getString("name");
                 String phone = rs.getString("phone");
                 String email = rs.getString("email");
-                listUsers.add(new UserModel(id, userName, name, email, phone));
+                listUsers.add(new UserBean(id, userName, name, email, phone));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,7 +104,7 @@ public class UserRepository extends BaseRepository {
         return listUsers;
     }
 
-    public int UpdateUser(UserModel user) {
+    public int UpdateUser(UserBean user) {
         int count = 0;
         try {
             connection = DBConnection.getConnect();

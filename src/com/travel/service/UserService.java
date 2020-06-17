@@ -1,6 +1,6 @@
 package com.travel.service;
 
-import com.travel.model.UserModel;
+import com.travel.bean.UserBean;
 import com.travel.repository.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -13,9 +13,10 @@ public class UserService {
         userRepo = new UserRepository();
     }
 
-    public void CreateUser(UserModel user, int type) {
+    public void CreateUser(UserBean user, int type) {
         try {
-            UserModel loadUser = userRepo.GetUserByUserName(user.getUserName());
+            user = new UserBean("admin", "123456", "Hoang An", "antang@gmail.com", "0977765121", 12);
+            UserBean loadUser = userRepo.GetUserByUserName(user.getUserName());
             if (loadUser != null) {
                 System.out.println("User name already exists");
                 return;
@@ -27,8 +28,8 @@ public class UserService {
         }
     }
 
-    public UserModel GetUserByUserName(String userName) {
-        UserModel user = null;
+    public UserBean GetUserByUserName(String userName) {
+        UserBean user = null;
         try {
             user = userRepo.GetUserByUserName(userName);
         } catch (Exception e) {
@@ -38,21 +39,21 @@ public class UserService {
     }
 
     public boolean Login(String userName, String password) {
-        UserModel user = userRepo.GetUserByUserName(userName);
+        UserBean user = userRepo.GetUserByUserName(userName);
         if (BCrypt.checkpw(password, user.getPassword())) {
             return true;
         }
         return false;
     }
 
-    public ArrayList<UserModel> GetAllUsers(int page, int perPage) {
+    public ArrayList<UserBean> GetAllUsers(int page, int perPage) {
         page = Math.max(page, 0);
         perPage = perPage < 0 ? 10 : perPage;
-        ArrayList<UserModel> listUsers = userRepo.GetAllUsers(page, perPage);
+        ArrayList<UserBean> listUsers = userRepo.GetAllUsers(page, perPage);
         return listUsers;
     }
 
-    public int UpdateUserByUserName(UserModel user){
+    public int UpdateUserByUserName(UserBean user) {
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         int count = userRepo.UpdateUser(user);
         return count;

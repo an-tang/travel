@@ -47,7 +47,7 @@ public class HomeServlet extends HttpServlet {
             southernTours = tourService.GetToursByAreaID(SOUTH_VN_ID, 3);
 
             // 2 - Get popular tours
-            popularTours = tourService.GetToursTopOrder(6);
+            popularTours = tourService.GetToursTopOrder(8);
 
             // 3 - Get top provinces
             homepageProvinces = homeProvinceService.GetHomePageProvinces(5);

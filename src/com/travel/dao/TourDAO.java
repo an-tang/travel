@@ -5,7 +5,6 @@ import com.travel.bean.TourBean;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TourDAO extends BaseDAO {
     Connection connection = null;
@@ -189,7 +188,7 @@ public class TourDAO extends BaseDAO {
             String sql = "SELECT t.* FROM tours t INNER JOIN provinces p ON t.province_id = p.id "
                     + " INNER JOIN areas a ON p.area_id = a.id"
                     + " WHERE a.id = ? AND t.id NOT IN("
-                    +  params
+                    + params
                     + ") ORDER BY id ASC LIMIT ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, areaID);

@@ -1,7 +1,8 @@
 package com.travel.servlet;
 
-import com.travel.bean.HomeTourBean;
+import com.travel.bean.HomeProvinceBean;
 import com.travel.bean.TourBean;
+import com.travel.service.HomeProvinceService;
 import com.travel.service.TourService;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 @WebServlet(urlPatterns = {"/home"})
 public class HomeServlet extends HttpServlet {
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*
         String userName = request.getParameter("userName");
@@ -26,33 +28,29 @@ public class HomeServlet extends HttpServlet {
         Status status = Status.ACTIVE;
         */
 
-        /* Just sample data */
-        HomeTourBean myTour = new HomeTourBean(
-                123,
-                "Da Lat - Vung Tau",
-                "https://www.hoabinhtravel.net/images/product/9909nha-trang-thap-tram-huong.jpg"
-        );
-        request.setAttribute("myTour", myTour);
-        /* End of sample data */
-
+        final int NORTH_VN_ID = 1;
+        final int CENTRAL_VN_ID = 2;
+        final int SOUTH_VN_ID = 3;
         ArrayList<TourBean> northernTours = null;
         ArrayList<TourBean> centralTours = null;
         ArrayList<TourBean> southernTours = null;
         ArrayList<TourBean> popularTours = null;
+        ArrayList<HomeProvinceBean> homepageProvinces = null;
 
         try {
             TourService tourService = new TourService();
+            HomeProvinceService homeProvinceService = new HomeProvinceService();
 
             // 1 - Get regional tours
-            northernTours = tourService.GetToursByAreaID(1, 3);
-            centralTours = tourService.GetToursByAreaID(2, 3);
-            southernTours = tourService.GetToursByAreaID(3, 3);
+            northernTours = tourService.GetToursByAreaID(NORTH_VN_ID, 3);
+            centralTours = tourService.GetToursByAreaID(CENTRAL_VN_ID, 3);
+            southernTours = tourService.GetToursByAreaID(SOUTH_VN_ID, 3);
 
             // 2 - Get popular tours
             popularTours = tourService.GetToursTopOrder(6);
 
             // 3 - Get top provinces
-
+            homepageProvinces = homeProvinceService.GetHomePageProvinces(5);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,6 +59,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("centralTours", centralTours);
         request.setAttribute("southernTours", southernTours);
         request.setAttribute("popularTours", popularTours);
+        request.setAttribute("homepageProvinces", homepageProvinces);
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }

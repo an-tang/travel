@@ -3,7 +3,7 @@ package com.travel.dbconnection;
 import java.sql.*;
 
 public class DBConnection {
-    private static String url = "jdbc:postgresql://localhost:5432/travel_info";
+    private static String url = "jdbc:postgresql://localhost:5432/travel";
     private static String user = "postgres";
     private static String password = "tangan1903";
 

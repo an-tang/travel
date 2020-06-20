@@ -35,4 +35,9 @@ public class TourService {
         limit = Math.max(limit, 3);
         return tourDAO.GetToursByAreaID(areaID, limit);
     }
+
+    public ArrayList<TourBean> GetToursTopOrder(int limit){
+        limit = Math.max(limit, 6);
+        return tourDAO.GetToursTopOrder(limit);
+    }
 }

@@ -9,7 +9,7 @@ public class TourInfoBean implements Serializable {
     String detail;
     long price;
     int status;
-    int provinceID;
+    int tourID;
     ArrayList<ImageBean> images;
 
     public int getId() {
@@ -52,12 +52,12 @@ public class TourInfoBean implements Serializable {
         this.status = status;
     }
 
-    public int getProvinceID() {
-        return provinceID;
+    public int getTourID() {
+        return tourID;
     }
 
-    public void setProvinceID(int provinceID) {
-        this.provinceID = provinceID;
+    public void setTourID(int tourID) {
+        this.tourID = tourID;
     }
 
     public ArrayList<ImageBean> getImages() {
@@ -68,22 +68,22 @@ public class TourInfoBean implements Serializable {
         this.images = images;
     }
 
-    public TourInfoBean(int id, String title, String detail, long price, int status, int provinceID, ArrayList<ImageBean> images) {
+    public TourInfoBean(int id, String title, String detail, long price, int status, int tourID, ArrayList<ImageBean> images) {
         this.id = id;
         this.title = title;
         this.detail = detail;
         this.price = price;
         this.status = status;
-        this.provinceID = provinceID;
+        this.tourID = tourID;
         this.images = images;
     }
 
-    public TourInfoBean(String title, String detail, long price, int status, int provinceID, ArrayList<ImageBean> images) {
+    public TourInfoBean(String title, String detail, long price, int status, int tourID, ArrayList<ImageBean> images) {
         this.title = title;
         this.detail = detail;
         this.price = price;
         this.status = status;
-        this.provinceID = provinceID;
+        this.tourID = tourID;
         this.images = images;
     }
 
@@ -95,7 +95,7 @@ public class TourInfoBean implements Serializable {
                 ", detail='" + detail + '\'' +
                 ", price=" + price +
                 ", status=" + status +
-                ", provinceID=" + provinceID +
+                ", tourID=" + tourID +
                 ", images=" + images +
                 '}';
     }

@@ -7,7 +7,6 @@ public class UserBean implements Serializable {
     String userName;
     String password;
     String name;
-
     String email;
     String phone;
     int status;

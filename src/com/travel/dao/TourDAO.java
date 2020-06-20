@@ -31,8 +31,8 @@ public class TourDAO extends BaseDAO {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String image = rs.getString("image");
-                int tourInfoID = rs.getInt("tour_info_id");
-                tours.add(new TourBean(id, name, image, tourInfoID));
+                int provinceID = rs.getInt("province_id");
+                tours.add(new TourBean(id, name, image, provinceID));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class TourDAO extends BaseDAO {
         TourBean tourBean = null;
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM";
+            String sql = "SELECT * FROM tours WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
@@ -54,8 +54,8 @@ public class TourDAO extends BaseDAO {
             while (rs.next()) {
                 String name = rs.getString("name");
                 String image = rs.getString("image");
-                int tourInfoID = rs.getInt("tour_info_id");
-                tourBean = new TourBean(name, image, tourInfoID);
+                int provinceID = rs.getInt("province_id");
+                tourBean = new TourBean(name, image, provinceID);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,8 +80,8 @@ public class TourDAO extends BaseDAO {
                 int id = rs.getInt("id");
                 String tourName = rs.getString("name");
                 String image = rs.getString("image");
-                int tourInfoID = rs.getInt("tour_info_id");
-                listTours.add(new TourBean(id, tourName, image, tourInfoID));
+                int provinceID = rs.getInt("province_id");
+                listTours.add(new TourBean(id, tourName, image, provinceID));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,6 +109,37 @@ public class TourDAO extends BaseDAO {
             preparedStatement.setInt(1, areaID);
             preparedStatement.setInt(2, limit);
 
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String image = rs.getString("image");
+                int provinceID = rs.getInt("province_id");
+                tours.add(new TourBean(id, name, image, provinceID));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return tours;
+    }
+
+    public ArrayList<TourBean> GetToursTopOrder(int limit) {
+        ArrayList<TourBean> tours = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM ("
+                    + " SELECT count(t.id) as c FROM orders o INNER JOIN tours t ON o.tour_id = t.id"
+                    + " INNER JOIN provinces p ON t.province_id = p.id"
+                    + " GROUP BY t.id "
+                    + " ORDER BY count(t.id) DESC "
+                    + " LIMIT ?"
+                    + " ) AS tem INNER JOIN tours ON tem.id = tours.id"
+                    + " ORDER BY c desc";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, limit);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");

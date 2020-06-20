@@ -35,8 +35,7 @@ public class TourInfoDAO extends BaseDAO {
                 String title = rs.getString("title");
                 String detail = rs.getString("detail");
                 long price = rs.getLong("price");
-                int provinceID = rs.getInt("tour_id");
-                tourInfo = new TourInfoBean(id, title, detail, price, Status.ACTIVE.getValue(), provinceID, null);
+                tourInfo = new TourInfoBean(id, title, detail, price, Status.ACTIVE.getValue(), tourID, null);
             }
         } catch (SQLException e) {
             e.printStackTrace();

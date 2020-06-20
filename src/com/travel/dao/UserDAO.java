@@ -28,7 +28,6 @@ public class UserDAO extends BaseDAO {
             preparedStatement.setInt(6, user.getStatus());
 
             int affectedRows = preparedStatement.executeUpdate();
-
             if (affectedRows == 0) {
                 throw new SQLException("Creating user failed, no rows affected.");
             }

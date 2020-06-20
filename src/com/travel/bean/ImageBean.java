@@ -3,7 +3,7 @@ package com.travel.bean;
 public class ImageBean {
     int id;
     String url;
-    int tour_info_id;
+    int tourInfoID;
     String description;
 
     public int getId() {
@@ -22,12 +22,12 @@ public class ImageBean {
         this.url = url;
     }
 
-    public int getTour_info_id() {
-        return tour_info_id;
+    public int getTourInfoID() {
+        return tourInfoID;
     }
 
-    public void setTour_info_id(int tour_info_id) {
-        this.tour_info_id = tour_info_id;
+    public void setTourInfoID(int tourInfoID) {
+        this.tourInfoID = tourInfoID;
     }
 
     public String getDescription() {
@@ -38,16 +38,16 @@ public class ImageBean {
         this.description = description;
     }
 
-    public ImageBean(int id, String url, int tour_info_id, String description) {
+    public ImageBean(int id, String url, int tourInfoID, String description) {
         this.id = id;
         this.url = url;
-        this.tour_info_id = tour_info_id;
+        this.tourInfoID = tourInfoID;
         this.description = description;
     }
 
-    public ImageBean(String url, int tour_info_id, String description) {
+    public ImageBean(String url, int tourInfoID, String description) {
         this.url = url;
-        this.tour_info_id = tour_info_id;
+        this.tourInfoID = tourInfoID;
         this.description = description;
     }
 
@@ -56,7 +56,7 @@ public class ImageBean {
         return "ImageBean{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
-                ", tour_info_id=" + tour_info_id +
+                ", tourInfoID=" + tourInfoID +
                 ", description='" + description + '\'' +
                 '}';
     }

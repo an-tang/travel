@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class ProvinceBean implements Serializable {
     int id;
     String name;
-    int area_id;
+    int areaID;
 
     public int getId() {
         return id;
@@ -23,17 +23,17 @@ public class ProvinceBean implements Serializable {
         this.name = name;
     }
 
-    public int getArea_id() {
-        return area_id;
+    public int getAreaID() {
+        return areaID;
     }
 
-    public void setArea_id(int area_id) {
-        this.area_id = area_id;
+    public void setAreaID(int area_id) {
+        this.areaID = area_id;
     }
 
-    public ProvinceBean(int id, String name, int area_id) {
+    public ProvinceBean(int id, String name, int areaID) {
         this.id = id;
         this.name = name;
-        this.area_id = area_id;
+        this.areaID = areaID;
     }
 }

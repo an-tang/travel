@@ -3,11 +3,9 @@ package com.travel.dao;
 import com.travel.dbconnection.DBConnection;
 import com.travel.bean.TourBean;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TourDAO extends BaseDAO {
     Connection connection = null;
@@ -23,8 +21,8 @@ public class TourDAO extends BaseDAO {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM tours ORDER BY NAME ASC LIMIT ? OFFSET ?;";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, page);
-            preparedStatement.setInt(2, perPage);
+            preparedStatement.setInt(1, page * perPage + perPage);
+            preparedStatement.setInt(2, page * perPage);
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
@@ -73,8 +71,8 @@ public class TourDAO extends BaseDAO {
                     + " ORDER BY NAME ASC LIMIT ? OFFSET ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
-            preparedStatement.setInt(2, page);
-            preparedStatement.setInt(3, perPage);
+            preparedStatement.setInt(2, page * perPage + perPage);
+            preparedStatement.setInt(3, page * perPage);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -91,7 +89,7 @@ public class TourDAO extends BaseDAO {
         return listTours;
     }
 
-    public ArrayList<TourBean> GetToursByAreaID(int areaID, int limit) {
+    public ArrayList<TourBean> GetTopToursByAreaID(int areaID, int limit) {
         ArrayList<TourBean> tours = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
@@ -131,7 +129,7 @@ public class TourDAO extends BaseDAO {
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM ("
-                    + " SELECT count(t.id) as c FROM orders o INNER JOIN tours t ON o.tour_id = t.id"
+                    + " SELECT t.id, count(t.id) as c FROM orders o INNER JOIN tours t ON o.tour_id = t.id"
                     + " INNER JOIN provinces p ON t.province_id = p.id"
                     + " GROUP BY t.id "
                     + " ORDER BY count(t.id) DESC "
@@ -140,6 +138,64 @@ public class TourDAO extends BaseDAO {
                     + " ORDER BY c desc";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, limit);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String image = rs.getString("image");
+                int provinceID = rs.getInt("province_id");
+                tours.add(new TourBean(id, name, image, provinceID));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return tours;
+    }
+
+    public ArrayList<TourBean> GetTourByAreaID(int areaID, int limit) {
+        ArrayList<TourBean> tours = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT t.* FROM tours t INNER JOIN provinces p ON t.province_id = p.id"
+                    + " INNER JOIN areas a ON p.area_id = a.id"
+                    + " WHERE a.id = ? ORDER BY t.id ASC LIMIT ?;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, areaID);
+            preparedStatement.setInt(2, limit);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String image = rs.getString("image");
+                int provinceID = rs.getInt("province_id");
+                tours.add(new TourBean(id, name, image, provinceID));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+        return tours;
+    }
+
+    public ArrayList<TourBean> GetToursExcludingIDs(String params, int areaID, int limit) {
+        ArrayList<TourBean> tours = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT t.* FROM tours t INNER JOIN provinces p ON t.province_id = p.id "
+                    + " INNER JOIN areas a ON p.area_id = a.id"
+                    + " WHERE a.id = ? AND t.id NOT IN("
+                    +  params
+                    + ") ORDER BY id ASC LIMIT ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, areaID);
+            preparedStatement.setInt(2, limit);
+
+            System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");

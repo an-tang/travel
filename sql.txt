@@ -2,6 +2,8 @@ INSERT INTO public.roles(
 	role, created_at, updated_at)
 	VALUES ( 'admin', now(), now()), ('customer', now(), now());
 
+
+======
 CREATE OR REPLACE FUNCTION convertNonUnicode (x text) RETURNS text AS
 $$
 DECLARE
@@ -26,3 +28,50 @@ RENAME COLUMN image to name;
 
 ALTER TABLE tours
 RENAME COLUMN image_temp to image;
+==================
+
+======create table home_provinces=====
+-- Table: public.home_provinces
+
+-- DROP TABLE public.home_provinces;
+
+CREATE TABLE public.home_provinces
+(
+    province_id integer NOT NULL DEFAULT nextval('home_provinces_province_id_seq'::regclass),
+    name character varying(50) COLLATE pg_catalog."default",
+    url text COLLATE pg_catalog."default",
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    CONSTRAINT home_provinces_pkey PRIMARY KEY (province_id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.home_provinces
+    OWNER to postgres;
+-- Index: home_provinces_id_idx
+
+-- DROP INDEX public.home_provinces_id_idx;
+
+CREATE INDEX home_provinces_id_idx
+    ON public.home_provinces USING btree
+    (province_id ASC NULLS LAST)
+    TABLESPACE pg_default;
+=================
+
+INSERT INTO home_provinces
+(province_id, name, url )
+VALUES
+(34, 'Đà Nẵng', 'https://www.telegraph.co.uk/content/dam/travel/Spark/Hayes-and-Jarvis/HayesJarvis-da-nang-night-getty.jpg?imwidth=1400' ),
+(45, 'Bà Rịa Vũng Tàu', 'https://static1.cafeland.vn/cafelandData/upload/tintuc/thitruong/2020/05/tuan-01/bariavungtauthuchiendongbonhieugiaiphapphattrien1588170854-1588498502.jpg'),
+(44, 'Lâm Đồng', 'https://saigonstartravel.com/wp-content/uploads/2019/05/tour-da-lat-2n2d-3.jpg'),
+(28, 'Quảng Bình', 'https://shtour.vn/wp-content/uploads/2016/11/du-lich-phong-nha-ke-bang2-857x571.jpg'),
+(13, 'Quảng Ninh', 'https://owa.bestprice.vn/images/tours/large/tham-quan-vinh-ha-long-5e563331d21df-800x360.jpg'),
+(3, 'Lai Châu', 'https://didauchoigi.com/wp-content/uploads/2018/11/Kham-pha-ve-dep-cua-Tam-DuongLai-Chau_2.jpg'),
+(53, 'Bến Tre', 'https://vcdn1-dulich.vnecdn.net/2019/11/21/0-3.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=MvdM4ug42n7CiySrV-4Umg'),
+(54, 'Cà Mau', 'https://baotayninh.vn/image/fckeditor/upload/2017/20170831/images/dl.jpg')
+
+UPDATE home_provinces
+set created_at = NOW(), updated_at = NOW()

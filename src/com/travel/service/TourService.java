@@ -31,13 +31,47 @@ public class TourService {
         return tourDAO.GetToursByName(keyword, page, perPage);
     }
 
-    public ArrayList<TourBean> GetToursByAreaID(int areaID, int limit){
+    public ArrayList<TourBean> GetToursByAreaID(int areaID, int limit) {
         limit = Math.max(limit, 3);
-        return tourDAO.GetToursByAreaID(areaID, limit);
+        ArrayList<TourBean> tours = tourDAO.GetTopToursByAreaID(areaID, limit);
+        int length = tours.size();
+        if (length == limit) {
+            return tours;
+        } else if (length == 0) {
+            ArrayList<TourBean> addedTours = tourDAO.GetTourByAreaID(areaID, limit);
+            tours.addAll(addedTours);
+        } else if (length > 0 && length < limit) {
+            String params = parseTourIDToString(tours);
+            ArrayList<TourBean> addedTours = tourDAO.GetToursExcludingIDs(params, areaID, limit - tours.size());
+            tours.addAll(addedTours);
+        }
+        return tours;
     }
 
-    public ArrayList<TourBean> GetToursTopOrder(int limit){
+    public ArrayList<TourBean> GetToursTopOrder(int limit) {
         limit = Math.max(limit, 6);
-        return tourDAO.GetToursTopOrder(limit);
+        ArrayList<TourBean> tours = tourDAO.GetToursTopOrder(limit);
+        int length = tours.size();
+        if (length == limit) {
+            return tours;
+        } else if (length == 0) {
+            ArrayList<TourBean> addedTours = tourDAO.GetAllTours(0, limit);
+            tours.addAll(addedTours);
+        } else if (length > 0 && length < limit) {
+            String params = parseTourIDToString(tours);
+            ArrayList<TourBean> addedTours = tourDAO.GetToursExcludingIDs(params, 3, limit - tours.size());
+            tours.addAll(addedTours);
+        }
+        return tours;
+    }
+
+    private String parseTourIDToString(ArrayList<TourBean> tours) {
+        StringBuilder builder = new StringBuilder();
+        for (TourBean tour : tours) {
+            builder.append(tour.getId() + ",");
+        }
+        System.out.println(builder.toString());
+        builder.deleteCharAt(builder.length() - 1);
+        return builder.toString();
     }
 }

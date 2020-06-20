@@ -80,8 +80,7 @@ public class UserDAO extends BaseDAO {
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM users "
-                    + " where status = 1 ORDER BY id ASC "
-                    + " LIMIT ? OFFSET ?;";
+                    + " ORDER BY id ASC LIMIT ? OFFSET ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, page * perPage + perPage);
             preparedStatement.setInt(2, page * perPage);

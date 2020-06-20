@@ -1,4 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.travel.bean.TourBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.travel.bean.HomeTourBean" %>
+<%
+    // Just sample data
+    HomeTourBean myTour = (HomeTourBean) request.getAttribute("myTour");
+
+    ArrayList<TourBean> northernTours = (ArrayList<TourBean>) request.getAttribute("northernTours");
+    ArrayList<TourBean> centralTours = (ArrayList<TourBean>) request.getAttribute("centralTours");
+    ArrayList<TourBean> southernTours = (ArrayList<TourBean>) request.getAttribute("southernTours");
+    ArrayList<TourBean> popularTours = (ArrayList<TourBean>) request.getAttribute("popularTours");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +35,7 @@
 <body>
 
     <div class="super_container">
+        <%=myTour.getTitle()%>
 
         <!-- Header -->
 

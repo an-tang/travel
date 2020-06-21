@@ -36,4 +36,13 @@ public class ProvinceBean implements Serializable {
         this.name = name;
         this.areaID = areaID;
     }
+
+    @Override
+    public String toString() {
+        return "ProvinceBean{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", areaID=" + areaID +
+                '}';
+    }
 }

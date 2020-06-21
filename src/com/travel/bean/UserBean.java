@@ -91,4 +91,17 @@ public class UserBean implements Serializable {
         this.email = email;
         this.phone = phone;
     }
+
+    @Override
+    public String toString() {
+        return "UserBean{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

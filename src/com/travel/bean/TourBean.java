@@ -7,6 +7,7 @@ public class TourBean implements Serializable {
     String name;
     String image;
     int provinceID;
+    long price;
 
     public int getId() {
         return id;
@@ -40,17 +41,27 @@ public class TourBean implements Serializable {
         this.provinceID = provinceID;
     }
 
-    public TourBean(int id, String name, String image, int provinceID) {
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+    public TourBean(int id, String name, String image, int provinceID, long price) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.provinceID = provinceID;
+        this.price = price;
     }
 
-    public TourBean(String name, String image, int provinceID) {
+    public TourBean(String name, String image, int provinceID, long price) {
         this.name = name;
         this.image = image;
         this.provinceID = provinceID;
+        this.price = price;
     }
 
     @Override
@@ -60,6 +71,7 @@ public class TourBean implements Serializable {
                 ", name='" + name + '\'' +
                 ", image='" + image + '\'' +
                 ", provinceID=" + provinceID +
+                ", price=" + price +
                 '}';
     }
 }

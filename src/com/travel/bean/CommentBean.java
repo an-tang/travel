@@ -64,4 +64,15 @@ public class CommentBean implements Serializable {
         this.tourInfoID = tourInfoID;
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "CommentBean{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", content='" + content + '\'' +
+                ", tourInfoID=" + tourInfoID +
+                ", status=" + status +
+                '}';
+    }
 }

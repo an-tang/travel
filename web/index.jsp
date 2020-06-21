@@ -2,6 +2,7 @@
 <%@ page import="com.travel.bean.HomeProvinceBean" %>
 <%@ page import="com.travel.bean.TourBean" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     ArrayList<TourBean> northernTours = (ArrayList<TourBean>) request.getAttribute("northernTours");
     ArrayList<TourBean> centralTours = (ArrayList<TourBean>) request.getAttribute("centralTours");
@@ -33,10 +34,7 @@
 <body>
 
 <div class="super_container">
-    <div class="data-test-section">
-        <h6><%=northernTours.get(0).getName()%></h6>
-        <a target="_blank" href="/home">Go to homepage</a>
-    </div>
+
     <!-- Header -->
 
     <header class="header">
@@ -159,47 +157,27 @@
                 <div class="row row-region">
                     <h4><em>Miền Bắc</em></h4>
                     <div class="row top_content">
-                        <div class="col-sm-4 top_col">
-                            <!-- Miền Bắc item 1 -->
-                            <div class="top_item">
-                                <a href="#">
-                                    <div class="top_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                    <div class="top_item_content">
-                                        <div class="top_item_title">Northern tour 1</div>
-                                        <div class="top_item_price">0 đ</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
 
-                        <div class="col-sm-4 top_col">
-                            <!-- Miền Bắc item 2 -->
-                            <div class="top_item">
-                                <a href="#">
-                                    <div class="top_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                    <div class="top_item_content">
-                                        <div class="top_item_title">Northern tour 2</div>
-                                        <div class="top_item_price">0 đ</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                        <c:forEach items="${northernTours}" var="tour">
+                            <c:url var="tourUrl" value="/tour">
+                                <c:param name="id" value="${tour.getId()}"/>
+                            </c:url>
 
-                        <div class="col-sm-4 top_col">
-                            <!-- Miền Bắc item 3 -->
-                            <div class="top_item">
-                                <a href="#">
-                                    <div class="top_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                    <div class="top_item_content">
-                                        <div class="top_item_title">Northern tour 3</div>
-                                        <div class="top_item_price">0 đ</div>
-                                    </div>
-                                </a>
+                            <div class="col-lg-4 mb-2 mb-lg-0">
+                                <div class="top_item">
+                                    <a href="${tourUrl}">
+                                        <div class="top_item_image">
+                                            <img src="${tour.getImage()}" alt="">
+                                        </div>
+                                        <div class="top_item_content">
+                                            <div class="top_item_title">${tour.getName()}</div>
+                                            <div class="top_item_price">0 đ</div>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        </c:forEach>
+
                     </div>
                 </div>
 
@@ -207,50 +185,27 @@
                 <div class="row row-region">
                     <h4><em>Miền Trung</em></h4>
                     <div class="row top_content">
-                        <div class="col-sm-4 top_col">
 
-                            <!-- Miền Trung item 1 -->
-                            <div class="top_item">
-                                <a href="#">
-                                    <div class="top_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                    <div class="top_item_content">
-                                        <div class="top_item_title">Central tour 1</div>
-                                        <div class="top_item_price">0 đ</div>
-                                    </div>
-                                </a>
+                        <c:forEach items="${centralTours}" var="tour">
+                            <c:url var="tourUrl" value="/tour">
+                                <c:param name="id" value="${tour.getId()}"/>
+                            </c:url>
+
+                            <div class="col-lg-4 mb-2 mb-lg-0">
+                                <div class="top_item">
+                                    <a href="${tourUrl}">
+                                        <div class="top_item_image">
+                                            <img src="${tour.getImage()}" alt="">
+                                        </div>
+                                        <div class="top_item_content">
+                                            <div class="top_item_title">${tour.getName()}</div>
+                                            <div class="top_item_price">0 đ</div>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        </c:forEach>
 
-                        <div class="col-sm-4 top_col">
-
-                            <!-- Miền Trung item 2 -->
-                            <div class="top_item">
-                                <a href="#">
-                                    <div class="top_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                    <div class="top_item_content">
-                                        <div class="top_item_title">Central tour 2</div>
-                                        <div class="top_item_price">0 đ</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4 top_col">
-
-                            <!-- Miền Trung item 3 -->
-                            <div class="top_item">
-                                <a href="#">
-                                    <div class="top_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                    <div class="top_item_content">
-                                        <div class="top_item_title">Central tour 3</div>
-                                        <div class="top_item_price">0 đ</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -258,50 +213,27 @@
                 <div class="row row-region">
                     <h4><em>Miền Nam</em></h4>
                     <div class="row top_content">
-                        <div class="col-sm-4 top_col">
 
-                            <!-- Miền Nam item 1 -->
-                            <div class="top_item">
-                                <a href="#">
-                                    <div class="top_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                    <div class="top_item_content">
-                                        <div class="top_item_title">Southern tour 1</div>
-                                        <div class="top_item_price">0 đ</div>
-                                    </div>
-                                </a>
+                        <c:forEach items="${southernTours}" var="tour">
+                            <c:url var="tourUrl" value="/tour">
+                                <c:param name="id" value="${tour.getId()}"/>
+                            </c:url>
+
+                            <div class="col-lg-4 mb-2 mb-lg-0">
+                                <div class="top_item">
+                                    <a href="${tourUrl}">
+                                        <div class="top_item_image">
+                                            <img src="${tour.getImage()}" alt="">
+                                        </div>
+                                        <div class="top_item_content">
+                                            <div class="top_item_title">${tour.getName()}</div>
+                                            <div class="top_item_price">0 đ</div>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        </c:forEach>
 
-                        <div class="col-sm-4 top_col">
-
-                            <!-- Miền Nam item 2 -->
-                            <div class="top_item">
-                                <a href="#">
-                                    <div class="top_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                    <div class="top_item_content">
-                                        <div class="top_item_title">Southern tour 2</div>
-                                        <div class="top_item_price">0 đ</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4 top_col">
-
-                            <!-- Miền Nam item 3 -->
-                            <div class="top_item">
-                                <a href="#">
-                                    <div class="top_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                    <div class="top_item_content">
-                                        <div class="top_item_title">Southern tour 3</div>
-                                        <div class="top_item_price">0 đ</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -323,101 +255,23 @@
                 <div class="col">
                     <div class="popular_content d-flex flex-md-row flex-column flex-wrap align-items-md-center align-items-start justify-content-md-between justify-content-start">
 
-                        <!-- Popular Item -->
-                        <div class="popular_item">
-                            <a href="#">
-                                <div class="popular_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                <div class="popular_item_content">
-                                    <div class="popular_item_title">Popular tour 1</div>
-                                    <div class="top_item_price">0 đ</div>
-                                </div>
-                            </a>
-                        </div>
+                        <c:forEach items="${popularTours}" var="tour">
+                            <c:url var="tourUrl" value="/tour">
+                                <c:param name="id" value="${tour.getId()}"/>
+                            </c:url>
 
-                        <!-- Popular Item -->
-                        <div class="popular_item">
-                            <a href="#">
-                                <div class="popular_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                <div class="popular_item_content">
-                                    <div class="popular_item_title">Popular tour 2</div>
-                                    <div class="top_item_price">0 đ</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Popular Item -->
-                        <div class="popular_item">
-                            <a href="#">
-                                <div class="popular_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                <div class="popular_item_content">
-                                    <div class="popular_item_title">Popular tour 3</div>
-                                    <div class="top_item_price">0 đ</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Popular Item -->
-                        <div class="popular_item">
-                            <a href="#">
-                                <div class="popular_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                <div class="popular_item_content">
-                                    <div class="popular_item_title">Popular tour 4</div>
-                                    <div class="top_item_price">0 đ</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Popular Item -->
-                        <div class="popular_item">
-                            <a href="#">
-                                <div class="popular_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                <div class="popular_item_content">
-                                    <div class="popular_item_title">Popular tour 5</div>
-                                    <div class="top_item_price">0 đ</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Popular Item -->
-                        <div class="popular_item">
-                            <a href="#">
-                                <div class="popular_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                <div class="popular_item_content">
-                                    <div class="popular_item_title">Popular tour 6</div>
-                                    <div class="top_item_price">0 đ</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Popular Item -->
-                        <div class="popular_item">
-                            <a href="#">
-                                <div class="popular_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                <div class="popular_item_content">
-                                    <div class="popular_item_title">Popular tour 7</div>
-                                    <div class="top_item_price">0 đ</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Popular Item -->
-                        <div class="popular_item">
-                            <a href="#">
-                                <div class="popular_item_image"><img src="WebContent/images/no-image-available.png"
-                                                                     alt=""></div>
-                                <div class="popular_item_content">
-                                    <div class="popular_item_title">Popular tour 8</div>
-                                    <div class="top_item_price">0 đ</div>
-                                </div>
-                            </a>
-                        </div>
+                            <div class="popular_item">
+                                <a href="${tourUrl}">
+                                    <div class="popular_item_image">
+                                        <img src="${tour.getImage()}" alt="">
+                                    </div>
+                                    <div class="popular_item_content">
+                                        <div class="popular_item_title">${tour.getName()}</div>
+                                        <div class="top_item_price">0 đ</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </c:forEach>
 
                     </div>
                 </div>
@@ -425,7 +279,7 @@
         </div>
     </div>
 
-    <!-- Special -->
+    <!-- Provinces -->
 
     <div class="body-section special">
         <div class="container">
@@ -437,67 +291,27 @@
                 </div>
             </div>
         </div>
+
         <div class="special_content">
             <div class="special_slider_container">
                 <div class="owl-carousel owl-theme special_slider">
 
-                    <!-- Special Offers Item -->
-                    <div class="owl-item">
-                        <div class="special_item">
-                            <div class="special_item_background"><img src="WebContent/images/special_1.jpg"
-                                                                      alt="https://unsplash.com/@garciasaldana_"></div>
-                            <div class="special_item_content text-center">
-                                <div class="special_title"><a href="#">Tỉnh A</a></div>
+                    <c:forEach items="${homepageProvinces}" var="province">
+                        <div class="owl-item">
+                            <div class="special_item">
+                                <div class="special_item_background">
+                                    <img src="${province.getUrl()}" alt="https://unsplash.com/@garciasaldana_">
+                                </div>
+                                <div class="special_item_content text-center">
+                                    <div class="special_title">
+                                        <a href="#">${province.getName()}</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Special Offers Item -->
-                    <div class="owl-item">
-                        <div class="special_item d-flex flex-column align-items-center justify-content-center">
-                            <div class="special_item_background"><img src="WebContent/images/special_2.jpg"
-                                                                      alt="https://unsplash.com/@varshesh"></div>
-                            <div class="special_item_content text-center">
-                                <div class="special_title"><a href="#">Tỉnh B</a></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Special Offers Item -->
-                    <div class="owl-item">
-                        <div class="special_item d-flex flex-column align-items-center justify-content-center">
-                            <div class="special_item_background"><img src="WebContent/images/special_3.jpg"
-                                                                      alt="https://unsplash.com/@paulgilmore_"></div>
-                            <div class="special_item_content text-center">
-                                <div class="special_title"><a href="#">Tỉnh C</a></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Special Offers Item -->
-                    <div class="owl-item">
-                        <div class="special_item d-flex flex-column align-items-center justify-content-center">
-                            <div class="special_item_background"><img src="WebContent/images/special_4.jpg"
-                                                                      alt="https://unsplash.com/@hellolightbulb"></div>
-                            <div class="special_item_content text-center">
-                                <div class="special_title"><a href="#">Tỉnh D</a></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Special Offers Item -->
-                    <div class="owl-item">
-                        <div class="special_item d-flex flex-column align-items-center justify-content-center">
-                            <div class="special_item_background"><img src="WebContent/images/special_5.jpg"
-                                                                      alt="https://unsplash.com/@dnevozhai"></div>
-                            <div class="special_item_content text-center">
-                                <div class="special_title"><a href="#">Tỉnh E</a></div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
 
                 </div>
-
                 <div class="special_slider_nav d-flex flex-column align-items-center justify-content-center">
                     <img src="WebContent/images/special_slider.png" alt="">
                 </div>

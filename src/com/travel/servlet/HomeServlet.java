@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(urlPatterns = {"/home"})
+@WebServlet(urlPatterns = {""})
 public class HomeServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,7 +47,7 @@ public class HomeServlet extends HttpServlet {
             southernTours = tourService.GetToursByAreaID(SOUTH_VN_ID, 3);
 
             // 2 - Get popular tours
-            popularTours = tourService.GetToursTopOrder(6);
+            popularTours = tourService.GetToursTopOrder(8);
 
             // 3 - Get top provinces
             homepageProvinces = homeProvinceService.GetHomePageProvinces(5);

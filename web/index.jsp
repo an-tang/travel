@@ -159,9 +159,13 @@
                     <div class="row top_content">
 
                         <c:forEach items="${northernTours}" var="tour">
+                            <c:url var="tourUrl" value="/tour">
+                                <c:param name="id" value="${tour.getId()}"/>
+                            </c:url>
+
                             <div class="col-lg-4 mb-2 mb-lg-0">
                                 <div class="top_item">
-                                    <a href="#">
+                                    <a href="${tourUrl}">
                                         <div class="top_item_image">
                                             <img src="${tour.getImage()}" alt="">
                                         </div>
@@ -183,9 +187,13 @@
                     <div class="row top_content">
 
                         <c:forEach items="${centralTours}" var="tour">
+                            <c:url var="tourUrl" value="/tour">
+                                <c:param name="id" value="${tour.getId()}"/>
+                            </c:url>
+
                             <div class="col-lg-4 mb-2 mb-lg-0">
                                 <div class="top_item">
-                                    <a href="#">
+                                    <a href="${tourUrl}">
                                         <div class="top_item_image">
                                             <img src="${tour.getImage()}" alt="">
                                         </div>
@@ -207,9 +215,13 @@
                     <div class="row top_content">
 
                         <c:forEach items="${southernTours}" var="tour">
+                            <c:url var="tourUrl" value="/tour">
+                                <c:param name="id" value="${tour.getId()}"/>
+                            </c:url>
+
                             <div class="col-lg-4 mb-2 mb-lg-0">
                                 <div class="top_item">
-                                    <a href="#">
+                                    <a href="${tourUrl}">
                                         <div class="top_item_image">
                                             <img src="${tour.getImage()}" alt="">
                                         </div>
@@ -244,8 +256,12 @@
                     <div class="popular_content d-flex flex-md-row flex-column flex-wrap align-items-md-center align-items-start justify-content-md-between justify-content-start">
 
                         <c:forEach items="${popularTours}" var="tour">
+                            <c:url var="tourUrl" value="/tour">
+                                <c:param name="id" value="${tour.getId()}"/>
+                            </c:url>
+
                             <div class="popular_item">
-                                <a href="#">
+                                <a href="${tourUrl}">
                                     <div class="popular_item_image">
                                         <img src="${tour.getImage()}" alt="">
                                     </div>

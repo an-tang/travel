@@ -203,13 +203,13 @@ public class TourDAO extends BaseDAO {
             String sql = "SELECT t.*, ti.price FROM tours t INNER JOIN provinces p ON t.province_id = p.id "
                     + " INNER JOIN areas a ON p.area_id = a.id"
                     + " INNER JOIN tour_infos ti ON t.id = ti.tour_id"
-                    + " WHERE a.id = ? AND t.id AND status = ? NOT IN("
+                    + " WHERE a.id = ? AND t.id NOT IN("
                     + params
-                    + ") ORDER BY id ASC LIMIT ?";
+                    + ") AND status = ? ORDER BY id ASC LIMIT ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, areaID);
-            preparedStatement.setInt(2, limit);
-            preparedStatement.setInt(3, Status.ACTIVE.getValue());
+            preparedStatement.setInt(2, Status.ACTIVE.getValue());
+            preparedStatement.setInt(3, limit);
 
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();

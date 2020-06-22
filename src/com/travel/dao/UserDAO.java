@@ -2,6 +2,7 @@ package com.travel.dao;
 
 import com.travel.dbconnection.DBConnection;
 import com.travel.bean.UserBean;
+import com.travel.enumerize.Status;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class UserDAO extends BaseDAO {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             throw e;
         } finally {
@@ -67,7 +68,7 @@ public class UserDAO extends BaseDAO {
                 int status = rs.getInt("status");
                 user = new UserBean(userName, password, name, email, phone, status);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             BaseDAO.closeConnection(preparedStatement, connection);
@@ -94,7 +95,7 @@ public class UserDAO extends BaseDAO {
                 String email = rs.getString("email");
                 listUsers.add(new UserBean(id, userName, name, email, phone));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             BaseDAO.closeConnection(preparedStatement, connection);
@@ -115,12 +116,34 @@ public class UserDAO extends BaseDAO {
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getUserName());
             count = preparedStatement.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             BaseDAO.closeConnection(preparedStatement, connection);
         }
         return count;
+    }
+
+    public boolean DeactivateUser(int userID) {
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "UPDATE users SET status = ?, updated_at = now() WHERE id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, Status.DEACTIVE.getValue());
+            preparedStatement.setInt(2, userID);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Deactivate user failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return true;
     }
 
     private void createUserRole(int type, int id) throws SQLException {

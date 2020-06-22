@@ -13,19 +13,27 @@ public class UserService {
         userDAO = new UserDAO();
     }
 
-    public void CreateUser(UserBean user, int type) {
+    public boolean CreateUser(UserBean user, int type) {
         try {
-            user = new UserBean("admin", "123456", "Hoang An", "antang@gmail.com", "0977765121", 12);
             UserBean loadUser = userDAO.GetUserByUserName(user.getUserName());
             if (loadUser != null) {
                 System.out.println("User name already exists");
-                return;
+                return false;
+            }
+            if (user == null) {
+                return false;
+            }
+            if (user.getUserName() == null || user.getPassword() == null || user.getPhone() == null) {
+                return false;
             }
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
             userDAO.CreateUser(user, type);
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
+
+        return true;
     }
 
     public UserBean GetUserByUserName(String userName) {
@@ -57,5 +65,12 @@ public class UserService {
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         int count = userDAO.UpdateUser(user);
         return count;
+    }
+
+    public boolean DeactivateUser(int userID) {
+        if (userID <= 0) {
+            return false;
+        }
+        return userDAO.DeactivateUser(userID);
     }
 }

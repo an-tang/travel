@@ -18,7 +18,7 @@ public class CommentDAO extends BaseDAO {
         super();
     }
 
-    public boolean CreateComment(CommentBean comment) {
+    public boolean CreateComment(CommentBean comment) throws SQLException {
         try {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO comments (user_name, content, tour_info_id, status, created_at, updated_at)"
@@ -28,9 +28,15 @@ public class CommentDAO extends BaseDAO {
             preparedStatement.setString(2, comment.getContent());
             preparedStatement.setInt(3, comment.getTourInfoID());
             preparedStatement.setInt(4, Status.ACTIVE.getValue());
+            preparedStatement.execute();
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating comment failed, no rows affected.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            throw e;
         } finally {
             BaseDAO.closeConnection(preparedStatement, connection);
         }
@@ -38,7 +44,7 @@ public class CommentDAO extends BaseDAO {
         return true;
     }
 
-    public ArrayList<CommentBean> GetComments(int page, int perPage) {
+    public ArrayList<CommentBean> GetAllComments(int page, int perPage) {
         ArrayList<CommentBean> comments = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
@@ -65,13 +71,46 @@ public class CommentDAO extends BaseDAO {
         return comments;
     }
 
-    public boolean DeactivateComment(int commentID){
+    public ArrayList<CommentBean> GetActiveComments(int page, int perPage) {
+        ArrayList<CommentBean> comments = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM comments WHERE status = ? ORDER BY CREATED_AT DESC LIMIT ? OFFSET";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, Status.DEACTIVE.getValue());
+            preparedStatement.setInt(2, page * perPage + perPage);
+            preparedStatement.setInt(3, page * perPage);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String userName = rs.getString("user_name");
+                String content = rs.getString("content");
+                int tourInfoID = rs.getInt("tour_info_id");
+                int status = rs.getInt("status");
+                comments.add(new CommentBean(id, userName, content, tourInfoID, status));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return comments;
+    }
+
+    public boolean DeactivateComment(int commentID) {
         try {
             connection = DBConnection.getConnect();
             String sql = "UPDATE comments SET status = ?, updated_at = now() WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, Status.DEACTIVE.getValue());
             preparedStatement.setInt(2, commentID);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Deactivate comment failed, no rows affected.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

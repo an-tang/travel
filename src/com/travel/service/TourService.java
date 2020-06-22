@@ -65,13 +65,37 @@ public class TourService {
         return tours;
     }
 
+    public ArrayList<TourBean> GetToursByListIDs(int[] ids) {
+        if (ids.length == 0) {
+            return null;
+        }
+
+        String params = parseListIntToStringQuery(ids);
+        return tourDAO.GetToursByListIDs(params);
+    }
+
+//    public boolean CreateTour(){
+//
+//        return true;
+//    }
+
     private String parseTourIDToString(ArrayList<TourBean> tours) {
         StringBuilder builder = new StringBuilder();
         for (TourBean tour : tours) {
             builder.append(tour.getId() + ",");
         }
-        System.out.println(builder.toString());
         builder.deleteCharAt(builder.length() - 1);
+
+        return builder.toString();
+    }
+
+    private String parseListIntToStringQuery(int[] ids) {
+        StringBuilder builder = new StringBuilder();
+        for (int id : ids) {
+            builder.append(id + ",");
+        }
+        builder.deleteCharAt(builder.length() - 1);
+
         return builder.toString();
     }
 }

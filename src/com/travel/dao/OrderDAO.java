@@ -3,6 +3,7 @@ package com.travel.dao;
 import com.travel.bean.OrderBean;
 import com.travel.dbconnection.DBConnection;
 import com.travel.enumerize.OrderStatus;
+import com.travel.enumerize.Status;
 import com.travel.response.OrderHistory;
 import com.travel.response.TourDetail;
 
@@ -35,7 +36,7 @@ public class OrderDAO extends BaseDAO {
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
+                throw new SQLException("Creating order failed, no rows affected.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,7 +52,7 @@ public class OrderDAO extends BaseDAO {
         ArrayList<OrderBean> listOrders = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM orders ORDER BY created_at DESC LIMIT ? OFFSET ?;";
+            String sql = "SELECT * FROM orders ORDER BY status DESC, created_at DESC LIMIT ? OFFSET ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, page * perPage + perPage);
             preparedStatement.setInt(2, page * perPage);
@@ -133,5 +134,27 @@ public class OrderDAO extends BaseDAO {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public boolean UpdateOrder(int orderID, OrderStatus status){
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "UPDATE users SET status = ?, updated_at = now() WHERE id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, status.getValue());
+            preparedStatement.setInt(2, orderID);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Approving order failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return true;
     }
 }

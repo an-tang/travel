@@ -171,7 +171,7 @@
                                         </div>
                                         <div class="top_item_content">
                                             <div class="top_item_title">${tour.getName()}</div>
-                                            <div class="top_item_price">0 đ</div>
+                                            <div class="top_item_price">${String.format("%,d", tour.getPrice())} đ</div>
                                         </div>
                                     </a>
                                 </div>
@@ -199,7 +199,7 @@
                                         </div>
                                         <div class="top_item_content">
                                             <div class="top_item_title">${tour.getName()}</div>
-                                            <div class="top_item_price">0 đ</div>
+                                            <div class="top_item_price">${String.format("%,d", tour.getPrice())} đ</div>
                                         </div>
                                     </a>
                                 </div>
@@ -227,7 +227,7 @@
                                         </div>
                                         <div class="top_item_content">
                                             <div class="top_item_title">${tour.getName()}</div>
-                                            <div class="top_item_price">0 đ</div>
+                                            <div class="top_item_price">${String.format("%,d", tour.getPrice())} đ</div>
                                         </div>
                                     </a>
                                 </div>
@@ -267,7 +267,7 @@
                                     </div>
                                     <div class="popular_item_content">
                                         <div class="popular_item_title">${tour.getName()}</div>
-                                        <div class="top_item_price">0 đ</div>
+                                        <div class="top_item_price">${String.format("%,d", tour.getPrice())} đ</div>
                                     </div>
                                 </a>
                             </div>

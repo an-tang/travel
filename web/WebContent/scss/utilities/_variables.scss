@@ -1,0 +1,84 @@
+//colors
+$white:                 #fff !default;
+$black:                 #000 !default;
+$blue:                  #0070d2 !default;
+$green:                 #008827 !default;
+$lightGreen:            #01a897 !default;
+$primary:               #00a1e0 !default;
+$red:                   #c00 !default;
+$light-blue:            #7ed0ee !default;
+$darkGray:              #999 !default;
+$darkBlue:              #094f8d !default;
+$gray:                  #dfdfdf !default;
+$lightGrayishBlue:      #f7f9fa !default;
+$lightGrayishOrange:    #f7f6f5 !default;
+$mostlyBlack:           #272727 !default;
+$softRed:               #f55d5d !default;
+$superLightGray:        #f2f2f2 !default;
+$trolleyGrey:           #808080 !default;
+$veryDarkGray:          #333 !default;
+$veryLightGray:         #e8e8e8 !default;
+$lightGrayishGreen:     #f7f8f6 !default;
+$lightGray:             #d8d8d8 !default;
+$silver:                #c2c2c2 !default;
+$superGray:             #6e6e6e !default;
+$superDarkGray:         #787878 !default;
+$lightShadeGray:        #d9d9d9 !default;
+$lightShadeMagenta:     #b6b5b6 !default;
+$lightShadeBlueMagenta: #f4f4f5 !default;
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xml: 1400px,
+    xxl: 1600px,
+    fhd: 1920px,
+    rt: 2560px,
+    rt15: 2880px,
+    uhd: 3840px,
+    s4k: 4096px
+) !default;
+
+$container-max-widths: (
+    md: 720px,
+    lg: 940px,
+    xl: 1140px,
+    xxl: 1340px
+) !default;
+
+// font sizes
+$fontDefault: 14px;
+$fontSize10: 0.7143rem;
+$fontSize11: 0.786rem;
+$fontSize12: 0.857rem;
+$fontSize13: 0.929rem;
+$fontSize14: 1rem;
+$fontSize15: 1.0714rem;
+$fontSize16: 1.1429rem;
+$fontSize17: 1.2143rem;
+$fontSize18: 1.2857rem;
+$fontSize20: 1.4286rem;
+$fontSize22: 1.5714rem;
+$fontSize23: 1.6429rem;
+$fontSize24: 1.7143rem;
+$fontSize25: 1.7857rem;
+$fontSize26: 1.8571rem;
+$fontSize28: 2rem;
+$fontSize29: 2.0714rem;
+$fontSize30: 2.1429rem;
+$fontSize35: 2.5rem;
+$fontSize40: 2.8571rem;
+$fontSize45: 3.2143rem;
+$fontSize48: 3.4286rem;
+$fontSize50: 3.7143rem;
+$fontSize60: 4.2857rem;
+$fontSize70: 5rem;
+
+// font weights
+$fontWeightBold: 700;
+$fontWeightMedium: 500;
+$fontWeightRegular: 400;
+$fontWeightThin: 200;

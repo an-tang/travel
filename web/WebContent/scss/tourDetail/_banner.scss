@@ -1,0 +1,122 @@
+.home-banner {
+    .home-banner-slider {
+        .slick-prev,
+        .slick-next {
+            z-index: 2;
+            width: auto;
+            height: auto;
+
+            &::before {
+                color: $white;
+                font-size: $fontSize28;
+
+                opacity: 0.75;
+            }
+
+            &:hover,
+            &:active {
+                &::before {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .slick-prev {
+            left: 20px;
+
+            @include media-breakpoint-up(md) {
+                left: 40px;
+            }
+        }
+
+        .slick-next {
+            right: 20px;
+
+            @include media-breakpoint-up(md) {
+                right: 40px;
+            }
+        }
+
+        .slick-dots {
+            bottom: 25px;
+
+            button {
+                &::before {
+                    color: $white;
+                    font-size: 0.5714rem;
+                }
+            }
+        }
+
+        .home-banner-slide {
+            position: relative;
+
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+
+                @include media-breakpoint-up(xl) {
+                    max-height: 36vw;
+                }
+            }
+
+            .banner-text {
+                z-index: 2;
+                position: absolute;
+                display: block;
+                top: 50%;
+                left: 50%;
+                text-align: center;
+
+                transform: translate(-50%, -50%);
+
+                a {
+                    text-decoration: none;
+                    color: $white;
+                }
+
+                h4 {
+                    color: $red;
+                    font-weight: $fontWeightMedium;
+                    font-size: $fontSize18;
+                    margin-bottom: 0.4444em;
+
+                    @include media-breakpoint-up(xl) {
+                        font-size: $fontSize22;
+                    }
+                }
+
+                h3 {
+                    font-weight: $fontWeightMedium;
+                    font-size: $fontSize24;
+                    margin-bottom: 0.25em;
+
+                    @include media-breakpoint-up(md) {
+                        font-size: $fontSize28;
+                    }
+
+                    @include media-breakpoint-up(xl) {
+                        font-size: $fontSize35;
+                    }
+                }
+
+                .explore-more {
+                    display: inline-block;
+                    position: relative;
+                    font-weight: $fontWeightMedium;
+                    font-size: $fontSize12;
+                    padding-top: 0.4167em;
+                    padding-bottom: 0.25em;
+                    text-align: center;
+                    border-bottom: 2px solid $white;
+                    cursor: pointer;
+
+                    @include media-breakpoint-up(md) {
+                        font-size: $fontSize14;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,10 @@
+<%@ page import="com.travel.bean.ImageBean" %>
 <%@ page import="com.travel.bean.TourInfoBean" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     TourInfoBean tourInfo = (TourInfoBean) request.getAttribute("tourInfo");
+    ArrayList<ImageBean> tourImages = tourInfo.getImages();
 %>
 
 <!DOCTYPE html>
@@ -13,10 +16,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="UIT project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="WebContent/styles/bootstrap4/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/plugins/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/styles/about_styles.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/styles/about_responsive.css">
+    <link rel="stylesheet" type="text/css" href="WebContent/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="WebContent/vendor/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="WebContent/vendor/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="WebContent/vendor/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="WebContent/css/about_styles.css">
+    <link rel="stylesheet" type="text/css" href="WebContent/css/about_responsive.css">
 </head>
 
 <body>
@@ -108,23 +113,38 @@
 
         </div>
 
-        <!-- Home -->
+        <section class="home-banner">
+            <div class="home-banner-slider">
+                <div class="home-banner-slide">
+                    <picture>
+                        <source srcset="https://development-asia-samsonite.demandware.net/on/demandware.static/-/Library-Sites-TumiSharedLibrary/default/dwe72dac69/images/homepage/banner/19-Degree-Polycarbonate-homepage-banner-Mobile-750x1000px.jpg" media="(max-width: 767px)">
+                        <img src="https://development-asia-samsonite.demandware.net/on/demandware.static/-/Library-Sites-TumiSharedLibrary/default/dw800131aa/images/homepage/banner/19-Degree-Polycarbonate-homepage-banner-Desktop-1920x672.jpg" alt="">
+                    </picture>
+                    <div class="banner-text m-top d-right">
+                        <a href="https://development-asia-samsonite.demandware.net/s/Tumi_KR/collection/collection-tumi/collection-19-degree-polycarbonate/">
+                            <h4 class="eng-text-semibold">19 Degree Polycarbonate</h4>
+                            <h3 class="eng-text">Cutting-edge Reimagination</h3>
+                            <div class="button-more eng-text-bold">Shop Now</div>
+                        </a>
+                    </div>
+                </div>
 
-        <div class="home">
-            <!-- Image by https://unsplash.com/@peecho -->
-            <div id="img-header" class="home_background parallax-window" data-parallax="scroll" data-image-src="images/about_background.jpg" data-speed="0.8"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="home_content">
-                            <div class="home_content_inner">
-                                <div id="tour-name" class="home_title">Tour Name</div>
-                            </div>
-                        </div>
+                <div class="home-banner-slide">
+                    <picture>
+                        <source srcset="https://development-asia-samsonite.demandware.net/on/demandware.static/-/Library-Sites-TumiSharedLibrary/default/dwa3d76357/images/homepage/banner/Homepage-Banner-Mobile.jpg" media="(max-width: 767px)">
+                        <img data-lazy="https://development-asia-samsonite.demandware.net/on/demandware.static/-/Library-Sites-TumiSharedLibrary/default/dwedab4449/images/homepage/banner/Homepage-Banner-Desktop.jpg" alt="">
+                    </picture>
+                    <div class="banner-text m-top d-left">
+                        <a href="https://development-asia-samsonite.demandware.net/s/Tumi_KR/collection/collection-tumi/collection-harrison/">
+                            <h4 class="eng-text-semibold">Perfecting the Journey – The Series</h4>
+                            <h3 class="eng-text">Daniel Henney on Acting</h3>
+                            <h3 class="eng-text">Featuring the Harrison Collection</h3>
+                            <div class="button-more eng-text-bold">Shop Now</div>
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- About -->
 
@@ -383,16 +403,17 @@
         </footer>
     </div>
 
-    <script src="WebContent/js/jquery-3.2.1.min.js"></script>
-    <script src="WebContent/styles/bootstrap4/popper.js"></script>
-    <script src="WebContent/styles/bootstrap4/bootstrap.min.js"></script>
-    <script src="WebContent/plugins/greensock/TweenMax.min.js"></script>
-    <script src="WebContent/plugins/greensock/TimelineMax.min.js"></script>
-    <script src="WebContent/plugins/scrollmagic/ScrollMagic.min.js"></script>
-    <script src="WebContent/plugins/greensock/animation.gsap.min.js"></script>
-    <script src="WebContent/plugins/greensock/ScrollToPlugin.min.js"></script>
-    <script src="WebContent/plugins/easing/easing.js"></script>
-    <script src="WebContent/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="WebContent/vendor/jquery/jquery-3.5.1.min.js"></script>
+    <script src="WebContent/vendor/slick/slick.min.js"></script>
+    <script src="WebContent/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="WebContent/vendor/greensock/TweenMax.min.js"></script>
+    <script src="WebContent/vendor/greensock/TimelineMax.min.js"></script>
+    <script src="WebContent/vendor/scrollmagic/ScrollMagic.min.js"></script>
+    <script src="WebContent/vendor/greensock/animation.gsap.min.js"></script>
+    <script src="WebContent/vendor/greensock/ScrollToPlugin.min.js"></script>
+    <script src="WebContent/vendor/easing/easing.js"></script>
+    <script src="WebContent/vendor/parallax-js-master/parallax.min.js"></script>
+    <script src="WebContent/js/tourDetail.js"></script>
 </body>
 
 </html>

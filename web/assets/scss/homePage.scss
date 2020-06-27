@@ -3,7 +3,5 @@
 @import 'utilities/variables';
 @import 'utilities/mixins';
 
-@import 'tourDetail/banner';
-@import 'tourDetail/postContent';
-@import 'tourDetail/sideWidget';
-@import 'tourDetail/comments';
+@import './homePage/homeBanner';
+@import './homePage/homeBreadcrumbs';

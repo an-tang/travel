@@ -1,0 +1,10 @@
+.external-tour-links {
+    a {
+        color: $mortar;
+        transition: color 0.3s;
+
+        &:hover {
+            color: $cardinal;
+        }
+    }
+}

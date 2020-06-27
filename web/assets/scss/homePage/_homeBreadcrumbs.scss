@@ -1,0 +1,30 @@
+.home_breadcrumbs {
+    margin-top: -6px;
+
+    .home_breadcrumb {
+        display: inline-block;
+        font-size: 18px;
+        font-weight: 200;
+        color: #FFFFFF;
+
+        &:not(:last-child)::after {
+            content: '/';
+            margin-left: 5px;
+        }
+
+        a {
+            font-size: 18px;
+            font-weight: 200;
+            color: #FFFFFF;
+            -webkit-transition: all 200ms ease;
+            -moz-transition: all 200ms ease;
+            -ms-transition: all 200ms ease;
+            -o-transition: all 200ms ease;
+            transition: all 200ms ease;
+
+            &:hover {
+                color: #fe3c52;
+            }
+        }
+    }
+}

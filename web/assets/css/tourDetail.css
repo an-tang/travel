@@ -1,19 +1,91 @@
-/* Error: Undefined mixin.
- *    ,
- * 27 | /             @include media-breakpoint-up(md) {
- * 28 | |                 left: 40px;
- * 29 | \             }
- *    '
- *   scss\tourdetail\_banner.scss 27:13  @import
- *   scss\tourdetail.scss 2:9            root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
+.tour-banner .tour-banner-slider {
+  margin-bottom: 0;
+}
+.tour-banner .tour-banner-slider .slick-prev,
+.tour-banner .tour-banner-slider .slick-next {
+  z-index: 2;
+  width: auto;
+  height: auto;
+}
+.tour-banner .tour-banner-slider .slick-prev::before,
+.tour-banner .tour-banner-slider .slick-next::before {
+  color: #fff;
+  font-size: 2rem;
+  opacity: 0.75;
+}
+.tour-banner .tour-banner-slider .slick-prev:hover::before, .tour-banner .tour-banner-slider .slick-prev:active::before,
+.tour-banner .tour-banner-slider .slick-next:hover::before,
+.tour-banner .tour-banner-slider .slick-next:active::before {
+  opacity: 1;
+}
+.tour-banner .tour-banner-slider .slick-prev {
+  left: 20px;
+}
+@media (min-width: 768px) {
+  .tour-banner .tour-banner-slider .slick-prev {
+    left: 40px;
+  }
+}
+.tour-banner .tour-banner-slider .slick-next {
+  right: 20px;
+}
+@media (min-width: 768px) {
+  .tour-banner .tour-banner-slider .slick-next {
+    right: 40px;
+  }
+}
+.tour-banner .tour-banner-slider .slick-dots {
+  bottom: 25px;
+}
+.tour-banner .tour-banner-slider .slick-dots button::before {
+  color: #fff;
+  font-size: 0.5714rem;
+}
+.tour-banner .tour-banner-slider .tour-banner-slide {
+  position: relative;
+}
+.tour-banner .tour-banner-slider .tour-banner-slide img {
   display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Undefined mixin.\a    \2577 \a 27 \2502  \250c              @include media-breakpoint-up(md) {\a 28 \2502  \2502                  left: 40px;\a 29 \2502  \2514              }\a    \2575 \a   scss\\tourdetail\\_banner.scss 27:13  @import\a   scss\\tourdetail.scss 2:9            root stylesheet";
+  width: 100%;
+  height: auto;
+}
+@media (min-width: 1200px) {
+  .tour-banner .tour-banner-slider .tour-banner-slide img {
+    max-height: 36vw;
+  }
+}
+.tour-banner .tour-banner-slider .tour-banner-slide .banner-text {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.tour-banner .tour-banner-slider .tour-banner-slide .banner-text p {
+  color: #131a2f;
+}
+
+.post-content {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.post-content .tour-title {
+  font-size: 2rem;
+  margin-bottom: 0.5em;
+}
+.post-content .tour-actions .btn {
+  font-size: 0.875rem;
+}
+.post-content .tour-price {
+  color: #131a2f;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+.post-content .tour-price span {
+  font-weight: 500;
+}
+
+.external-tour-links a {
+  color: #555;
+  transition: color 0.3s;
+}
+.external-tour-links a:hover {
+  color: #bd2130;
 }

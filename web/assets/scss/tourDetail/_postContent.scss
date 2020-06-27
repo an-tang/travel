@@ -1,0 +1,25 @@
+.post-content {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    .tour-title {
+        font-size: 2rem;
+        margin-bottom: 0.5em;
+    }
+
+    .tour-actions {
+        .btn {
+            font-size: 0.875rem;
+        }
+    }
+
+    .tour-price {
+        color: $darkNavy;
+        font-size: 1rem;
+        margin-bottom: 0;
+
+        span {
+            font-weight: $fontWeightMedium;
+        }
+    }
+}

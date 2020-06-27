@@ -1,0 +1,59 @@
+.home {
+  width: 100%;
+}
+
+.home_background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.home_title {
+  font-size: 48px;
+  font-weight: 300;
+  color: #FFFFFF;
+}
+
+.home_content {
+  width: 100%;
+  height: 601px;
+}
+.home_content .home_content_inner {
+  position: absolute;
+  top: 46%;
+  left: 0;
+  width: 100%;
+  text-align: left;
+}
+
+.home_breadcrumbs {
+  margin-top: -6px;
+}
+.home_breadcrumbs .home_breadcrumb {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 200;
+  color: #FFFFFF;
+}
+.home_breadcrumbs .home_breadcrumb:not(:last-child)::after {
+  content: "/";
+  margin-left: 5px;
+}
+.home_breadcrumbs .home_breadcrumb a {
+  font-size: 18px;
+  font-weight: 200;
+  color: #FFFFFF;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+.home_breadcrumbs .home_breadcrumb a:hover {
+  color: #fe3c52;
+}

@@ -16,12 +16,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="UIT project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="WebContent/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/vendor/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/vendor/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/vendor/slick/slick-theme.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/css/about_styles.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/css/about_responsive.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/about_styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/about_responsive.css">
 </head>
 
 <body>
@@ -236,7 +236,7 @@
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                          
+
                           <div class="modal-body mx-3">
                             <div class="md-form mb-5">
                               <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -247,28 +247,28 @@
                             <div class="md-form mb-4">
                               <i class="fa fa-phone-square" aria-hidden="true"></i>
                               <label data-error="wrong" data-success="right" for="form2">Your Phone Number</label>
-                              <input type="Number"  name="phone" class="form-control validate" id="orderPhone">         
+                              <input type="Number"  name="phone" class="form-control validate" id="orderPhone">
                             </div>
 
                             <div class="md-form mb-4">
                               <i class="fa fa-address-book" aria-hidden="true"></i>
                               <label data-error="wrong" data-success="right" for="form2">Your Address</label>
-                              <input type="text"  name="adress" class="form-control validate" id="orderAddress">          
+                              <input type="text"  name="adress" class="form-control validate" id="orderAddress">
                             </div>
 
                             <div class="md-form mb-4">
                               <i class="fa fa-id-card-o" aria-hidden="true"></i>
                               <label data-error="wrong" data-success="right" for="form2">Your Passenger</label>
-                              <input type="Number" name="passengers" class="form-control validate" id="orderPassenger">         
+                              <input type="Number" name="passengers" class="form-control validate" id="orderPassenger">
                             </div>
 
                             <div class="md-form mb-4">
                               <i class="fa fa-file-text" aria-hidden="true"></i>
                               <label data-error="wrong" data-success="right" for="form2">Decription</label>
-                              <input type="text"  name="decription" class="form-control validate" id="orderDecription">       
+                              <input type="text"  name="decription" class="form-control validate" id="orderDecription">
                             </div>
 
-                            
+
                           </div>
                           <div class="modal-footer d-flex justify-content-center">
                             <button onclick="summit()" class="btn btn-success">Send <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
@@ -291,7 +291,7 @@
                                     <textarea class="form-control" rows="3" id="commentContent" placeholder="Content"></textarea>
                                 </div>
                                 <button onclick="submitComment()" class="btn btn-primary" type="button">Submit</button>
-                            
+
                         </div>
                     </div>
 
@@ -300,7 +300,7 @@
 
                     </div>
 
-                    
+
 
                 </div>
 
@@ -374,7 +374,7 @@
                                 <div class="logo">
                                     <div>UIT</div>
                                     <div>travel</div>
-                                    <div class="logo_image"><img src="WebContent/images/logo.png" alt=""></div>
+                                    <div class="logo_image"><img src="assets/images/logo.png" alt=""></div>
                                 </div>
                             </div>
                             <div class="footer_about_text">Trang thông tin du lịch trong nước.</div>
@@ -403,17 +403,17 @@
         </footer>
     </div>
 
-    <script src="WebContent/vendor/jquery/jquery-3.5.1.min.js"></script>
-    <script src="WebContent/vendor/slick/slick.min.js"></script>
-    <script src="WebContent/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="WebContent/vendor/greensock/TweenMax.min.js"></script>
-    <script src="WebContent/vendor/greensock/TimelineMax.min.js"></script>
-    <script src="WebContent/vendor/scrollmagic/ScrollMagic.min.js"></script>
-    <script src="WebContent/vendor/greensock/animation.gsap.min.js"></script>
-    <script src="WebContent/vendor/greensock/ScrollToPlugin.min.js"></script>
-    <script src="WebContent/vendor/easing/easing.js"></script>
-    <script src="WebContent/vendor/parallax-js-master/parallax.min.js"></script>
-    <script src="WebContent/js/tourDetail.js"></script>
+    <script src="assets/vendor/jquery/jquery-3.5.1.min.js"></script>
+    <script src="assets/vendor/slick/slick.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/vendor/greensock/TweenMax.min.js"></script>
+    <script src="assets/vendor/greensock/TimelineMax.min.js"></script>
+    <script src="assets/vendor/scrollmagic/ScrollMagic.min.js"></script>
+    <script src="assets/vendor/greensock/animation.gsap.min.js"></script>
+    <script src="assets/vendor/greensock/ScrollToPlugin.min.js"></script>
+    <script src="assets/vendor/easing/easing.js"></script>
+    <script src="assets/vendor/parallax-js-master/parallax.min.js"></script>
+    <script src="assets/js/tourDetail.js"></script>
 </body>
 
 </html>

@@ -20,15 +20,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Destino project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="WebContent/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/vendor/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/vendor/OwlCarousel2-2.2.1/owl.carousel.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/vendor/OwlCarousel2-2.2.1/owl.theme.default.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/vendor/OwlCarousel2-2.2.1/animate.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/vendor/magnific-popup/magnific-popup.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/css/main_styles.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/css/my_main_style.css">
-    <link rel="stylesheet" type="text/css" href="WebContent/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/my_main_style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
 </head>
 
 <body>
@@ -48,7 +48,7 @@
                             <div class="logo">
                                 <div>uit</div>
                                 <div>travel</div>
-                                <div class="logo_image"><img src="WebContent/images/logo.png" alt=""></div>
+                                <div class="logo_image"><img src="assets/images/logo.png" alt=""></div>
                             </div>
                         </div>
 
@@ -69,7 +69,7 @@
                             <form action="#" class="search_form">
                                 <input type="search" name="search_input" class="search_input ctrl_class"
                                        required="required" placeholder="Từ khóa">
-                                <div class="search_button ml-auto ctrl_class"><img src="WebContent/images/search.png"
+                                <div class="search_button ml-auto ctrl_class"><img src="assets/images/search.png"
                                                                                    alt=""></div>
                             </form>
                         </div>
@@ -99,7 +99,7 @@
                     <form action="#" id="menu_search_form">
                         <input type="search" class="menu_search_input menu_mm">
                         <button id="menu_search_submit" class="menu_search_submit" type="submit"><img
-                                src="WebContent/images/search_2.png" alt=""></button>
+                                src="assets/images/search_2.png" alt=""></button>
                     </form>
                 </div>
                 <ul class="menu_list menu_mm">
@@ -131,7 +131,7 @@
     <!-- Home -->
 
     <div class="home">
-        <div class="home_background" style="background-image:url(WebContent/images/home.jpg)"></div>
+        <div class="home_background" style="background-image:url(assets/images/home.jpg)"></div>
         <div class="home_content">
             <div class="home_content_inner">
                 <div class="home_text_large">discover</div>
@@ -313,7 +313,7 @@
 
                 </div>
                 <div class="special_slider_nav d-flex flex-column align-items-center justify-content-center">
-                    <img src="WebContent/images/special_slider.png" alt="">
+                    <img src="assets/images/special_slider.png" alt="">
                 </div>
             </div>
         </div>
@@ -323,7 +323,7 @@
 
     <div class="newsletter">
         <!-- Image by https://unsplash.com/@garciasaldana_ -->
-        <div class="newsletter_background" style="background-image:url(WebContent/images/newsletter.jpg)"></div>
+        <div class="newsletter_background" style="background-image:url(assets/images/newsletter.jpg)"></div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
@@ -359,7 +359,7 @@
                             <div class="logo">
                                 <div>uit</div>
                                 <div>travel</div>
-                                <div class="logo_image"><img src="WebContent/images/logo.png" alt=""></div>
+                                <div class="logo_image"><img src="assets/images/logo.png" alt=""></div>
                             </div>
                         </div>
                         <div class="footer_about_text">Trang thông tin du lịch trong nước.</div>
@@ -383,7 +383,7 @@
 
                             <!-- Footer Latest Post -->
                             <div class="footer_latest_item">
-                                <div class="footer_latest_image"><img src="WebContent/images/latest_1.jpg"
+                                <div class="footer_latest_image"><img src="assets/images/latest_1.jpg"
                                                                       alt="https://unsplash.com/@peecho"></div>
                                 <div class="footer_latest_item_content">
                                     <div class="footer_latest_item_title"><a href="#">Một kỳ nghỉ hoàn hảo</a>
@@ -394,7 +394,7 @@
 
                             <!-- Footer Latest Post -->
                             <div class="footer_latest_item">
-                                <div class="footer_latest_image"><img src="WebContent/images/latest_2.jpg"
+                                <div class="footer_latest_image"><img src="assets/images/latest_2.jpg"
                                                                       alt="https://unsplash.com/@sanfrancisco"></div>
                                 <div class="footer_latest_item_content">
                                     <div class="footer_latest_item_title"><a href="#">Mùa hè ở miền biển nhiệt đới</a>
@@ -429,15 +429,15 @@
     </footer>
 </div>
 
-<script src="WebContent/vendor/jquery/jquery-3.5.1.min.js"></script>
-<script src="WebContent/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="WebContent/vendor/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="WebContent/vendor/easing/easing.js"></script>
-<script src="WebContent/vendor/parallax-js-master/parallax.min.js"></script>
-<script src="WebContent/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-<script src="WebContent/js/custom.js"></script>
-<script src="WebContent/js/home_data.js"></script>
-<script src="WebContent/js/tour_search.js"></script>
+<script src="assets/vendor/jquery/jquery-3.5.1.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/vendor/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="assets/vendor/easing/easing.js"></script>
+<script src="assets/vendor/parallax-js-master/parallax.min.js"></script>
+<script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/home_data.js"></script>
+<script src="assets/js/tour_search.js"></script>
 </body>
 
 </html>

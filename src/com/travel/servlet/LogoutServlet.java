@@ -13,9 +13,10 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean isLoggedIn = UserHelpers.checkSession(request);
-        if (isLoggedIn) {
+        boolean isAuthenticated = UserHelpers.checkSession(request);
+        if (isAuthenticated) {
             request.getSession(false).invalidate();
         }
+        response.sendRedirect("/login");
     }
 }

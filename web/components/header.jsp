@@ -1,22 +1,36 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.travel.helper.UserHelpers" %>
+<%
+    boolean isAuthenticated = UserHelpers.checkSession(request);
+%>
 <header class="header">
     <div class="row">
         <div class="col">
             <div class="header_container d-flex flex-row align-items-center justify-content-start">
                 <!-- Logo -->
                 <div class="logo_container">
-                    <div class="logo">
-                        <div>UIT</div>
-                        <div>travel</div>
-                        <div class="logo_image"><img src="assets/images/logo.png" alt=""></div>
-                    </div>
+                    <a href="/">
+                        <div class="logo">
+                            <div>UIT</div>
+                            <div>travel</div>
+                            <div class="logo_image"><img src="assets/images/logo.png" alt=""></div>
+                        </div>
+                    </a>
                 </div>
 
                 <!-- Main Navigation -->
                 <nav class="main_nav ml-auto">
                     <ul class="main_nav_list">
-                        <li class="main_nav_item"><a href="/">Trang chủ</a></li>
-                        <li class="main_nav_item"><a href="#">Liên hệ</a></li>
+                        <c:choose>
+                            <c:when test="<%=isAuthenticated%>">
+                                <li class="main_nav_item"><a href="/account">Tài khoản</a></li>
+                                <li class="main_nav_item"><a href="/logout">Đăng xuất</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="main_nav_item"><a href="/login">Đăng nhập</a></li>
+                            </c:otherwise>
+                        </c:choose>
                     </ul>
                 </nav>
 

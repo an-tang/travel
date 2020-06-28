@@ -22,8 +22,8 @@
 
                 <!-- Search -->
                 <div class="search">
-                    <form action="#" class="search_form">
-                        <input type="search" name="search_input" class="search_input ctrl_class" required="required" placeholder="Từ khóa">
+                    <form action="/search" method="get" class="search_form">
+                        <input type="search" name="q" class="search_input ctrl_class" required="required" placeholder="Từ khóa">
                         <div class="search_button ml-auto ctrl_class"><img src="assets/images/search.png" alt="">
                         </div>
                     </form>

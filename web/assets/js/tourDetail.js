@@ -15,7 +15,7 @@ function initBannerCarousel() {
         slidesToShow: 1,
         slidesToScroll: 1,
         infinite: true,
-        arrows: false,
+        arrows: true,
         dots: true,
         lazyLoad: 'ondemand'
     };

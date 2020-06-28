@@ -3,7 +3,6 @@
 @import 'utilities/variables';
 @import 'utilities/mixins';
 
-@import 'homePage/homeBanner';
-@import 'homePage/homeTours';
-@import 'homePage/homeBreadcrumbs';
-@import 'homePage/responsive';
+@import 'search/searchBanner';
+@import 'search/searchResult';
+@import 'search/responsive';

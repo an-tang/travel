@@ -1,4 +1,3 @@
-/* */
 $(document).ready(function () {
     var header = $('#title-header');
     var tourName = $('#tour-name');

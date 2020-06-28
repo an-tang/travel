@@ -2,6 +2,7 @@
 <%@ page import="com.travel.bean.HomeProvinceBean" %>
 <%@ page import="com.travel.bean.TourBean" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     ArrayList<TourBean> northernTours = (ArrayList<TourBean>) request.getAttribute("northernTours");
     ArrayList<TourBean> centralTours = (ArrayList<TourBean>) request.getAttribute("centralTours");
@@ -9,23 +10,17 @@
     ArrayList<TourBean> popularTours = (ArrayList<TourBean>) request.getAttribute("popularTours");
     ArrayList<HomeProvinceBean> homepageProvinces = (ArrayList<HomeProvinceBean>) request.getAttribute("homepageProvinces");
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <jsp:include page="components/globalHeadTags.jsp"/>
-
     <link rel="stylesheet" type="text/css" href="assets/vendor/OwlCarousel2-2.2.1/owl.carousel.css">
     <link rel="stylesheet" type="text/css" href="assets/vendor/OwlCarousel2-2.2.1/owl.theme.default.css">
     <link rel="stylesheet" type="text/css" href="assets/vendor/OwlCarousel2-2.2.1/animate.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/main_styles.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/my_main_style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
-<%--    <link rel="stylesheet" type="text/css" href="assets/css/homePage.css">--%>
-    <title id="title-header">UIT Travel - Homepage</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/homePage.css">
+    <title id="title-header">UIT Travel - Trang chủ</title>
 </head>
 
 <body>
@@ -38,7 +33,7 @@
         <jsp:include page="components/menu.jsp"/>
 
         <!-- Home -->
-        <div class="home">
+        <div class="home-banner">
             <div class="home_background" style="background-image:url(assets/images/home.jpg)"></div>
             <div class="home_content">
                 <div class="home_content_inner">
@@ -232,13 +227,7 @@
     </div>
 
     <jsp:include page="components/globalScripts.jsp"/>
-
     <script src="assets/vendor/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="assets/vendor/easing/easing.js"></script>
-    <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/js/home_data.js"></script>
-    <script src="assets/js/tour_search.js"></script>
 </body>
 
 </html>

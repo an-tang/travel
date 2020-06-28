@@ -1,24 +1,19 @@
-<%@ page import="com.travel.bean.ImageBean" %>
-<%@ page import="com.travel.bean.TourInfoBean" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.travel.bean.TourInfoBean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     TourInfoBean tourInfo = (TourInfoBean) request.getAttribute("tourInfo");
-    ArrayList<ImageBean> tourImages = tourInfo.getImages();
-    String a = "/(?:\\[rn])+/g";
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <jsp:include page="components/globalHeadTags.jsp" />
-
     <link rel="stylesheet" type="text/css" href="assets/vendor/slick/slick.css">
     <link rel="stylesheet" type="text/css" href="assets/vendor/slick/slick-theme.css">
     <link rel="stylesheet" type="text/css" href="assets/css/tourDetail.css">
-    <title id="title-header">Thông tin tour - <%=tourInfo.getTitle()%></title>
+    <title id="title-header"><%=tourInfo.getTitle()%></title>
 </head>
 
 <body>
@@ -146,13 +141,11 @@
     </div>
 
     <jsp:include page="components/globalScripts.jsp" />
-
     <script src="assets/vendor/greensock/TweenMax.min.js"></script>
     <script src="assets/vendor/greensock/TimelineMax.min.js"></script>
     <script src="assets/vendor/scrollmagic/ScrollMagic.min.js"></script>
     <script src="assets/vendor/greensock/animation.gsap.min.js"></script>
     <script src="assets/vendor/greensock/ScrollToPlugin.min.js"></script>
-    <script src="assets/vendor/easing/easing.js"></script>
     <script src="assets/vendor/slick/slick.min.js"></script>
     <script src="assets/js/tourDetail.js"></script>
 </body>

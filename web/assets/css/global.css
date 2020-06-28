@@ -1221,6 +1221,16 @@ Responsive - 991px
   opacity: 1;
 }
 
+form .form-control ~ .invalid-msg {
+  display: none;
+  color: #c00;
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+form .form-control.is-invalid ~ .invalid-msg {
+  display: block;
+}
+
 /*********************************
 10. Newsletter
 *********************************/

@@ -1,7 +1,13 @@
+@import '../vendor/bootstrap/scss/functions';
+@import '../vendor/bootstrap/scss/mixins';
+@import 'utilities/variables';
+@import 'utilities/mixins';
+
 @import 'utilities/fonts';
 @import 'components/common';
 @import 'components/responsive';
 @import 'components/header';
 @import 'components/footer';
 @import 'components/menu';
+@import 'components/forms';
 @import 'components/newsletter';

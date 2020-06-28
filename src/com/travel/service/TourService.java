@@ -1,7 +1,12 @@
 package com.travel.service;
 
+import com.travel.bean.ImageBean;
 import com.travel.bean.TourBean;
+import com.travel.bean.TourInfoBean;
 import com.travel.dao.TourDAO;
+import com.travel.dao.TourInfoDAO;
+import com.travel.enumerize.Status;
+import com.travel.viewmodel.CreateTourRequest;
 
 import java.util.ArrayList;
 
@@ -27,8 +32,14 @@ public class TourService {
         page = Math.max(page, 0);
         perPage = perPage < 0 ? 10 : perPage;
         String keyword = name.replace(" ", "&");
-
         return tourDAO.GetToursByName(keyword, page, perPage);
+    }
+
+    public ArrayList<TourBean> GetToursInProviceByName(String name, int provinceID, int page, int perPage) {
+        page = Math.max(page, 0);
+        perPage = perPage < 0 ? 10 : perPage;
+        String keyword = name.replace(" ", "&");
+        return tourDAO.GetToursInProvinceByName(keyword, provinceID, page, perPage);
     }
 
     public ArrayList<TourBean> GetToursByAreaID(int areaID, int limit) {
@@ -74,10 +85,33 @@ public class TourService {
         return tourDAO.GetToursByListIDs(params);
     }
 
-//    public boolean CreateTour(){
-//
-//        return true;
-//    }
+    public boolean CreateTour(CreateTourRequest request) {
+        TourBean tour = new TourBean(request.getName(), request.getImage(), request.getProvinceID());
+        int tourID = tourDAO.CreateTour(tour);
+        if (tourID == 0) {
+            return false;
+        }
+
+        TourInfoBean tourInfo = new TourInfoBean(request.getTile(), request.getDetail(), request.getPrice(), Status.ACTIVE.getValue(), tourID);
+        int tourInfoID;
+        try {
+            tourInfoID = new TourInfoDAO().CreateTourInfo(tourInfo);
+            if (tourInfoID == 0) {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        ArrayList<ImageBean> images = request.getImages();
+        for (ImageBean image : images) {
+            image.setTourInfoID(tourInfoID);
+        }
+
+
+        return true;
+    }
 
     private String parseTourIDToString(ArrayList<TourBean> tours) {
         StringBuilder builder = new StringBuilder();

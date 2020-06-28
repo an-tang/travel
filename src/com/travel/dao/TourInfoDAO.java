@@ -20,6 +20,37 @@ public class TourInfoDAO extends BaseDAO {
         super();
     }
 
+
+    public int CreateTourInfo(TourInfoBean tourInfo){
+        int id = 0;
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "INSERT INTO tour_infos (title, detail, price, status, tour_id, created_at, updated_at)"
+                   + " VALUES (?, ?, ?, ?, ?, now(), now())";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, tourInfo.getTitle());
+            preparedStatement.setString(2, tourInfo.getDetail());
+            preparedStatement.setLong(3, tourInfo.getPrice());
+            preparedStatement.setInt(4, tourInfo.getStatus());
+            preparedStatement.setInt(5, tourInfo.getTourID());
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating tour info failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return id;
+    }
+
     public TourInfoBean GetTourInfoByTourID(int tourID) {
         TourInfoBean tourInfo = null;
         try {

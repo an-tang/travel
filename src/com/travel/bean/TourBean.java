@@ -64,6 +64,12 @@ public class TourBean implements Serializable {
         this.price = price;
     }
 
+    public TourBean(String name, String image, int provinceID) {
+        this.name = name;
+        this.image = image;
+        this.provinceID = provinceID;
+    }
+
     @Override
     public String toString() {
         return "TourBean{" +

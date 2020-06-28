@@ -3,9 +3,8 @@ package com.travel.dao;
 import com.travel.bean.OrderBean;
 import com.travel.dbconnection.DBConnection;
 import com.travel.enumerize.OrderStatus;
-import com.travel.enumerize.Status;
-import com.travel.response.OrderHistory;
-import com.travel.response.TourDetail;
+import com.travel.viewmodel.OrderHistory;
+import com.travel.viewmodel.TourDetail;
 
 import java.sql.*;
 import java.util.ArrayList;

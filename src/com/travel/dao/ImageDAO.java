@@ -16,6 +16,24 @@ public class ImageDAO extends BaseDAO{
         super();
     }
 
+    public boolean CreateImage(String params){
+        try{
+            connection = DBConnection.getConnect();
+            String sql = "INSERT INTO images (url, tour_info_id, description) VALUES ("
+                    + params + " );";
+            preparedStatement = connection.prepareStatement(sql);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
     public ArrayList<ImageBean> GetImagesByTourInfoID(int tourInfoID){
         ArrayList<ImageBean> listImages = new ArrayList<>();
         try {
@@ -35,5 +53,4 @@ public class ImageDAO extends BaseDAO{
         }
         return listImages;
     }
-
 }

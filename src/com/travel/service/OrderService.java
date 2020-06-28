@@ -3,7 +3,7 @@ package com.travel.service;
 import com.travel.bean.OrderBean;
 import com.travel.dao.OrderDAO;
 import com.travel.enumerize.OrderStatus;
-import com.travel.response.OrderHistory;
+import com.travel.viewmodel.OrderHistory;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,15 +41,15 @@ public class OrderService {
         return orderDAO.GetOrderHistoryByUserName(userName);
     }
 
-    public boolean ApprovedOrder(int orderID){
+    public boolean ApprovedOrder(int orderID) {
         return orderDAO.UpdateOrder(orderID, OrderStatus.CONFIRMED);
     }
 
-    public boolean RejectedOrder(int orderID){
+    public boolean RejectedOrder(int orderID) {
         return orderDAO.UpdateOrder(orderID, OrderStatus.REJECTED);
     }
 
-    public boolean CompletedOrder(int orderID){
+    public boolean CompletedOrder(int orderID) {
         return orderDAO.UpdateOrder(orderID, OrderStatus.COMPLETED);
     }
 }

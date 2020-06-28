@@ -1,4 +1,4 @@
-package com.travel.response;
+package com.travel.viewmodel;
 
 import java.io.Serializable;
 import java.util.ArrayList;

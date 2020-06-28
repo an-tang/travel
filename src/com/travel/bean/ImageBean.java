@@ -51,6 +51,11 @@ public class ImageBean {
         this.description = description;
     }
 
+    public ImageBean(String url, String description) {
+        this.url = url;
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "ImageBean{" +

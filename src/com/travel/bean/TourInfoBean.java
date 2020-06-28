@@ -87,6 +87,14 @@ public class TourInfoBean implements Serializable {
         this.images = images;
     }
 
+    public TourInfoBean(String title, String detail, long price, int status, int tourID) {
+        this.title = title;
+        this.detail = detail;
+        this.price = price;
+        this.status = status;
+        this.tourID = tourID;
+    }
+
     @Override
     public String toString() {
         return "TourInfoBean{" +

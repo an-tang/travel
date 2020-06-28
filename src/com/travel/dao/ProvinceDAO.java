@@ -17,6 +17,26 @@ public class ProvinceDAO extends BaseDAO {
         super();
     }
 
+    public ArrayList<ProvinceBean> GetAllProvinces(){
+        ArrayList<ProvinceBean> provinces = new ArrayList<>();
+        try{
+            connection = DBConnection.getConnect();
+            String sql = "";
+            preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int areaID = rs.getInt("area_id");
+                provinces.add(new ProvinceBean(id, name, areaID));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return provinces;
+    }
+
     public ProvinceBean GetProvinceByID(int id) {
         ProvinceBean province = null;
         try {

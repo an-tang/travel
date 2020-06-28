@@ -71,18 +71,47 @@ public class TourDAO extends BaseDAO {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM tours t INNER JOIN tour_infos ti ON t.id = ti.tour_id "
                     + " WHERE to_tsvector(convertnonunicode(name)) @@ to_tsquery(convertnonunicode(?))"
-                    + " AND status = ? ORDER BY NAME ASC LIMIT ? OFFSET ?;";
+                    + " AND ti.status = ? ORDER BY NAME ASC LIMIT ? OFFSET ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
-            preparedStatement.setInt(2, page * perPage + perPage);
-            preparedStatement.setInt(3, page * perPage);
-            preparedStatement.setInt(4, Status.ACTIVE.getValue());
+            preparedStatement.setInt(2, Status.ACTIVE.getValue());
+            preparedStatement.setInt(3, page * perPage + perPage);
+            preparedStatement.setInt(4, page * perPage);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String tourName = rs.getString("name");
                 String image = rs.getString("image");
                 int provinceID = rs.getInt("province_id");
+                long price = rs.getLong("price");
+                listTours.add(new TourBean(id, tourName, image, provinceID, price));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+        return listTours;
+    }
+
+    public ArrayList<TourBean> GetToursInProvinceByName(String name, int provinceID, int page, int perPage) {
+        ArrayList<TourBean> listTours = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM tours t INNER JOIN tour_infos ti ON t.id = ti.tour_id "
+                    + " WHERE to_tsvector(convertnonunicode(name)) @@ to_tsquery(convertnonunicode(?))"
+                    + " AND t.province_id = ? AND ti.status = ? ORDER BY NAME ASC LIMIT ? OFFSET ?;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, provinceID);
+            preparedStatement.setInt(3, Status.ACTIVE.getValue());
+            preparedStatement.setInt(4, page * perPage + perPage);
+            preparedStatement.setInt(5, page * perPage);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String tourName = rs.getString("name");
+                String image = rs.getString("image");
                 long price = rs.getLong("price");
                 listTours.add(new TourBean(id, tourName, image, provinceID, price));
             }
@@ -108,7 +137,7 @@ public class TourDAO extends BaseDAO {
                     + " LIMIT ?"
                     + " ) AS tem INNER JOIN tours ON tem.id =tours.id"
                     + " INNER JOIN tour_infos ti ON tours.id = ti.tour_id"
-                    + " WHERE status = ? ORDER BY tem.c DESC;";
+                    + " WHERE ti.status = ? ORDER BY tem.c DESC;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, areaID);
             preparedStatement.setInt(2, limit);
@@ -144,7 +173,7 @@ public class TourDAO extends BaseDAO {
                     + " LIMIT ?"
                     + " ) AS tem INNER JOIN tours ON tem.id = tours.id"
                     + " INNER JOIN tour_infos ti ON tours.id = ti.tour_id"
-                    + " WHERE status = ? ORDER BY c desc";
+                    + " WHERE ti.status = ? ORDER BY c desc";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, limit);
             preparedStatement.setInt(2, Status.ACTIVE.getValue());
@@ -173,12 +202,11 @@ public class TourDAO extends BaseDAO {
             String sql = "SELECT t.*, ti.price FROM tours t INNER JOIN provinces p ON t.province_id = p.id"
                     + " INNER JOIN areas a ON p.area_id = a.id"
                     + " INNER JOIN tour_infos ti ON t.id = ti.tour_id"
-                    + " WHERE a.id = ? AND status = ? ORDER BY t.id ASC LIMIT ?;";
+                    + " WHERE a.id = ? AND ti.status = ? ORDER BY t.id ASC LIMIT ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, areaID);
-            preparedStatement.setInt(2, limit);
-            preparedStatement.setInt(3, Status.ACTIVE.getValue());
-
+            preparedStatement.setInt(2, Status.ACTIVE.getValue());
+            preparedStatement.setInt(3, limit);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -205,13 +233,12 @@ public class TourDAO extends BaseDAO {
                     + " INNER JOIN tour_infos ti ON t.id = ti.tour_id"
                     + " WHERE a.id = ? AND t.id NOT IN("
                     + params
-                    + ") AND status = ? ORDER BY id ASC LIMIT ?";
+                    + ") AND ti.status = ? ORDER BY id ASC LIMIT ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, areaID);
             preparedStatement.setInt(2, Status.ACTIVE.getValue());
             preparedStatement.setInt(3, limit);
 
-            System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -233,7 +260,7 @@ public class TourDAO extends BaseDAO {
     public boolean DeactivateTour(int tourID) {
         try {
             connection = DBConnection.getConnect();
-            String sql = "UPDATE tours SET status = ?, updated_at = now() WHERE id = ?";
+            String sql = "UPDATE tour_infos SET status = ?, updated_at = now() WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, Status.DEACTIVE.getValue());
             preparedStatement.setInt(2, tourID);
@@ -252,7 +279,7 @@ public class TourDAO extends BaseDAO {
         return true;
     }
 
-    public ArrayList<TourBean> GetToursByListIDs(String params){
+    public ArrayList<TourBean> GetToursByListIDs(String params) {
         ArrayList<TourBean> tours = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
@@ -262,7 +289,7 @@ public class TourDAO extends BaseDAO {
             preparedStatement = connection.prepareStatement(sql);
 
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String image = rs.getString("image");
@@ -275,5 +302,32 @@ public class TourDAO extends BaseDAO {
         }
 
         return tours;
+    }
+
+    public int CreateTour(TourBean tour) {
+        int id = 0;
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "INSERT INTO tours (name, image, province_id, created_at, updated_at) VALUES (?, ?, ?, now(), now())";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, tour.getName());
+            preparedStatement.setString(2, tour.getImage());
+            preparedStatement.setInt(3, tour.getProvinceID());
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating tour failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return id;
     }
 }

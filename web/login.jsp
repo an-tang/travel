@@ -16,6 +16,9 @@
 	<!-- Header -->
 	<jsp:include page="components/header.jsp" />
 
+	<!-- Menu -->
+	<jsp:include page="components/menu.jsp" />
+
 	<section class="login-form-section">
 		<div class="container">
 			<div class="row">
@@ -60,9 +63,6 @@
 			</div>
 		</div>
 	</section>
-
-	<!-- Menu -->
-	<jsp:include page="components/menu.jsp" />
 
 	<!-- Footer -->
 	<jsp:include page="components/footer.jsp" />

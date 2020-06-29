@@ -1,6 +1,6 @@
 package com.travel.servlet;
 
-import com.travel.helper.UserHelpers;
+import com.travel.helper.SessionHelpers;
 import com.travel.jsonobject.LoginResponse;
 import com.travel.service.UserService;
 import org.json.simple.JSONObject;
@@ -17,7 +17,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean isAuthenticated = UserHelpers.checkSession(request);
+        boolean isAuthenticated = SessionHelpers.checkCurrentSession(request);
         if (!isAuthenticated) {
             String referer = request.getHeader("referer");
             boolean willRefererBeUsed = referer != null
@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
             String refererUrl = willRefererBeUsed ? referer : "";
 
             request.setAttribute("refererUrl", refererUrl);
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             response.sendRedirect("/account");
         }
@@ -40,17 +40,22 @@ public class LoginServlet extends HttpServlet {
 
         try {
             UserService userService = new UserService();
-            boolean check = userService.Login(username, password);
+            boolean loginSuccess = userService.Login(username, password);
             LoginResponse loginResponse;
 
-            if (check) {
-                HttpSession session = request.getSession();
-                session.setAttribute("username", username);
-                String redirectUrl = request.getParameter("rurl");
+            if (loginSuccess) {
+                // Remove the old session if there is
+                SessionHelpers.invalidateCurrentSession(request);
+
+                // Create a new session
+                HttpSession newSession = request.getSession(true);
+                newSession.setAttribute("authenticatedUser", username);
+                newSession.setMaxInactiveInterval(5 * 60);
+
                 loginResponse = new LoginResponse(
                         true,
                         "Đăng nhập thành công",
-                        !redirectUrl.isEmpty() ? redirectUrl : "/account"
+                        "/account"
                 );
             } else {
                 loginResponse = new LoginResponse(

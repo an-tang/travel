@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.travel.helper.UserHelpers" %>
 <%
-    boolean isAuthenticated = UserHelpers.checkSession(request);
+    HttpSession currentSession = request.getSession(false);
+    boolean isAuthenticated = currentSession != null && currentSession.getAttribute("authenticatedUser") != null;
 %>
 <header class="header">
     <div class="row">
@@ -24,11 +24,17 @@
                     <ul class="main_nav_list">
                         <c:choose>
                             <c:when test="<%=isAuthenticated%>">
-                                <li class="main_nav_item"><a href="/account">Tài khoản</a></li>
-                                <li class="main_nav_item"><a href="/logout">Đăng xuất</a></li>
+                                <li class="main_nav_item">
+                                    <a href="/account">Xin chào, <%=currentSession.getAttribute("authenticatedUser")%></a>
+                                </li>
+                                <li class="main_nav_item">
+                                    <a href="/logout">Đăng xuất</a>
+                                </li>
                             </c:when>
                             <c:otherwise>
-                                <li class="main_nav_item"><a href="/login">Đăng nhập</a></li>
+                                <li class="main_nav_item">
+                                    <a href="/login">Đăng nhập</a>
+                                </li>
                             </c:otherwise>
                         </c:choose>
                     </ul>

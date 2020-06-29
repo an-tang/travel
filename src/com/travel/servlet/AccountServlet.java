@@ -9,11 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/logout"})
-public class LogoutServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/account"})
+public class AccountServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SessionHelpers.invalidateCurrentSession(request);
-        response.sendRedirect("/login");
+        boolean isAuthenticated = SessionHelpers.checkCurrentSession(request);
+        if (isAuthenticated) {
+            request.getRequestDispatcher("account.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/login");
+        }
     }
 }

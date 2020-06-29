@@ -48,8 +48,13 @@ public class UserService {
 
     public boolean Login(String userName, String password) {
         UserBean user = userDAO.GetUserByUserName(userName);
-        String userPwd = user.getPassword();
-        return password.equals(userPwd) || BCrypt.checkpw(password, userPwd);
+        if (user != null) {
+            String userPwd = user.getPassword();
+            boolean loginSuccess = password.equals(userPwd);
+//        boolean loginSuccess = BCrypt.checkpw(password, userPwd);
+            return  loginSuccess;
+        }
+        return false;
     }
 
     public ArrayList<UserBean> GetAllUsers(int page, int perPage) {

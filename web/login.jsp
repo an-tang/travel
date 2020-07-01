@@ -28,7 +28,7 @@
 						action="/login"
 						class="login"
 						method="post"
-						data-request-error="Request to server unexpectedly failed">
+						data-request-error="Request to server unexpectedly failed. Please try again later.">
 						<div class="form-group required">
 							<label class="form-control-label" for="loginUsername">Tên đăng nhập</label>
 							<input
@@ -36,9 +36,9 @@
 									id="loginUsername"
 									class="form-control"
 									name="user"
-									required minlength="6"
+									required pattern="^[\w]{6,18}$"
 									data-missing-error="Vui lòng nhập tên đăng nhập"
-									data-range-error="Tên đăng nhập phải dài tối thiểu 6 ký tự">
+									data-pattern-mismatch="Tên đăng nhập dài 6-18 ký tự và không được chứa ký tự đặc biệt">
 							<div class="invalid-msg"></div>
 						</div>
 						<div class="form-group required">
@@ -69,6 +69,7 @@
 </div>
 
 <jsp:include page="components/globalScripts.jsp" />
+<script src="assets/js/components/clientSideValidation.js"></script>
 <script src="assets/js/login.js"></script>
 
 </body>

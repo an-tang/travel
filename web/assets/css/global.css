@@ -1221,6 +1221,14 @@ Responsive - 991px
   opacity: 1;
 }
 
+button.btn {
+  border-radius: 0;
+  font-size: 0.875rem;
+}
+button.btn.btn-primary {
+  background-color: #fe435b;
+}
+
 form .form-control {
   border-radius: 0;
 }
@@ -1233,9 +1241,6 @@ form .form-control ~ .invalid-msg {
 }
 form .form-control.is-invalid ~ .invalid-msg {
   display: block;
-}
-form .btn {
-  border-radius: 0;
 }
 
 /*********************************

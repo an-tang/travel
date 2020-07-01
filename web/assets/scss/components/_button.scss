@@ -1,0 +1,10 @@
+button {
+    &.btn {
+        border-radius: 0;
+        font-size: 0.875rem;
+
+        &.btn-primary {
+            background-color: $lightCardinal;
+        }
+    }
+}

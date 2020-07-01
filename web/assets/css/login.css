@@ -6,6 +6,3 @@ section.login-form-section {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
-section.login-form-section button[type=submit] {
-  font-size: 0.875rem;
-}

@@ -87,7 +87,7 @@
 
 .external-tour-links a {
   color: #555;
-  transition: color 0.3s;
+  transition: color 0.2s;
 }
 .external-tour-links a:hover {
   color: #fe435b;

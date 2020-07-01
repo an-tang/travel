@@ -53,7 +53,7 @@
 							<div class="invalid-msg"></div>
 						</div>
 						<div class="form-group text-center mb-0">
-							<button type="submit" name="login" class="btn btn-danger">Đăng nhập</button>
+							<button type="submit" name="login" class="btn btn-danger btn-accent">Đăng nhập</button>
 						</div>
 						<input type="hidden" id="loginRedirectUrl" name="rurl"
 							   value="<%=redirectUrl%>">

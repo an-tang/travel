@@ -3,8 +3,9 @@ button {
         border-radius: 0;
         font-size: 0.875rem;
 
-        &.btn-primary {
+        &.btn-accent {
             background-color: $lightCardinal;
+            border-color: $lightCardinal;
         }
     }
 }

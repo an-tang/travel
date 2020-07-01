@@ -1225,8 +1225,9 @@ button.btn {
   border-radius: 0;
   font-size: 0.875rem;
 }
-button.btn.btn-primary {
+button.btn.btn-accent {
   background-color: #fe435b;
+  border-color: #fe435b;
 }
 
 form .form-control {

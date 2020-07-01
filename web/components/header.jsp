@@ -35,6 +35,9 @@
                                 <li class="main_nav_item">
                                     <a href="/login">Đăng nhập</a>
                                 </li>
+                                <li class="main_nav_item">
+                                    <a href="/register">Đăng ký</a>
+                                </li>
                             </c:otherwise>
                         </c:choose>
                     </ul>

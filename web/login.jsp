@@ -28,6 +28,7 @@
 						action="/login"
 						class="login"
 						method="post"
+						data-general-error="Invalid field. Please check your input again."
 						data-request-error="Request to server unexpectedly failed. Please try again later.">
 						<div class="form-group required">
 							<label class="form-control-label" for="loginUsername">Tên đăng nhập</label>

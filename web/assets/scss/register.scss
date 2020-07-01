@@ -1,0 +1,7 @@
+@import '../vendor/bootstrap/scss/functions';
+@import '../vendor/bootstrap/scss/mixins';
+@import 'utilities/variables';
+@import 'utilities/mixins';
+
+@import 'register/registerHeader';
+@import 'register/registerForm';

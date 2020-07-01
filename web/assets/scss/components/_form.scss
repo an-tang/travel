@@ -1,4 +1,19 @@
+/*********************************
+Forms
+*********************************/
+
 form {
+    .form-group {
+        &.required {
+            .form-control-label {
+                &::before {
+                    padding-right: 3px;
+                    content: '*';
+                }
+            }
+        }
+    }
+
     .form-control {
         border-radius: 0;
 

@@ -3,7 +3,7 @@
 ***********/
 @import url("https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900");
 /*********************************
-2. Body and some general stuff
+Body and some general stuff
 *********************************/
 * {
   margin: 0;
@@ -117,10 +117,6 @@ h6 {
   -webkit-font-smoothing: antialiased;
   -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
-}
-
-.form-control {
-  color: #db5246;
 }
 
 section {
@@ -547,7 +543,7 @@ Responsive - 991px
   }
 }
 /*********************************
-4. Header
+Header
 *********************************/
 .header {
   display: block;
@@ -860,7 +856,7 @@ Responsive - 991px
 }
 
 /*********************************
-11. Footer
+Footer
 *********************************/
 .footer {
   width: 100%;
@@ -994,7 +990,7 @@ Responsive - 991px
 }
 
 /*********************************
-5. Menu
+Menu
 *********************************/
 .menu_container {
   position: fixed;
@@ -1221,6 +1217,9 @@ Responsive - 991px
   opacity: 1;
 }
 
+/*********************************
+Buttons
+*********************************/
 button.btn {
   border-radius: 0;
   font-size: 0.875rem;
@@ -1230,6 +1229,13 @@ button.btn.btn-accent {
   border-color: #fe435b;
 }
 
+/*********************************
+Forms
+*********************************/
+form .form-group.required .form-control-label::before {
+  padding-right: 3px;
+  content: "*";
+}
 form .form-control {
   border-radius: 0;
 }
@@ -1245,7 +1251,7 @@ form .form-control.is-invalid ~ .invalid-msg {
 }
 
 /*********************************
-10. Newsletter
+Newsletter
 *********************************/
 .newsletter {
   padding-top: 108px;

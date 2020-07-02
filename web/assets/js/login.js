@@ -3,10 +3,10 @@
 $(document).ready(function () {
     handleFieldInvalid();
     clearInvalid();
-    handleFormSubmit();
+    handleLoginFormSubmit();
 });
 
-function handleFormSubmit() {
+function handleLoginFormSubmit() {
     $('form.login').on('submit', function (e) {
         e.preventDefault();
         const valid = validateForm.call(this, e);
@@ -28,8 +28,8 @@ function handleFormSubmit() {
                 })
                 .fail(error => {
                     if (error.responseJSON) {
-                        const responseJSON = JSON.parse(error.responseJSON);
-                        alert(responseJSON.errorMessage);
+                        const responseObj = JSON.parse(error.responseJSON);
+                        alert(responseObj.errorMessage);
                     } else {
                         alert(form.data('request-error'));
                     }

@@ -13,27 +13,23 @@ public class UserService {
         userDAO = new UserDAO();
     }
 
-    public boolean CreateUser(UserBean user, int type) {
+    public String CreateUser(UserBean user, int type) {
         try {
-            UserBean loadUser = userDAO.GetUserByUserName(user.getUserName());
-            if (loadUser != null) {
-                System.out.println("User name already exists");
-                return false;
-            }
-            if (user == null) {
-                return false;
+            UserBean existingUser = userDAO.GetUserByUserName(user.getUserName());
+            if (existingUser != null) {
+                return "Tài khoản với tên đăng nhập này đã tồn tại";
             }
             if (user.getUserName() == null || user.getPassword() == null || user.getPhone() == null) {
-                return false;
+                return "Tên đăng nhập, mật khẩu hoặc số điện thoại không được để trống.\nXác nhận mật khẩu phải trùng khớp.";
             }
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
             userDAO.CreateUser(user, type);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return "Exception thrown";
         }
 
-        return true;
+        return "success";
     }
 
     public UserBean GetUserByUserName(String userName) {
@@ -50,9 +46,7 @@ public class UserService {
         UserBean user = userDAO.GetUserByUserName(userName);
         if (user != null) {
             String userPwd = user.getPassword();
-            boolean loginSuccess = password.equals(userPwd);
-//        boolean loginSuccess = BCrypt.checkpw(password, userPwd);
-            return  loginSuccess;
+            return BCrypt.checkpw(password, userPwd);
         }
         return false;
     }

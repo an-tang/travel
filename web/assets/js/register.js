@@ -3,10 +3,10 @@
 $(document).ready(function () {
     handleFieldInvalid();
     clearInvalid();
-    handleFormSubmit();
+    handleRegisterFormSubmit();
 });
 
-function handleFormSubmit() {
+function handleRegisterFormSubmit() {
     $('form.register').on('submit', function (e) {
         e.preventDefault();
         const valid = validateForm.call(this, e);
@@ -20,16 +20,15 @@ function handleFormSubmit() {
                 data: form.serialize()
             })
                 .done(data => {
+                    alert(data.message);
                     if (data.success) {
                         window.location.href = data.redirectUrl;
-                    } else {
-                        alert(data.message);
                     }
                 })
                 .fail(error => {
                     if (error.responseJSON) {
-                        const responseJSON = JSON.parse(error.responseJSON);
-                        alert(responseJSON.errorMessage);
+                        const responseObj = JSON.parse(error.responseJSON);
+                        alert(responseObj.errorMessage);
                     } else {
                         alert(form.data('request-error'));
                     }

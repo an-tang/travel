@@ -19,6 +19,11 @@
     <section class="register-form-section">
         <div class="container">
             <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center mb-4">Đăng ký</h2>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-3 col-xl-4"></div>
                 <div class="col-md-6 col-xl-4">
                     <form
@@ -64,6 +69,18 @@
                                     required
                                     data-missing-error="Vui lòng xác nhận mật khẩu"
                                     data-password-mismatch="Mật khẩu không trùng khớp">
+                            <div class="invalid-msg"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="registerName">Tên</label>
+                            <input
+                                    type="text"
+                                    id="registerName"
+                                    class="form-control"
+                                    name="name"
+                                    maxlength="50"
+                                    data-range-error="Tên không dài quá 50 ký tự">
                             <div class="invalid-msg"></div>
                         </div>
 

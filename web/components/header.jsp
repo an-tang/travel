@@ -1,8 +1,11 @@
+<%@ page import="com.travel.helper.SessionHelpers" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     HttpSession currentSession = request.getSession(false);
-    boolean isAuthenticated = currentSession != null && currentSession.getAttribute("authenticatedUser") != null;
+    boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
+    String authenticatedName = (String) currentSession.getAttribute("authenticatedName");
+    String authenticatedUser = (String) currentSession.getAttribute("authenticatedUser");
 %>
 <header class="header">
     <div class="row">
@@ -25,7 +28,17 @@
                         <c:choose>
                             <c:when test="<%=isAuthenticated%>">
                                 <li class="main_nav_item">
-                                    <a href="/account">Xin chào, <%=currentSession.getAttribute("authenticatedUser")%></a>
+                                    <a href="/account">
+                                        <span>Xin chào, </span>
+                                        <c:choose>
+                                            <c:when test="<%=authenticatedName != null%>">
+                                                <span><em><%=authenticatedName%></em></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span><em><%=authenticatedUser%></em></span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
                                 </li>
                                 <li class="main_nav_item">
                                     <a href="/logout">Đăng xuất</a>

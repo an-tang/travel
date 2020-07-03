@@ -1,9 +1,9 @@
 package com.travel.servlet;
 
+import com.travel.ajax.AjaxResponse;
 import com.travel.bean.UserBean;
 import com.travel.enumerize.Role;
 import com.travel.enumerize.Status;
-import com.travel.ajax.AjaxResponse;
 import com.travel.service.UserService;
 
 import javax.servlet.ServletException;

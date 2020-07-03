@@ -57,8 +57,20 @@
                                 <p class="tour-price mb-0">Giá: <span><%=String.format("%,d", tourInfo.getPrice())%></span></p>
                             </div>
                             <div class="tour-actions">
-                                <a href="#" class="btn btn-danger btn-rounded mr-2" name="bookThisTour">Đặt tour</a>
-                                <button class="btn btn-secondary">Thêm vào yêu thích</button>
+                                <button
+                                        id="bookThisTour"
+                                        class="btn btn-danger btn-accent mr-2"
+                                        data-action="/tour"
+                                        data-tour-id="<%=tourInfo.getTourID()%>"
+                                        data-request-error="Request to server unexpectedly failed. Please try again later."
+                                >Đặt tour</button>
+                                <button
+                                        id="addToWishlist"
+                                        class="btn btn-secondary"
+                                        data-action="/wishlist"
+                                        data-tour-id="<%=tourInfo.getTourID()%>"
+                                        data-request-error="Request to server unexpectedly failed. Please try again later."
+                                >Thêm vào yêu thích</button>
                             </div>
                         </div>
                         <hr>

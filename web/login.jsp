@@ -1,7 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-	String redirectUrl = (String) request.getAttribute("refererUrl");
-%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,8 +58,7 @@
 						<div class="form-group text-center mb-0">
 							<button type="submit" name="login" class="btn btn-danger btn-accent">Đăng nhập</button>
 						</div>
-						<input type="hidden" id="loginRedirectUrl" name="rurl"
-							   value="<%=redirectUrl%>">
+						<input type="hidden" id="loginRedirectUrl" name="redirect_url" value="<%=request.getAttribute("redirectUrl")%>">
 					</form>
 				</div>
 				<div class="col-md-3 col-xl-4"></div>

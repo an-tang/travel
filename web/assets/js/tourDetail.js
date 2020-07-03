@@ -2,7 +2,8 @@
 
 $(document).ready(function () {
     initBannerCarousel();
-    processTourDetail();
+    processTourDescription();
+    handleBookTour();
 });
 
 function initBannerCarousel() {
@@ -22,9 +23,35 @@ function initBannerCarousel() {
     bannerSlider.slick(setting);
 }
 
-function processTourDetail() {
+function processTourDescription() {
     let tourDetail = $('.tour-detail');
     const text = tourDetail.text();
     const html = text.replace(/(?:\\[rn])+/g, '<br />').replace('<br />', '');
     tourDetail.html(html);
+}
+
+function handleBookTour() {
+    $('#bookThisTour').on('click.bookThisTour', function () {
+        let self = $(this);
+        $.ajax({
+            url: self.data('action'),
+            type: 'post',
+            dataType: 'json',
+            data: { checkoutTourId: self.data('tour-id') }
+        })
+            .done(data => {
+                if (!data.success) {
+                    alert(data.message);
+                }
+                window.location.href = data.redirectUrl;
+            })
+            .fail(error => {
+                if (error.responseJSON) {
+                    const responseObj = JSON.parse(error.responseJSON);
+                    alert(responseObj.errorMessage);
+                } else {
+                    alert(self.data('request-error'));
+                }
+            });
+    });
 }

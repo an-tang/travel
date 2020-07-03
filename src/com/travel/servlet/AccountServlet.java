@@ -13,7 +13,7 @@ import java.io.IOException;
 public class AccountServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean isAuthenticated = SessionHelpers.checkCurrentSession(request);
+        boolean isAuthenticated = SessionHelpers.validateSession(request);
         if (isAuthenticated) {
             request.getRequestDispatcher("account.jsp").forward(request, response);
         } else {

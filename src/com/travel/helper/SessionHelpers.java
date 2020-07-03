@@ -8,6 +8,7 @@ public class SessionHelpers {
         HttpSession currentSession = request.getSession(false);
         if (currentSession != null && currentSession.getAttribute("authenticatedUser") != null) {
             currentSession.removeAttribute("authenticatedUser");
+            currentSession.removeAttribute("authenticatedName");
             currentSession.invalidate();
         }
     }

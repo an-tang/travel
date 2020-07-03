@@ -1,5 +1,8 @@
 package com.travel.helper;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 public class URLHelpers {
 
     public static String buildUrlQuery(String basePath, String... keysAndValues) throws Exception {
@@ -11,11 +14,12 @@ public class URLHelpers {
         StringBuilder stringBuilder = new StringBuilder(basePath + "?");
         for (int i = 0; i < keysAndValues.length; i += 2) {
             String key = keysAndValues[i];
-            String value = keysAndValues[i + 1];
-            boolean keyValuePairValid = key != null && value != null && !key.equals("") && !value.equals("");
+            String rawValue = keysAndValues[i + 1];
+            boolean keyValuePairValid = key != null && rawValue != null && !key.equals("") && !rawValue.equals("");
 
             if (keyValuePairValid) {
-                stringBuilder.append(key).append("=").append(value);
+                String encodedValue = URLEncoder.encode(rawValue, StandardCharsets.UTF_8);
+                stringBuilder.append(key).append("=").append(encodedValue);
             }
             if (i < keysAndValues.length - 2) {
                 stringBuilder.append("&");

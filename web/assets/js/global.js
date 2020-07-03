@@ -9,6 +9,7 @@ $(document).ready(function () {
     initSpecialSlider();
     initSearch();
     handleSearchFormSubmit();
+    handleLoginLinkClick();
 });
 
 /* Set Header */
@@ -126,6 +127,18 @@ function handleSearchFormSubmit() {
             return false;
         }
         input.val(searchQuery);
+        return true;
+    });
+}
+
+/* Handle click login link */
+function handleLoginLinkClick() {
+    $('#headerLoginLink').on('click', function (e) {
+        const replacementHref = $(this).data('replacement-href');
+        if (replacementHref) {
+            window.location.href = replacementHref;
+            return false;
+        }
         return true;
     });
 }

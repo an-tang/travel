@@ -6,6 +6,8 @@
     boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
     String authenticatedName = (String) currentSession.getAttribute("authenticatedName");
     String authenticatedUser = (String) currentSession.getAttribute("authenticatedUser");
+
+    String loginReplacementURL = (String) request.getAttribute("loginReplacementURL");
 %>
 <header class="header">
     <div class="row">
@@ -28,7 +30,7 @@
                         <c:choose>
                             <c:when test="<%=isAuthenticated%>">
                                 <li class="main_nav_item">
-                                    <a href="/account">
+                                    <a id="headerAccountLink" href="/account">
                                         <span>Xin chào, </span>
                                         <c:choose>
                                             <c:when test="<%=authenticatedName != null%>">
@@ -41,15 +43,21 @@
                                     </a>
                                 </li>
                                 <li class="main_nav_item">
-                                    <a href="/logout">Đăng xuất</a>
+                                    <a id="headerLogoutLink" href="/logout">Đăng xuất</a>
                                 </li>
                             </c:when>
                             <c:otherwise>
                                 <li class="main_nav_item">
-                                    <a href="/login">Đăng nhập</a>
+                                    <a
+                                            id="headerLoginLink"
+                                            href="/login"
+                                            <c:if test="<%=loginReplacementURL != null%>">
+                                                data-replacement-href="<%=loginReplacementURL%>"
+                                            </c:if>
+                                    >Đăng nhập</a>
                                 </li>
                                 <li class="main_nav_item">
-                                    <a href="/register">Đăng ký</a>
+                                    <a id="headerRegisterLink" href="/register">Đăng ký</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>

@@ -2,6 +2,7 @@ package com.travel.servlet;
 
 import com.travel.ajax.AjaxResponse;
 import com.travel.helper.SessionHelpers;
+import com.travel.helper.URLHelpers;
 import com.travel.service.UserService;
 
 import javax.servlet.ServletException;
@@ -30,8 +31,23 @@ public class LoginServlet extends HttpServlet {
                 case "wishlist":
                     redirectUrl = "/wishlist";
                     break;
-                case "account":
-                    redirectUrl = "/account";
+                case "search":
+                    redirectUrl = "";
+                    try {
+                        redirectUrl = URLHelpers.buildUrlQuery("/search", "q", request.getParameter("q"));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        e.printStackTrace();
+                    }
+                    break;
+                case "tour":
+                    redirectUrl = "";
+                    try {
+                        redirectUrl = URLHelpers.buildUrlQuery("/tour", "id", request.getParameter("id"));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        e.printStackTrace();
+                    }
                     break;
                 default:
                     redirectUrl = "";

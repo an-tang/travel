@@ -1,6 +1,7 @@
 package com.travel.servlet;
 
 import com.travel.bean.TourBean;
+import com.travel.helper.URLHelpers;
 import com.travel.service.TourService;
 
 import javax.servlet.ServletException;
@@ -15,19 +16,24 @@ import java.util.ArrayList;
 public class SearchServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String searchQuery = request.getParameter("q");
+        String searchTerm = request.getParameter("q");
         ArrayList<TourBean> searchResult = null;
+        String loginRedirectURL = null;
 
         try {
             TourService tourService = new TourService();
-            searchResult = tourService.GetToursByName(searchQuery, 0, 8);
-//            searchResult = tourService.GetToursTopOrder(8);
+            searchResult = tourService.GetToursByName(searchTerm, 0, 8);
+            loginRedirectURL = URLHelpers.buildUrlQuery("/login", "redirect", "search", "q", searchTerm);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        request.setAttribute("q", searchTerm);
         request.setAttribute("searchResult", searchResult);
-        request.setAttribute("q", searchQuery);
+        if (loginRedirectURL != null) {
+            request.setAttribute("loginReplacementURL", loginRedirectURL);
+        }
+
         request.getRequestDispatcher("search.jsp").forward(request, response);
     }
 }

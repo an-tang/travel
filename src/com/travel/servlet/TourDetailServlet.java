@@ -19,17 +19,24 @@ import java.io.IOException;
 public class TourDetailServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int tourId = Integer.parseInt(request.getParameter("id"));
+        String idParam = request.getParameter("id");
+        int tourId = Integer.parseInt(idParam);
         TourInfoBean tourInfo = null;
+        String loginRedirectURL = null;
 
         try {
             TourInfoService tourInfoService = new TourInfoService();
             tourInfo = tourInfoService.GetTourInfoByTourID(tourId);
+            loginRedirectURL = URLHelpers.buildUrlQuery("/login", "redirect", "tour", "id", idParam);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         request.setAttribute("tourInfo", tourInfo);
+        if (loginRedirectURL != null) {
+            request.setAttribute("loginReplacementURL", loginRedirectURL);
+        }
+
         request.getRequestDispatcher("tourDetail.jsp").forward(request, response);
     }
 
@@ -68,7 +75,7 @@ public class TourDetailServlet extends HttpServlet {
                 existingCookie.setValue(checkoutTourId);
                 response.addCookie(existingCookie);
             } else {
-                response.addCookie(CookieHelpers.createCookie(cookieName, checkoutTourId, 5 * 60));
+                response.addCookie(CookieHelpers.createCookie(cookieName, checkoutTourId, 3 * 60));
             }
         }
 

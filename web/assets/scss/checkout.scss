@@ -1,0 +1,11 @@
+@import '../vendor/bootstrap/scss/functions';
+@import '../vendor/bootstrap/scss/mixins';
+@import 'utilities/variables';
+@import 'utilities/mixins';
+
+@import 'checkout/checkoutHeader';
+@import 'checkout/checkoutCard';
+
+.checkout-page {
+    padding: 3rem 0;
+}

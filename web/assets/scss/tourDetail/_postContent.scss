@@ -7,19 +7,16 @@
         margin-bottom: 0.5em;
     }
 
-    .tour-actions {
-        .btn {
-            font-size: 0.875rem;
-        }
-    }
-
     .tour-price {
         color: $darkNavy;
-        font-size: 1rem;
+        font-size: 1.2857rem;
         margin-bottom: 0;
 
         span {
+            color: $lightCardinal;
+            font-size: 1.5rem;
             font-weight: $fontWeightMedium;
+            margin-left: 6px;
         }
     }
 }

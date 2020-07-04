@@ -2,14 +2,11 @@
 Buttons
 *********************************/
 
-button {
-    &.btn {
-        border-radius: 0;
-        font-size: 0.875rem;
+.btn {
+    border-radius: 0;
 
-        &.btn-accent {
-            background-color: $lightCardinal;
-            border-color: $lightCardinal;
-        }
+    &.btn-accent {
+        background-color: $lightCardinal;
+        border-color: $lightCardinal;
     }
 }

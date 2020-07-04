@@ -1,0 +1,74 @@
+header.header.scrolled {
+  position: static;
+}
+
+.card.checkout-card h5.card-header-title {
+  font-size: 1.1429rem;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+.card.checkout-card h6.card-title {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.card.checkout-card .card-text {
+  margin-bottom: 0;
+}
+.card.checkout-card .card-entry {
+  margin-bottom: 1.5rem;
+}
+.card.checkout-card .card-item-divider {
+  border-bottom: 1px solid #dfdfdf;
+}
+.card.checkout-card .order-item img {
+  width: 100%;
+}
+.card.checkout-card .order-item .order-product-link {
+  color: #555;
+}
+.card.checkout-card .order-item .price-small {
+  color: #fe435b;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+.card.checkout-card .cart-summary .cart-summary-entry {
+  color: #555;
+}
+.card.checkout-card .cart-summary .price-subtotal {
+  color: #555;
+  font-weight: 500;
+}
+.card.checkout-card .cart-summary .price {
+  color: #fe435b;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.card.checkout-card .cart-summary .price.total {
+  font-size: 1.3rem;
+}
+.card.checkout-card .cart-summary .vat-included {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+.card.checkout-card .card-header {
+  background-color: #fff;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.card.checkout-card .card-header a.card-header-action {
+  color: #fe435b;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: ease-in-out color 0.3s;
+}
+.card.checkout-card .card-header a.card-header-action:hover {
+  color: #bd2130;
+}
+.card.checkout-card .btn {
+  font-size: 1.0714rem;
+}
+
+.checkout-page {
+  padding: 3rem 0;
+}

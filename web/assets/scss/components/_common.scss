@@ -10,6 +10,7 @@ Body and some general stuff
     text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
 }
 
+html,
 body {
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
@@ -33,9 +34,8 @@ ul {
 
 p {
     font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
+    font-size: 1rem;
     line-height: 2;
-    font-weight: 300;
     color: #7d8293;
     -webkit-font-smoothing: antialiased;
     -webkit-text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
@@ -204,4 +204,8 @@ section {
 
 .prlx {
     height: 130% !important;
+}
+
+.card {
+    border-radius: 0;
 }

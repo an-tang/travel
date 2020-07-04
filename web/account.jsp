@@ -15,6 +15,16 @@
     <!-- Menu -->
     <jsp:include page="components/menu.jsp" />
 
+    <section class="account-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="mb-4">Tài khoản</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <jsp:include page="components/footer.jsp" />
 </div>

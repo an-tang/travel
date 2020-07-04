@@ -1,0 +1,90 @@
+.card {
+    &.checkout-card {
+        h5.card-header-title {
+            font-size: 1.1429rem;
+            font-weight: $fontWeightMedium;
+            margin-bottom: 0;
+        }
+
+        h6.card-title {
+            font-weight: $fontWeightMedium;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            margin-bottom: 0;
+        }
+
+        .card-entry {
+            margin-bottom: 1.5rem;
+        }
+
+        .card-item-divider {
+            border-bottom: 1px solid $gray;
+        }
+
+        .order-item {
+            img {
+                width: 100%;
+            }
+
+            .order-product-link {
+                color: $mortar;
+            }
+
+            .price-small {
+                color: $lightCardinal;
+                font-weight: $fontWeightMedium;
+                margin-top: 0.25rem;
+            }
+        }
+
+        .cart-summary {
+            .cart-summary-entry {
+                color: $mortar;
+            }
+
+            .price-subtotal {
+                color: $mortar;
+                font-weight: $fontWeightMedium;
+            }
+
+            .price {
+                color: $lightCardinal;
+                font-size: 1.2rem;
+                font-weight: $fontWeightMedium;
+
+                &.total {
+                    font-size: 1.3rem;
+                }
+            }
+
+            .vat-included {
+                font-size: 0.9rem;
+                margin-bottom: 0;
+            }
+        }
+
+        .card-header {
+            background-color: $white;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+
+            a.card-header-action {
+                color: $lightCardinal;
+                font-size: 0.9rem;
+                font-weight: $fontWeightMedium;
+                text-decoration: none;
+                transition: ease-in-out color 0.3s;
+
+                &:hover {
+                    color: $cardinal;
+                }
+            }
+        }
+
+        .btn {
+            font-size: 1.0714rem;
+        }
+    }
+}

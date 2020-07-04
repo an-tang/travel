@@ -19,11 +19,11 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean isAuthenticated = SessionHelpers.validateSession(request);
         if (!isAuthenticated) {
+            // Prepare redirect URL for successful login
             String redirectParam = request.getParameter("redirect") != null
                     ? request.getParameter("redirect")
                     : "";
             String redirectUrl;
-
             switch (redirectParam) {
                 case "checkout":
                     redirectUrl = "/checkout";
@@ -78,7 +78,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession newSession = request.getSession(true);
                 newSession.setAttribute("authenticatedUser", username);
                 newSession.setAttribute("authenticatedName", userService.GetUserByUserName(username).getName());
-                newSession.setMaxInactiveInterval(5 * 60);
+                newSession.setMaxInactiveInterval(15 * 60); // Session lasts 15 minutes
 
                 ajaxResponse = new AjaxResponse(
                         true,

@@ -73,16 +73,16 @@
   font-size: 2rem;
   margin-bottom: 0.5em;
 }
-.post-content .tour-actions .btn {
-  font-size: 0.875rem;
-}
 .post-content .tour-price {
   color: #131a2f;
-  font-size: 1rem;
+  font-size: 1.2857rem;
   margin-bottom: 0;
 }
 .post-content .tour-price span {
+  color: #fe435b;
+  font-size: 1.5rem;
   font-weight: 500;
+  margin-left: 6px;
 }
 
 .external-tour-links a {

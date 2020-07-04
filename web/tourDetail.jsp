@@ -54,7 +54,7 @@
                         <!-- Price -->
                         <div class="d-flex align-items-center">
                             <div class="tour-price-wrapper flex-grow-1">
-                                <p class="tour-price mb-0">Giá: <span><%=String.format("%,d", tourInfo.getPrice())%></span></p>
+                                <p class="tour-price mb-0">Giá:<span><%=String.format("%,d", tourInfo.getPrice())%></span></p>
                             </div>
                             <div class="tour-actions">
                                 <button
@@ -83,13 +83,13 @@
                         <div class="card my-4">
                             <h5 class="card-header">Leave a Comment:</h5>
                             <div class="card-body">
-                                    <div class="form-group">
-                                        <input class="form-control" id="commentName" placeholder="Name">
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea class="form-control" rows="3" id="commentContent" placeholder="Content"></textarea>
-                                    </div>
-                                    <button onclick="submitComment()" class="btn btn-primary" type="button">Submit</button>
+                                <div class="form-group">
+                                    <input class="form-control" id="commentName" placeholder="Name">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="commentContent" placeholder="Content"></textarea>
+                                </div>
+                                <button class="btn btn-danger btn-accent" type="button">Submit</button>
                             </div>
                         </div>
 

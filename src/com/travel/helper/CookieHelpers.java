@@ -12,7 +12,7 @@ public class CookieHelpers {
         if (value == null) return null;
 
         Cookie cookie = new Cookie(name, value);
-        if (age > -1) {
+        if (age >= -1) {
             cookie.setMaxAge(age);
         }
         return cookie;

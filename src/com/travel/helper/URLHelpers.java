@@ -9,7 +9,7 @@ public class URLHelpers {
         if (keysAndValues.length == 0) return basePath;
 
         if (keysAndValues.length % 2 != 0)
-            throw new Exception("Keys and values are not fully paired");
+            throw new Exception("Keys and values are not paired");
 
         StringBuilder stringBuilder = new StringBuilder(basePath + "?");
         for (int i = 0; i < keysAndValues.length; i += 2) {

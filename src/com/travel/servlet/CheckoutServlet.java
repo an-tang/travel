@@ -15,7 +15,8 @@ import java.io.IOException;
 public class CheckoutServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (SessionHelpers.validateSession(request)) {
+        boolean isAuthenticated = SessionHelpers.validateSession(request);
+        if (isAuthenticated) {
             Cookie cookie = CookieHelpers.getExistingCookie(request, "checkoutTourId");
             if (cookie != null) {
                 request.setAttribute("checkoutTourId", cookie.getValue());

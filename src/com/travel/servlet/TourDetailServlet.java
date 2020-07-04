@@ -42,8 +42,8 @@ public class TourDetailServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AjaxResponse ajaxResponse;
-
-        if (SessionHelpers.validateSession(request)) {
+        boolean isAuthenticated = SessionHelpers.validateSession(request);
+        if (isAuthenticated) {
             ajaxResponse = new AjaxResponse(
                     true,
                     "Proceed to Checkout",
@@ -66,7 +66,6 @@ public class TourDetailServlet extends HttpServlet {
         }
 
         String checkoutTourId = request.getParameter("checkoutTourId");
-
         // Create a cookie that stores the tour ID before getting to Checkout
         if (checkoutTourId != null) {
             String cookieName = "checkoutTourId";
@@ -75,7 +74,8 @@ public class TourDetailServlet extends HttpServlet {
                 existingCookie.setValue(checkoutTourId);
                 response.addCookie(existingCookie);
             } else {
-                response.addCookie(CookieHelpers.createCookie(cookieName, checkoutTourId, 3 * 60));
+                // This cookie is session-lasting
+                response.addCookie(CookieHelpers.createCookie(cookieName, checkoutTourId, -1));
             }
         }
 

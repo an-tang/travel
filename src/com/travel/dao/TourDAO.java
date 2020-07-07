@@ -234,7 +234,7 @@ public class TourDAO extends BaseDAO {
                     + " WHERE a.id = ? AND t.id NOT IN("
                     + params
                     + ") AND ti.status = ? ORDER BY id ASC LIMIT ?";
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, areaID);
             preparedStatement.setInt(2, Status.ACTIVE.getValue());
             preparedStatement.setInt(3, limit);
@@ -313,6 +313,7 @@ public class TourDAO extends BaseDAO {
             preparedStatement.setString(1, tour.getName());
             preparedStatement.setString(2, tour.getImage());
             preparedStatement.setInt(3, tour.getProvinceID());
+            preparedStatement.executeUpdate();
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {

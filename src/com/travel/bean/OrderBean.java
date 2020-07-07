@@ -108,6 +108,15 @@ public class OrderBean implements Serializable {
         this.status = status;
     }
 
+    public OrderBean(String username, String phone, String address, int passenger, String description, int tourID) {
+        this.username = username;
+        this.phone = phone;
+        this.address = address;
+        this.passenger = passenger;
+        this.description = description;
+        this.tourID = tourID;
+    }
+
     @Override
     public String toString() {
         return "OrderBean{" +

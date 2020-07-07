@@ -18,33 +18,41 @@ public class OrderDAO extends BaseDAO {
         super();
     }
 
-    public boolean CreateOrder(OrderBean order) throws SQLException {
+    public int CreateOrder(OrderBean order) throws SQLException {
+        int id = 0;
         try {
             connection = DBConnection.getConnect();
-            String sql = "INSERT INTO orders (user_name, tour_id, phone, address, user_id, passenger, description, status, created_at, updated_at) "
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, now(), now())";
-            preparedStatement = connection.prepareStatement(sql);
+            String sql = "INSERT INTO orders (user_name, tour_id, phone, address, passenger, description, status, created_at, updated_at) "
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, now(), now())";
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, order.getUsername());
             preparedStatement.setInt(2, order.getTourID());
             preparedStatement.setString(3, order.getPhone());
             preparedStatement.setString(4, order.getAddress());
-            preparedStatement.setInt(5, order.getUserID());
-            preparedStatement.setInt(6, order.getPassenger());
-            preparedStatement.setString(7, order.getDescription());
-            preparedStatement.setInt(8, OrderStatus.NEW.getValue());
+            preparedStatement.setInt(5, order.getPassenger());
+            preparedStatement.setString(6, order.getDescription());
+            preparedStatement.setInt(7, OrderStatus.NEW.getValue());
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Creating order failed, no rows affected.");
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating tour failed, no ID obtained.");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return 0;
         } finally {
             BaseDAO.closeConnection(preparedStatement, connection);
         }
 
-        return true;
+        return id;
     }
 
     public ArrayList<OrderBean> GetAllOrders(int page, int perPage) {

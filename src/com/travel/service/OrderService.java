@@ -1,10 +1,21 @@
 package com.travel.service;
 
 import com.travel.bean.OrderBean;
+import com.travel.bean.TourInfoBean;
 import com.travel.dao.OrderDAO;
 import com.travel.enumerize.OrderStatus;
+import com.travel.enumerize.PaymentStatus;
+import com.travel.viewmodel.Checkout;
 import com.travel.viewmodel.OrderHistory;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,13 +26,13 @@ public class OrderService {
         orderDAO = new OrderDAO();
     }
 
-    public boolean CreateOrder(OrderBean orderBean) throws SQLException {
+    public int CreateOrder(OrderBean orderBean) throws SQLException {
         if (orderBean == null) {
-            return false;
+            return 0;
         }
         if (orderBean.getUsername() == null || orderBean.getPhone() == null || orderBean.getPassenger() <= 0 ||
                 orderBean.getTourID() <= 0 || orderBean.getAddress() == null) {
-            return false;
+            return 0;
         }
         return orderDAO.CreateOrder(orderBean);
     }
@@ -51,5 +62,60 @@ public class OrderService {
 
     public boolean CompletedOrder(int orderID) {
         return orderDAO.UpdateOrder(orderID, OrderStatus.COMPLETED);
+    }
+
+    public Checkout requestPayment(TourInfoBean tourInfo, OrderBean orderBean){
+        HttpURLConnection connection = null;
+        Checkout checkout = null;
+        int orderID = 0;
+        try {
+            orderID = orderDAO.CreateOrder(orderBean);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (orderID == 0){
+                return null;
+            }
+            //Create connection
+            URL url = new URL("http://localhost:8080/v1/payments");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            JSONObject request = new JSONObject();
+            request.put("transaction_id", String.valueOf(orderID));
+            request.put("tour_name", tourInfo.getTitle());
+            request.put("amount", tourInfo.getPrice());
+
+            connection.setUseCaches(false);
+            connection.setDoOutput(true);
+
+            //Send request
+            DataOutputStream wr = new DataOutputStream (
+                    connection.getOutputStream());
+            wr.writeBytes(request.toJSONString());
+            wr.close();
+
+            //Get Response
+            InputStream is = connection.getInputStream();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+            StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+            String line;
+            while ((line = rd.readLine()) != null) {
+                response.append(line);
+            }
+            JSONParser jsonParser = new JSONParser();
+            JSONObject result = (JSONObject)jsonParser.parse(response.toString());
+
+            checkout = new Checkout(result.get("qr_text").toString(), tourInfo.getTourID(), tourInfo.getPrice(),  tourInfo.getTitle(), PaymentStatus.NEW.getValue());
+            rd.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+        return checkout;
     }
 }

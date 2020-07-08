@@ -146,7 +146,7 @@ public class OrderDAO extends BaseDAO {
     public boolean UpdateOrder(int orderID, OrderStatus status){
         try {
             connection = DBConnection.getConnect();
-            String sql = "UPDATE users SET status = ?, updated_at = now() WHERE id = ?";
+            String sql = "UPDATE orders SET status = ?, updated_at = now() WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, status.getValue());
             preparedStatement.setInt(2, orderID);
@@ -163,5 +163,33 @@ public class OrderDAO extends BaseDAO {
         }
 
         return true;
+    }
+
+    public OrderBean GetOrderByID(int orderID){
+        OrderBean order = null;
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM orders WHERE id = ? ORDER BY ID ASC LIMIT 1";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, orderID);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                String username = rs.getString("user_name");
+                int tourID = rs.getInt("tour_id");
+                String address = rs.getString("address");
+                String phone = rs.getString("phone");
+                int userID = rs.getInt("user_id");
+                int passenger = rs.getInt("passenger");
+                String description = rs.getString("description");
+                int status = rs.getInt("status");
+
+                order = new OrderBean(orderID, username, tourID, phone, address, userID, passenger, description, status);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return order;
     }
 }

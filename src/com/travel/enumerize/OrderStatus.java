@@ -1,10 +1,11 @@
 package com.travel.enumerize;
 
 public enum OrderStatus {
-    NEW(0),
-    CONFIRMED(1),
-    COMPLETED(2),
-    REJECTED(3);
+    NEW(1),
+    PAID(2),
+    FAILED(3),
+    COMPLETED(4),
+    CANCELED(5);
 
     private final int orderStatus;
     OrderStatus(int value) { this.orderStatus = value; }

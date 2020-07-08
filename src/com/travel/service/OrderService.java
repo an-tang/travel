@@ -20,8 +20,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrderService {
+    int PAYMENT_STATUS_PAID = 3;
     OrderDAO orderDAO = null;
-
     public OrderService() throws Exception {
         orderDAO = new OrderDAO();
     }
@@ -52,19 +52,34 @@ public class OrderService {
         return orderDAO.GetOrderHistoryByUserName(userName);
     }
 
-    public boolean ApprovedOrder(int orderID) {
-        return orderDAO.UpdateOrder(orderID, OrderStatus.CONFIRMED);
-    }
+//    public boolean ApprovedOrder(int orderID) {
+//        return orderDAO.UpdateOrder(orderID, OrderStatus.CONFIRMED);
+//    }
 
-    public boolean RejectedOrder(int orderID) {
-        return orderDAO.UpdateOrder(orderID, OrderStatus.REJECTED);
+    public boolean CancelOrder(int orderID) {
+        return orderDAO.UpdateOrder(orderID, OrderStatus.CANCELED);
     }
 
     public boolean CompletedOrder(int orderID) {
         return orderDAO.UpdateOrder(orderID, OrderStatus.COMPLETED);
     }
 
-    public Checkout requestPayment(TourInfoBean tourInfo, OrderBean orderBean){
+    public void Callback(int orderID, int status) {
+        OrderBean loadOrder = orderDAO.GetOrderByID(orderID);
+        if (loadOrder == null){
+            System.out.println("Cannot found order" + orderID);
+            return;
+        }
+
+        OrderStatus orderStatus = status == PAYMENT_STATUS_PAID ? OrderStatus.PAID : OrderStatus.FAILED;
+        orderDAO.UpdateOrder(orderID, orderStatus);
+    }
+
+    public OrderBean GetOrderByID(int orderID){
+        return orderDAO.GetOrderByID(orderID);
+    }
+
+    public Checkout RequestPayment(TourInfoBean tourInfo, OrderBean orderBean){
         HttpURLConnection connection = null;
         Checkout checkout = null;
         int orderID = 0;
@@ -77,6 +92,7 @@ public class OrderService {
             if (orderID == 0){
                 return null;
             }
+            System.out.println(String.valueOf(orderID));
             //Create connection
             URL url = new URL("http://localhost:8080/v1/payments");
             connection = (HttpURLConnection) url.openConnection();

@@ -28,11 +28,23 @@ public class TourService {
         return tourDAO.GetAllTours(page, perPage);
     }
 
-    public ArrayList<TourBean> GetToursByName(String name, int page, int perPage) {
-        page = Math.max(page, 0);
-        perPage = perPage < 0 ? 10 : perPage;
+    public ArrayList<TourBean> GetToursByName(String name, String fieldName, String sortType, int start, int size) {
+        start = Math.max(start, 0);
+        size = size < 0 ? 10 : size;
+        fieldName = ((fieldName == null) || (fieldName == "")) ? "name" : fieldName;
+        sortType = ((sortType == null) || (sortType == "")) ? "ASC" : sortType;
         String keyword = name.replace(" ", "&");
-        return tourDAO.GetToursByName(keyword, page, perPage);
+
+        return tourDAO.GetToursByName(keyword, fieldName, sortType, start, size);
+    }
+
+    public ArrayList<TourBean> GetToursInProvinceByID(int provinceID, String fieldName, String sortType, int start, int size){
+        start = Math.max(start, 0);
+        size = size < 0 ? 10 : size;
+        fieldName = ((fieldName == null) || (fieldName == "")) ? "name" : fieldName;
+        sortType = ((sortType == null) || (sortType == "")) ? "ASC" : sortType;
+
+        return tourDAO.GetToursInProvinceByID(provinceID, fieldName, sortType, start, size);
     }
 
     public ArrayList<TourBean> GetToursInProviceByName(String name, int provinceID, int page, int perPage) {

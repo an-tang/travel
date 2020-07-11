@@ -23,7 +23,7 @@ public class OrderDAO extends BaseDAO {
         try {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO orders (user_name, tour_id, phone, address, passenger, description, status, created_at, updated_at) "
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, now(), now())";
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, now(), now());";
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, order.getUsername());
             preparedStatement.setInt(2, order.getTourID());
@@ -90,7 +90,7 @@ public class OrderDAO extends BaseDAO {
         ArrayList<OrderBean> listOrders = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM orders WHERE user_name = ?";
+            String sql = "SELECT * FROM orders WHERE user_name = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userName);
 
@@ -122,7 +122,7 @@ public class OrderDAO extends BaseDAO {
             connection = DBConnection.getConnect();
             String sql = "SELECT t.id, t.name, t.image, ti.price , o.created_at, o.passenger, o.user_name"
                     + " FROM orders o INNER JOIN tours t on o.tour_id = t.id"
-                    + " INNER JOIN tour_infos ti ON t.id = ti.tour_id WHERE user_name = ?";
+                    + " INNER JOIN tour_infos ti ON t.id = ti.tour_id WHERE user_name = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userName);
             ResultSet rs = preparedStatement.executeQuery();
@@ -146,7 +146,7 @@ public class OrderDAO extends BaseDAO {
     public boolean UpdateOrder(int orderID, OrderStatus status){
         try {
             connection = DBConnection.getConnect();
-            String sql = "UPDATE orders SET status = ?, updated_at = now() WHERE id = ?";
+            String sql = "UPDATE orders SET status = ?, updated_at = now() WHERE id = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, status.getValue());
             preparedStatement.setInt(2, orderID);
@@ -169,7 +169,7 @@ public class OrderDAO extends BaseDAO {
         OrderBean order = null;
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM orders WHERE id = ? ORDER BY ID ASC LIMIT 1";
+            String sql = "SELECT * FROM orders WHERE id = ? ORDER BY ID ASC LIMIT 1;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, orderID);
 

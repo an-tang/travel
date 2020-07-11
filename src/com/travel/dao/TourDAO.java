@@ -45,7 +45,7 @@ public class TourDAO extends BaseDAO {
         TourBean tourBean = null;
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM tours t INNER JOIN tour_infos ti ON t.id = ti.tour_id WHERE t.id = ?";
+            String sql = "SELECT * FROM tours t INNER JOIN tour_infos ti ON t.id = ti.tour_id WHERE t.id = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
@@ -65,24 +65,56 @@ public class TourDAO extends BaseDAO {
         return tourBean;
     }
 
-    public ArrayList<TourBean> GetToursByName(String name, int page, int perPage) {
+    public ArrayList<TourBean> GetToursByName(String name, String fieldName, String sortType, int start, int size) {
         ArrayList<TourBean> listTours = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM tours t INNER JOIN tour_infos ti ON t.id = ti.tour_id "
                     + " WHERE to_tsvector(convertnonunicode(name)) @@ to_tsquery(convertnonunicode(?))"
-                    + " AND ti.status = ? ORDER BY NAME ASC LIMIT ? OFFSET ?;";
+                    + " AND ti.status = ? ORDER BY ? ? LIMIT ? OFFSET ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, Status.ACTIVE.getValue());
-            preparedStatement.setInt(3, page * perPage + perPage);
-            preparedStatement.setInt(4, page * perPage);
+            preparedStatement.setString(3, fieldName);
+            preparedStatement.setString(4, sortType);
+            preparedStatement.setInt(5, size);
+            preparedStatement.setInt(6, start);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String tourName = rs.getString("name");
                 String image = rs.getString("image");
                 int provinceID = rs.getInt("province_id");
+                long price = rs.getLong("price");
+                listTours.add(new TourBean(id, tourName, image, provinceID, price));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+        return listTours;
+    }
+
+
+    public ArrayList<TourBean> GetToursInProvinceByID(int provinceID, String fieldName, String sortType, int start, int size) {
+        ArrayList<TourBean> listTours = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM tours t INNER JOIN tour_infos ti ON t.id = ti.tour_id "
+                    + " WHERE t.province_id = ? AND ti.status = ? ORDER BY ? ? LIMIT ? OFFSET ?;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, provinceID);
+            preparedStatement.setInt(2, Status.ACTIVE.getValue());
+            preparedStatement.setString(3, fieldName);
+            preparedStatement.setString(4, sortType);
+            preparedStatement.setInt(5, size);
+            preparedStatement.setInt(6, start);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String tourName = rs.getString("name");
+                String image = rs.getString("image");
                 long price = rs.getLong("price");
                 listTours.add(new TourBean(id, tourName, image, provinceID, price));
             }
@@ -173,7 +205,7 @@ public class TourDAO extends BaseDAO {
                     + " LIMIT ?"
                     + " ) AS tem INNER JOIN tours ON tem.id = tours.id"
                     + " INNER JOIN tour_infos ti ON tours.id = ti.tour_id"
-                    + " WHERE ti.status = ? ORDER BY c desc";
+                    + " WHERE ti.status = ? ORDER BY c DESC;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, limit);
             preparedStatement.setInt(2, Status.ACTIVE.getValue());
@@ -233,7 +265,7 @@ public class TourDAO extends BaseDAO {
                     + " INNER JOIN tour_infos ti ON t.id = ti.tour_id"
                     + " WHERE a.id = ? AND t.id NOT IN("
                     + params
-                    + ") AND ti.status = ? ORDER BY id ASC LIMIT ?";
+                    + ") AND ti.status = ? ORDER BY id ASC LIMIT ?;";
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, areaID);
             preparedStatement.setInt(2, Status.ACTIVE.getValue());
@@ -260,7 +292,7 @@ public class TourDAO extends BaseDAO {
     public boolean DeactivateTour(int tourID) {
         try {
             connection = DBConnection.getConnect();
-            String sql = "UPDATE tour_infos SET status = ?, updated_at = now() WHERE id = ?";
+            String sql = "UPDATE tour_infos SET status = ?, updated_at = now() WHERE id = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, Status.DEACTIVE.getValue());
             preparedStatement.setInt(2, tourID);
@@ -308,7 +340,7 @@ public class TourDAO extends BaseDAO {
         int id = 0;
         try {
             connection = DBConnection.getConnect();
-            String sql = "INSERT INTO tours (name, image, province_id, created_at, updated_at) VALUES (?, ?, ?, now(), now())";
+            String sql = "INSERT INTO tours (name, image, province_id, created_at, updated_at) VALUES (?, ?, ?, now(), now());";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, tour.getName());
             preparedStatement.setString(2, tour.getImage());
@@ -324,7 +356,7 @@ public class TourDAO extends BaseDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return -1;
+            return 0;
         } finally {
             BaseDAO.closeConnection(preparedStatement, connection);
         }

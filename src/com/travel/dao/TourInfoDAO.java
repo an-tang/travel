@@ -26,7 +26,7 @@ public class TourInfoDAO extends BaseDAO {
         try {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO tour_infos (title, detail, price, status, tour_id, created_at, updated_at)"
-                   + " VALUES (?, ?, ?, ?, ?, now(), now())";
+                   + " VALUES (?, ?, ?, ?, ?, now(), now();)";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, tourInfo.getTitle());
             preparedStatement.setString(2, tourInfo.getDetail());
@@ -55,7 +55,7 @@ public class TourInfoDAO extends BaseDAO {
         TourInfoBean tourInfo = null;
         try {
             this.connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM tour_infos WHERE tour_id = ? AND status = ?";
+            String sql = "SELECT * FROM tour_infos WHERE tour_id = ? AND status = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, tourID);
             preparedStatement.setInt(2, Status.ACTIVE.getValue());

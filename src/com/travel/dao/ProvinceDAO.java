@@ -41,7 +41,7 @@ public class ProvinceDAO extends BaseDAO {
         ProvinceBean province = null;
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM provinces WHERE id = ?";
+            String sql = "SELECT * FROM provinces WHERE id = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
 
@@ -64,7 +64,7 @@ public class ProvinceDAO extends BaseDAO {
         ArrayList<ProvinceBean> listProvinces = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM provinces WHERE area_id = ?";
+            String sql = "SELECT * FROM provinces WHERE area_id = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, areaID);
             ResultSet rs = preparedStatement.executeQuery();

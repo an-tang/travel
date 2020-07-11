@@ -127,7 +127,7 @@ public class UserDAO extends BaseDAO {
     public boolean DeactivateUser(int userID) {
         try {
             connection = DBConnection.getConnect();
-            String sql = "UPDATE users SET status = ?, updated_at = now() WHERE id = ?";
+            String sql = "UPDATE users SET status = ?, updated_at = now() WHERE id = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, Status.DEACTIVE.getValue());
             preparedStatement.setInt(2, userID);

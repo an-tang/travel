@@ -49,7 +49,7 @@ public class FeedbackDAO extends BaseDAO {
         ArrayList<FeedbackBean> feedback = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM feedbacks ORDER BY status DESC, created_at DESC LIMIT ? OFFSET";
+            String sql = "SELECT * FROM feedbacks ORDER BY status DESC, created_at DESC LIMIT ? OFFSET ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, page * perPage + perPage);
             preparedStatement.setInt(2, page * perPage);

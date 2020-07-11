@@ -38,7 +38,7 @@ public class ImageDAO extends BaseDAO{
         ArrayList<ImageBean> listImages = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM images WHERE tour_info_id = ?";
+            String sql = "SELECT * FROM images WHERE tour_info_id = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, tourInfoID);
             ResultSet rs = preparedStatement.executeQuery();

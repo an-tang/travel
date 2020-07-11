@@ -22,7 +22,7 @@ public class HomeProvinceDAO extends BaseDAO {
         ArrayList<HomeProvinceBean> provinces = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM home_provinces ORDER BY province_id ASC LIMIT ?";
+            String sql = "SELECT * FROM home_provinces ORDER BY province_id ASC LIMIT ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, limit);
             ResultSet rs = preparedStatement.executeQuery();

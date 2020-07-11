@@ -48,7 +48,7 @@ public class CommentDAO extends BaseDAO {
         ArrayList<CommentBean> comments = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM comments ORDER BY CREATED_AT DESC LIMIT ? OFFSET";
+            String sql = "SELECT * FROM comments ORDER BY CREATED_AT DESC LIMIT ? OFFSET ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, page * perPage + perPage);
             preparedStatement.setInt(2, page * perPage);
@@ -71,11 +71,38 @@ public class CommentDAO extends BaseDAO {
         return comments;
     }
 
+    public ArrayList<CommentBean> GetCommentsByTourInfoID(int tourInfoID, int start, int size) {
+        ArrayList<CommentBean> comments = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM comments WHERE tour_info_id = ? ORDER BY CREATED_AT DESC LIMIT ? OFFSET ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, tourInfoID);
+            preparedStatement.setInt(2, size);
+            preparedStatement.setInt(3, start);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String userName = rs.getString("user_name");
+                String content = rs.getString("content");
+                int status = rs.getInt("status");
+                comments.add(new CommentBean(id, userName, content, tourInfoID, status));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return comments;
+    }
+
     public ArrayList<CommentBean> GetActiveComments(int page, int perPage) {
         ArrayList<CommentBean> comments = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM comments WHERE status = ? ORDER BY CREATED_AT DESC LIMIT ? OFFSET";
+            String sql = "SELECT * FROM comments WHERE status = ? ORDER BY CREATED_AT DESC LIMIT ? OFFSET ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, Status.DEACTIVE.getValue());
             preparedStatement.setInt(2, page * perPage + perPage);

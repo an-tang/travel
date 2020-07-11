@@ -33,7 +33,11 @@
                     <h2 class="mb-4">Đặt tour</h2>
                 </div>
             </div>
-            <div class="row">
+            <form
+                    class="checkout row"
+                    method="post"
+                    action="/checkout"
+                    data-request-error="Request to server unexpectedly failed. Please try again later.">
                 <div class="col-md-7">
                     <div class="card checkout-card mb-4">
                         <div class="card-header">
@@ -56,13 +60,15 @@
                                     <h6 class="card-title">Email</h6>
                                     <p class="card-text"><%=customer.getEmail()%></p>
                                 </div>
-                                <form>
-                                    <div class="form-group mb-0">
-                                        <h6 class="card-title mb-3">Ghi chú</h6>
-                                        <textarea name="message" class="form-control form-message"
-                                            placeholder="Nhập ghi chú (nếu có)"></textarea>
-                                    </div>
-                                </form>
+                                <div class="card-entry form-group mb-0">
+                                    <h6 class="card-title mb-3">Ghi chú</h6>
+                                    <textarea
+                                            name="description"
+                                            class="form-control"
+                                            placeholder="Nhập ghi chú (nếu có)"
+                                            maxlength="150"
+                                            data-range-error="Tối đa 150 ký tự"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -81,15 +87,20 @@
                                 </div>
                                 <div class="card-entry mb-0">
                                     <h6 class="card-title">Hình thức thanh toán</h6>
-                                    <form>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment"
-                                                   id="momoWallet" value="0" checked>
-                                            <label class="form-check-label" for="momoWallet">
-                                                Thanh toán qua ví điện tử MoMo
-                                            </label>
-                                        </div>
-                                    </form>
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="radio" name="payment"
+                                               id="momoWallet" value="0" checked>
+                                        <label class="form-check-label" for="momoWallet">
+                                            Thanh toán qua ví điện tử MoMo
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="radio" name="payment"
+                                               id="bankTransfer" value="1">
+                                        <label class="form-check-label" for="bankTransfer">
+                                            Chuyển khoản ngân hàng
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +122,18 @@
                                         <c:param name="id" value="${checkoutTourInfo.getTourID()}"/>
                                     </c:url>
                                     <a href="${tourUrl}" class="order-product-link"><%=checkoutTourInfo.getTitle()%></a>
-                                    <p class="card-text price-small"><%=String.format("%,d", checkoutTourInfo.getPrice())%></p>
+                                    <p class="card-text price-small"
+                                       data-price="<%=checkoutTourInfo.getPrice()%>"><%=String.format("%,d", checkoutTourInfo.getPrice())%></p>
+                                    <div class="form-group mb-0">
+                                        <label class="form-control-label mr-2" for="quantity">Số người:</label>
+                                        <input id="quantity"
+                                               class="text-center"
+                                               name="qty" type="number"
+                                               value="1"
+                                               min="1" max="10"
+                                               required data-missing-error="Vui lòng nhập số lượng hành khách">
+                                        <div class="invalid-msg"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +141,8 @@
                             <div class="cart-summary">
                                 <div class="d-flex mb-2">
                                     <p class="card-text cart-summary-entry">Tạm tính:</p>
-                                    <p class="card-text price-subtotal flex-grow-1 text-right"><%=String.format("%,d", checkoutTourInfo.getPrice())%></p>
+                                    <p class="card-text price-subtotal flex-grow-1 text-right"
+                                       data-price="<%=checkoutTourInfo.getPrice()%>"><%=String.format("%,d", checkoutTourInfo.getPrice())%></p>
                                 </div>
                                 <div class="d-flex card-item-divider pb-3 mb-3">
                                     <p class="card-text cart-summary-entry">Giảm giá:</p>
@@ -127,17 +150,18 @@
                                 </div>
                                 <div class="d-flex">
                                     <p class="card-text cart-summary-entry">Thành tiền:</p>
-                                    <p class="card-text price total flex-grow-1 text-right"><%=String.format("%,d", checkoutTourInfo.getPrice())%></p>
+                                    <p class="card-text price total flex-grow-1 text-right"
+                                       data-price="<%=checkoutTourInfo.getPrice()%>"><%=String.format("%,d", checkoutTourInfo.getPrice())%></p>
                                 </div>
                                 <p class="vat-included text-right">(Đã bao gồm VAT)</p>
                             </div>
                             <div class="d-flex justify-content-center mt-4">
-                                <a href="#" class="btn btn-danger btn-accent col-6 col-xl-4">Đặt tour</a>
+                                <button type="submit" class="btn btn-danger btn-accent col-6 col-xl-4">Đặt tour</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 

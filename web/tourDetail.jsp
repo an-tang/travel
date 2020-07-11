@@ -54,7 +54,7 @@
                         <!-- Price -->
                         <div class="d-flex align-items-center">
                             <div class="tour-price-wrapper flex-grow-1">
-                                <p class="tour-price mb-0">Giá:<span><%=String.format("%,d", tourInfo.getPrice())%></span></p>
+                                <p class="tour-price mb-0">Giá:<span><%=String.format("%,d", tourInfo.getPrice())%></span>/người</p>
                             </div>
                             <div class="tour-actions">
                                 <button

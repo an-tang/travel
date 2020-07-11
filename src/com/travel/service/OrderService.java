@@ -10,17 +10,14 @@ import com.travel.viewmodel.OrderHistory;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrderService {
-    int PAYMENT_STATUS_PAID = 3;
     OrderDAO orderDAO = null;
     public OrderService() throws Exception {
         orderDAO = new OrderDAO();
@@ -71,7 +68,7 @@ public class OrderService {
             return;
         }
 
-        OrderStatus orderStatus = status == PAYMENT_STATUS_PAID ? OrderStatus.PAID : OrderStatus.FAILED;
+        OrderStatus orderStatus = status == PaymentStatus.PAID.getValue() ? OrderStatus.PAID : OrderStatus.FAILED;
         orderDAO.UpdateOrder(orderID, orderStatus);
     }
 
@@ -94,23 +91,23 @@ public class OrderService {
             }
             System.out.println(String.valueOf(orderID));
             //Create connection
-            URL url = new URL("http://localhost:8080/v1/payments");
+            URL url = new URL("https://630efc75676c.ngrok.io/v1/payments");
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
+            connection.setUseCaches(false);
+            connection.setDoOutput(true);
+
             JSONObject request = new JSONObject();
             request.put("transaction_id", String.valueOf(orderID));
             request.put("tour_name", tourInfo.getTitle());
             request.put("amount", tourInfo.getPrice());
 
-            connection.setUseCaches(false);
-            connection.setDoOutput(true);
-
             //Send request
-            DataOutputStream wr = new DataOutputStream (
-                    connection.getOutputStream());
-            wr.writeBytes(request.toJSONString());
-            wr.close();
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8);
+            writer.write(request.toJSONString());
+            writer.flush();
+            writer.close();
 
             //Get Response
             InputStream is = connection.getInputStream();
@@ -123,7 +120,13 @@ public class OrderService {
             JSONParser jsonParser = new JSONParser();
             JSONObject result = (JSONObject)jsonParser.parse(response.toString());
 
-            checkout = new Checkout(result.get("qr_text").toString(), tourInfo.getTourID(), tourInfo.getPrice(),  tourInfo.getTitle(), PaymentStatus.NEW.getValue());
+            checkout = new Checkout(
+                    result.get("qr_text").toString(),
+                    tourInfo.getTourID(),
+                    tourInfo.getPrice(),
+                    tourInfo.getTitle(),
+                    PaymentStatus.NEW.getValue()
+            );
             rd.close();
         } catch (Exception e) {
             e.printStackTrace();

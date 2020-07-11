@@ -3,9 +3,11 @@ package com.travel.ajax;
 import org.json.simple.JSONObject;
 
 public class AjaxResponse {
-    private boolean success;
-    private String message;
-    private String redirectUrl;
+    protected boolean success;
+    protected String message;
+    protected String redirectUrl;
+
+    public AjaxResponse() { }
 
     public AjaxResponse(boolean success, String message, String redirectUrl) {
         this.success = success;

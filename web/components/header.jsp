@@ -6,7 +6,6 @@
     boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
     String authenticatedName = (String) currentSession.getAttribute("authenticatedName");
     String authenticatedUser = (String) currentSession.getAttribute("authenticatedUser");
-
     String loginReplacementURL = (String) request.getAttribute("loginReplacementURL");
 %>
 <header class="header">

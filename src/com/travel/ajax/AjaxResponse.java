@@ -7,7 +7,11 @@ public class AjaxResponse {
     protected String message;
     protected String redirectUrl;
 
-    public AjaxResponse() { }
+    public AjaxResponse() {
+        this.success = false;
+        this.message = null;
+        this.redirectUrl = null;
+    }
 
     public AjaxResponse(boolean success, String message, String redirectUrl) {
         this.success = success;
@@ -39,11 +43,17 @@ public class AjaxResponse {
         this.redirectUrl = redirectUrl;
     }
 
+    public boolean isEmpty() {
+        return !this.success && this.message == null && this.redirectUrl == null;
+    }
+
     public JSONObject toJSONObject() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("success", this.success);
-        jsonObject.put("message", this.message);
-        jsonObject.put("redirectUrl", this.redirectUrl);
+        if (!this.isEmpty()) {
+            jsonObject.put("success", this.success);
+            jsonObject.put("message", this.message);
+            jsonObject.put("redirectUrl", this.redirectUrl);
+        }
         return jsonObject;
     }
 

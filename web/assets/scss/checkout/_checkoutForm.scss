@@ -1,0 +1,11 @@
+form.checkout {
+    .quantity-form-group {
+        position: relative;
+
+        .invalid-msg {
+            position: absolute;
+            bottom: 0;
+            transform: translateY(110%);
+        }
+    }
+}

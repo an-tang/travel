@@ -1,6 +1,7 @@
+<%@ page import="com.travel.bean.TourBean" %>
 <%@ page import="com.travel.bean.TourInfoBean" %>
 <%@ page import="com.travel.bean.UserBean" %>
-<%@ page import="com.travel.bean.TourBean" %>
+<%@ page import="com.travel.helper.CustomStringFormatter" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -48,26 +49,69 @@
                         </div>
                         <div class="card-body">
                             <div class="delivery-info">
-                                <div class="card-entry">
-                                    <h6 class="card-title">Tên</h6>
-                                    <p class="card-text"><%=customer.getName()%></p>
-                                </div>
-                                <div class="card-entry">
-                                    <h6 class="card-title">Số điện thoại</h6>
-                                    <p class="card-text"><%=customer.getPhone()%></p>
-                                </div>
-                                <div class="card-entry">
-                                    <h6 class="card-title">Email</h6>
-                                    <p class="card-text"><%=customer.getEmail()%></p>
-                                </div>
-                                <div class="card-entry form-group mb-0">
-                                    <h6 class="card-title mb-3">Ghi chú</h6>
-                                    <textarea
-                                            name="description"
+                                <div class="form-group required">
+                                    <label class="form-control-label" for="customerName">Họ tên</label>
+                                    <input
+                                            readonly
+                                            type="text"
+                                            id="customerName"
                                             class="form-control"
+                                            name="customer_name"
+                                            required
+                                            data-missing-error="Vui lòng nhập họ tên"
+                                            value="<%=customer.getName()%>">
+                                    <div class="invalid-msg"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="customerEmail">Email</label>
+                                    <input
+                                            readonly
+                                            type="email"
+                                            id="customerEmail"
+                                            class="form-control"
+                                            name="customer_email"
+                                            pattern="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$"
+                                            data-pattern-mismatch="Vui lòng sử dụng email hợp lệ"
+                                            value="<%=customer.getEmail()%>">
+                                    <div class="invalid-msg"></div>
+                                </div>
+
+                                <div class="form-group required">
+                                    <label class="form-control-label" for="customerPhone">Số điện thoại</label>
+                                    <input
+                                            type="text"
+                                            id="customerPhone"
+                                            class="form-control"
+                                            name="customer_phone"
+                                            required
+                                            data-missing-error="Vui lòng nhập số điện thoại"
+                                            value="<%=customer.getPhone()%>">
+                                    <div class="invalid-msg"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="customerAddress">Địa chỉ</label>
+                                    <input
+                                            type="text"
+                                            id="customerAddress"
+                                            class="form-control"
+                                            name="customer_address"
+                                            maxlength="50"
+                                            data-range-error="Tối đa 50 ký tự">
+                                    <div class="invalid-msg"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="customerDescription">Ghi chú</label>
+                                    <textarea
+                                            id="customerDescription"
+                                            class="form-control"
+                                            name="customer_description"
                                             placeholder="Nhập ghi chú (nếu có)"
                                             maxlength="150"
                                             data-range-error="Tối đa 150 ký tự"></textarea>
+                                    <div class="invalid-msg"></div>
                                 </div>
                             </div>
                         </div>
@@ -114,25 +158,36 @@
                         </div>
                         <div class="card-body">
                             <div class="order-item row">
+                                <c:url var="tourUrl" value="/tour">
+                                    <c:param name="id" value="${checkoutTourInfo.getTourID()}"/>
+                                </c:url>
+
                                 <div class="col-5 pr-0">
-                                    <img src="<%=checkoutTour.getImage()%>" alt="">
+                                    <a href="${tourUrl}">
+                                        <img src="<%=checkoutTour.getImage()%>" alt="">
+                                    </a>
                                 </div>
                                 <div class="col-7">
-                                    <c:url var="tourUrl" value="/tour">
-                                        <c:param name="id" value="${checkoutTourInfo.getTourID()}"/>
-                                    </c:url>
                                     <a href="${tourUrl}" class="order-product-link"><%=checkoutTourInfo.getTitle()%></a>
                                     <p class="card-text price-small"
-                                       data-price="<%=checkoutTourInfo.getPrice()%>"><%=String.format("%,d", checkoutTourInfo.getPrice())%></p>
-                                    <div class="form-group mb-0">
-                                        <label class="form-control-label mr-2" for="quantity">Số người:</label>
-                                        <input id="quantity"
-                                               class="text-center"
-                                               name="qty" type="number"
-                                               value="1"
-                                               min="1" max="10"
-                                               required data-missing-error="Vui lòng nhập số lượng hành khách">
-                                        <div class="invalid-msg"></div>
+                                       data-price="<%=checkoutTourInfo.getPrice()%>"><%=CustomStringFormatter.getFormattedPrice(checkoutTourInfo.getPrice(), "đ")%></p>
+                                    <div class="form-group quantity-form-group form-row required">
+                                        <div class="col d-flex align-items-center">
+                                            <label class="form-control-label mb-0" for="quantity">Số người:</label>
+                                        </div>
+                                        <div class="col">
+                                            <input
+                                                    type="number"
+                                                    id="quantity"
+                                                    class="form-control text-center"
+                                                    name="qty"
+                                                    required
+                                                    min="1" max="10"
+                                                    data-missing-error="Vui lòng nhập số lượng hành khách"
+                                                    data-range-error="Số lượng hành khách tối thiểu 1 và tối đa 10"
+                                                    value="1">
+                                            <div class="invalid-msg"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -141,17 +196,18 @@
                             <div class="cart-summary">
                                 <div class="d-flex mb-2">
                                     <p class="card-text cart-summary-entry">Tạm tính:</p>
-                                    <p class="card-text price-subtotal flex-grow-1 text-right"
-                                       data-price="<%=checkoutTourInfo.getPrice()%>"><%=String.format("%,d", checkoutTourInfo.getPrice())%></p>
+                                    <p id="subtotalPrice" class="card-text price-subtotal flex-grow-1 text-right"
+                                       data-price="<%=checkoutTourInfo.getPrice()%>"><%=CustomStringFormatter.getFormattedPrice(checkoutTourInfo.getPrice(), "đ")%></p>
                                 </div>
                                 <div class="d-flex card-item-divider pb-3 mb-3">
                                     <p class="card-text cart-summary-entry">Giảm giá:</p>
-                                    <p class="card-text price-subtotal flex-grow-1 text-right">0đ</p>
+                                    <p id="discountAmount" class="card-text price-subtotal flex-grow-1 text-right"
+                                        data-discount="0"><%=CustomStringFormatter.getFormattedPrice(0, "đ")%></p>
                                 </div>
                                 <div class="d-flex">
                                     <p class="card-text cart-summary-entry">Thành tiền:</p>
-                                    <p class="card-text price total flex-grow-1 text-right"
-                                       data-price="<%=checkoutTourInfo.getPrice()%>"><%=String.format("%,d", checkoutTourInfo.getPrice())%></p>
+                                    <p id="totalPrice" class="card-text price total flex-grow-1 text-right"
+                                       data-price="<%=checkoutTourInfo.getPrice()%>"><%=CustomStringFormatter.getFormattedPrice(checkoutTourInfo.getPrice(), "đ")%></p>
                                 </div>
                                 <p class="vat-included text-right">(Đã bao gồm VAT)</p>
                             </div>

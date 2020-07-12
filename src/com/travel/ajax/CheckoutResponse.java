@@ -6,6 +6,11 @@ import org.json.simple.JSONObject;
 public class CheckoutResponse extends AjaxResponse {
     private Checkout checkout;
 
+    public CheckoutResponse() {
+        super(false, null, null);
+        this.checkout = null;
+    }
+
     public CheckoutResponse(boolean success, String message, String redirectUrl, Checkout checkout) {
         super(success, message, redirectUrl);
         this.checkout = checkout;
@@ -20,16 +25,22 @@ public class CheckoutResponse extends AjaxResponse {
     }
 
     @Override
-    public JSONObject toJSONObject() {
-        JSONObject checkoutJSONObject = new JSONObject();
-        checkoutJSONObject.put("qrText", this.checkout.getQrText());
-        checkoutJSONObject.put("tourID", this.checkout.getTourID());
-        checkoutJSONObject.put("amount", this.checkout.getAmount());
-        checkoutJSONObject.put("tourName", this.checkout.getTourName());
-        checkoutJSONObject.put("status", this.checkout.getStatus());
+    public boolean isEmpty() {
+        return super.isEmpty() && this.checkout == null;
+    }
 
+    @Override
+    public JSONObject toJSONObject() {
         JSONObject jsonObject = super.toJSONObject();
-        jsonObject.put("checkout", checkoutJSONObject);
+        if (!this.isEmpty()) {
+            JSONObject checkoutJSONObject = new JSONObject();
+            checkoutJSONObject.put("qrText", this.checkout.getQrText());
+            checkoutJSONObject.put("tourID", this.checkout.getTourID());
+            checkoutJSONObject.put("amount", this.checkout.getAmount());
+            checkoutJSONObject.put("tourName", this.checkout.getTourName());
+            checkoutJSONObject.put("status", this.checkout.getStatus());
+            jsonObject.put("checkout", checkoutJSONObject);
+        }
         return jsonObject;
     }
 }

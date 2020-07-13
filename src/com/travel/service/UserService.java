@@ -2,6 +2,7 @@ package com.travel.service;
 
 import com.travel.bean.UserBean;
 import com.travel.dao.UserDAO;
+import com.travel.enumerize.Role;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
@@ -69,5 +70,14 @@ public class UserService {
             return false;
         }
         return userDAO.DeactivateUser(userID);
+    }
+
+    public boolean IsAdmin(String username){
+        int role = userDAO.GetUserRole(username);
+        if (role == Role.ADMIN.getValue()){
+            return true;
+        }
+
+        return false;
     }
 }

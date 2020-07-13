@@ -75,3 +75,6 @@ VALUES
 
 UPDATE home_provinces
 set created_at = NOW(), updated_at = NOW()
+
+==== Update role_id
+ALTER TABLE user_roles ALTER COLUMN role_id TYPE integer USING (role_id::integer);

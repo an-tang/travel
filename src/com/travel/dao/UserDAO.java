@@ -146,6 +146,28 @@ public class UserDAO extends BaseDAO {
         return true;
     }
 
+    public int GetUserRole(String username){
+        int role = -1;
+        try{
+            connection = DBConnection.getConnect();
+            String sql = "SELECT r.id FROM users u INNER JOIN user_roles ur ON u.id = ur.user_id" +
+                    " INNER JOIN roles r ON ur.role_id = r.id" +
+                    " WHERE user_name = ? LIMIT 1;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+
+            ResultSet rs  = preparedStatement.executeQuery();
+            while(rs.next()){
+                role = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+
+        return role;
+    }
+
     private void createUserRole(int type, int id) throws SQLException {
         String sql = "INSERT INTO user_roles (user_id, role_id, created_at, updated_at) VALUES " + "( ?, ?, now(), now());";
         preparedStatement = connection.prepareStatement(sql);

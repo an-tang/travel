@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.travel.bean.HomeProvinceBean" %>
 <%@ page import="com.travel.bean.TourBean" %>
+<%@ page import="com.travel.helper.CustomStringFormatter" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -73,7 +74,7 @@
                                             </div>
                                             <div class="top_item_content">
                                                 <div class="top_item_title">${tour.getName()}</div>
-                                                <div class="top_item_price">${String.format("%,d", tour.getPrice())} đ</div>
+                                                <div class="top_item_price">${CustomStringFormatter.getFormattedPrice(tour.getPrice(), "đ")}</div>
                                             </div>
                                         </a>
                                     </div>
@@ -101,7 +102,7 @@
                                             </div>
                                             <div class="top_item_content">
                                                 <div class="top_item_title">${tour.getName()}</div>
-                                                <div class="top_item_price">${String.format("%,d", tour.getPrice())} đ</div>
+                                                <div class="top_item_price">${CustomStringFormatter.getFormattedPrice(tour.getPrice(), "đ")}</div>
                                             </div>
                                         </a>
                                     </div>
@@ -129,7 +130,7 @@
                                             </div>
                                             <div class="top_item_content">
                                                 <div class="top_item_title">${tour.getName()}</div>
-                                                <div class="top_item_price">${String.format("%,d", tour.getPrice())} đ</div>
+                                                <div class="top_item_price">${CustomStringFormatter.getFormattedPrice(tour.getPrice(), "đ")}</div>
                                             </div>
                                         </a>
                                     </div>
@@ -168,7 +169,7 @@
                                         </div>
                                         <div class="popular_item_content">
                                             <div class="popular_item_title">${tour.getName()}</div>
-                                            <div class="top_item_price">${String.format("%,d", tour.getPrice())} đ</div>
+                                            <div class="top_item_price">${CustomStringFormatter.getFormattedPrice(tour.getPrice(), "đ")}</div>
                                         </div>
                                     </a>
                                 </div>

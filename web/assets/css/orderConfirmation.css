@@ -1,0 +1,12 @@
+header.header.scrolled {
+  position: static;
+}
+
+.section-thank-you {
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+}
+
+.section-suggestions {
+  padding-bottom: 4rem;
+}

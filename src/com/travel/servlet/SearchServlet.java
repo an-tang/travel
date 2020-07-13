@@ -22,7 +22,7 @@ public class SearchServlet extends HttpServlet {
 
         try {
             TourService tourService = new TourService();
-            searchResult = tourService.GetToursByName(searchTerm, 0, 8);
+            searchResult = tourService.GetToursByName(searchTerm, "title", "ASC", 0, 8);
             loginRedirectURL = URLHelpers.buildUrlQuery("/login", "redirect", "search", "q", searchTerm);
         } catch (Exception e) {
             e.printStackTrace();

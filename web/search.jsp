@@ -1,4 +1,5 @@
 <%@ page import="com.travel.bean.TourBean" %>
+<%@ page import="com.travel.helper.CustomStringFormatter" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -128,7 +129,7 @@
                                 </div>
                                 <div class="item_content">
                                     <div class="item_title">${tour.getName()}</div>
-                                    <div class="item_price">${String.format("%,d", tour.getPrice())} đ</div>
+                                    <div class="item_price">${CustomStringFormatter.getFormattedPrice(tour.getPrice(), "đ")}</div>
                                     <div class="rating rating_5 d-block" data-rating="5">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.travel.bean.TourInfoBean" %>
+<%@ page import="com.travel.helper.CustomStringFormatter" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     TourInfoBean tourInfo = (TourInfoBean) request.getAttribute("tourInfo");
@@ -54,7 +55,7 @@
                         <!-- Price -->
                         <div class="d-flex align-items-center">
                             <div class="tour-price-wrapper flex-grow-1">
-                                <p class="tour-price mb-0">Giá:<span><%=String.format("%,d", tourInfo.getPrice())%></span>/người</p>
+                                <p class="tour-price mb-0">Giá:<span><%=CustomStringFormatter.getFormattedPrice(tourInfo.getPrice(), "đ")%></span> / người</p>
                             </div>
                             <div class="tour-actions">
                                 <button
@@ -100,7 +101,7 @@
                     <!-- Sidebar Widgets Column -->
                     <div class="external-tour-links col-md-4">
                         <div class="card mb-4">
-                            <h5 class="card-header">Một số website tour du lịch</h5>
+                            <h5 class="card-header">Một số đơn vị tổ chức tour du lịch</h5>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-6">

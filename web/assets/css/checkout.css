@@ -21,6 +21,7 @@ header.header.scrolled {
   border-bottom: 1px solid #dfdfdf;
 }
 .card.checkout-card .order-item img {
+  display: block;
   width: 100%;
 }
 .card.checkout-card .order-item .order-product-link {
@@ -67,6 +68,20 @@ header.header.scrolled {
 }
 .card.checkout-card .btn {
   font-size: 1.0714rem;
+}
+
+form.checkout .quantity-form-group {
+  position: relative;
+}
+form.checkout .quantity-form-group .invalid-msg {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(110%);
+}
+
+.modal .modal-total-price {
+  color: #fe435b;
+  font-weight: 500;
 }
 
 .checkout-page {

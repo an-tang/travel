@@ -1,0 +1,15 @@
+@import '../vendor/bootstrap/scss/functions';
+@import '../vendor/bootstrap/scss/mixins';
+@import 'utilities/variables';
+@import 'utilities/mixins';
+
+@import 'orderConfirmation/orderConfirmationHeader';
+
+.section-thank-you {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+}
+
+.section-suggestions {
+    padding-bottom: 4rem;
+}

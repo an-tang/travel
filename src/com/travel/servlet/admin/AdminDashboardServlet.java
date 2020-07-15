@@ -1,4 +1,4 @@
-package com.travel.servlet;
+package com.travel.servlet.admin;
 
 import com.travel.helper.SessionHelpers;
 

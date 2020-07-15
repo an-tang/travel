@@ -49,7 +49,7 @@
                 class="ti-settings"></i></a>
             <!-- item--><a href="" class="link" data-toggle="tooltip" title="Email"><i
                 class="ti-email"></i></a>
-            <!-- item--><a href="" class="link" data-toggle="tooltip" title="Logout"><i
+            <!-- item--><a href="/logout" class="link" data-toggle="tooltip" title="Logout"><i
                 class="ti-power-off"></i></a>
         </div>
         <!-- End Bottom points-->

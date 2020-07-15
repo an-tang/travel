@@ -12,11 +12,7 @@
 
 <head>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
 
-    <![endif]-->
 </head>
 
 
@@ -74,10 +70,10 @@
                 <!-- User profile and search -->
                 <!-- ============================================================== -->
                 <nav class="main_nav ml-auto">
-                    <ul class="main_nav_list" style="list-style: none">
+                    <ul class="main_nav_list" style="list-style: none; height: 100%">
                         <c:choose>
                             <c:when test="<%=isAuthenticated%>">
-                                <div style="display: flex; justify-content: space-between; width: 250px">
+                                <div style="display: flex; height: 100%; align-items: center; justify-content: space-between; width: 250px">
 
                                     <li class="main_nav_item">
                                         <a class="btn waves-effect waves-light btn-warning hidden-md-down"

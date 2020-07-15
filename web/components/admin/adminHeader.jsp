@@ -8,7 +8,7 @@
     String authenticatedUser = (String) currentSession.getAttribute("authenticatedUser");
     String loginReplacementURL = (String) request.getAttribute("loginReplacementURL");
 %>
-<header class="topbar" >
+<header class="topbar">
     <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
         <!-- ============================================================== -->
         <!-- Logo -->
@@ -61,9 +61,9 @@
                 <ul class="main_nav_list" style="list-style: none; height: 100%">
                     <c:choose>
                         <c:when test="<%=isAuthenticated%>">
-                            <div style="display: flex; height: 100%; align-items: center; justify-content: space-between; width: 250px">
+                            <div style="display: flex; height: 100%; align-items: center; justify-content: space-between; ">
 
-                                <li class="main_nav_item">
+                                <li class="main_nav_item" style="padding-right: 2px;">
                                     <a class="btn waves-effect waves-light btn-warning hidden-md-down"
                                        id="headerAccountLink"
                                        href="/account">

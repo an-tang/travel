@@ -28,7 +28,6 @@ public class CommentDAO extends BaseDAO {
             preparedStatement.setString(2, comment.getContent());
             preparedStatement.setInt(3, comment.getTourInfoID());
             preparedStatement.setInt(4, Status.ACTIVE.getValue());
-            preparedStatement.execute();
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {

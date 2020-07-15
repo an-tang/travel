@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/admin/Detail")
-public class AdminDetailServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/admin/Users")
+public class AdminUsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -20,9 +20,7 @@ public class AdminDetailServlet extends HttpServlet {
         HttpSession currentSession = request.getSession(false);
         boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
         if (isAuthenticated) {
-            request.getRequestDispatcher("AdminProfile.jsp").forward(request, response);
+            request.getRequestDispatcher("AdminUsers.jsp").forward(request, response);
         } else response.sendRedirect("/login");
-
-
     }
 }

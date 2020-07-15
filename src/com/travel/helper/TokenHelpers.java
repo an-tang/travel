@@ -13,7 +13,9 @@ public class TokenHelpers {
     }
 
     public static boolean verifyRequestToken(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+        if (session == null) return false;
+
         String sessionToken = (String) session.getAttribute("orderConfirmationToken");
         String clientToken = request.getParameter("t");
 

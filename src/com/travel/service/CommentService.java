@@ -23,6 +23,10 @@ public class CommentService {
         return commentDAO.CreateComment(comment);
     }
 
+    public ArrayList<CommentBean> GetCommentsByTourInfoID(int tourInfoID, int start, int size) {
+        return commentDAO.GetCommentsByTourInfoID(tourInfoID, start, size);
+    }
+
     public ArrayList<CommentBean> GetComments(int page, int perPage) {
         page = Math.max(page, 0);
         perPage = perPage < 0 ? 10 : perPage;

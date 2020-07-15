@@ -133,7 +133,7 @@ function handleSearchFormSubmit() {
 
 /* Handle click login link */
 function handleLoginLinkClick() {
-    $('#headerLoginLink').on('click', function (e) {
+    $('a[data-replacement-href]').on('click', function (e) {
         const replacementHref = $(this).data('replacement-href');
         if (replacementHref) {
             window.location.href = replacementHref;

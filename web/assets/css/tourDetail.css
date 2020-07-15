@@ -92,3 +92,32 @@
 .external-tour-links a:hover {
   color: #fe435b;
 }
+
+.comment-form-card {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.comment-form-card a[data-replacement-href] {
+  color: #fe435b;
+}
+
+.comment-card {
+  margin-bottom: 1rem;
+}
+.comment-card .card-header {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.comment-card .card-body {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.comment-card .card-body p {
+  margin-bottom: 0;
+}
+
+.show-more {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

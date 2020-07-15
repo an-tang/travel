@@ -208,4 +208,8 @@ section {
 
 .card {
     border-radius: 0;
+
+    .card-header {
+        padding: 1rem 1.25rem;
+    }
 }

@@ -29,7 +29,7 @@ public class OrderConfirmationServlet extends HttpServlet {
             }
 
             request.setAttribute("order", order);
-            request.getRequestDispatcher("orderconfirmation.jsp").forward(request, response);
+            request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
         } else {
             // request.getRequestDispatcher("error.jsp").forward(request, response);
 

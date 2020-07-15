@@ -1,0 +1,23 @@
+.comment-card {
+    margin-bottom: 1rem;
+
+    .card-header {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .card-body {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.show-more {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

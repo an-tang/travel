@@ -144,7 +144,7 @@ public class CheckoutServlet extends HttpServlet {
             try {
                 ajaxResponse = new AjaxResponse(
                         false,
-                        "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại",
+                        "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.",
                         URLHelpers.buildUrlQuery("/login", "redirect", "checkout")
                 );
             } catch (Exception e) {

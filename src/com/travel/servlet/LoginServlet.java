@@ -83,7 +83,7 @@ public class LoginServlet extends HttpServlet {
                 ajaxResponse = new AjaxResponse(
                         true,
                         "Đăng nhập thành công",
-                        !redirectUrl.equals("") ? redirectUrl : "/account"
+                        !redirectUrl.equals("") ? redirectUrl : userService.IsAdmin(username) ? "/adminIndex" : "/account"
                 );
             } else {
                 ajaxResponse = new AjaxResponse(

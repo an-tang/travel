@@ -1,134 +1,171 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Nhan
-  Date: 14/07/2020
-  Time: 12:39 SA
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.travel.helper.SessionHelpers" %>
+<%
+    HttpSession currentSession = request.getSession(false);
+    boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
+    String authenticatedName = (String) currentSession.getAttribute("authenticatedName");
+    String authenticatedUser = (String) currentSession.getAttribute("authenticatedUser");
+    String loginReplacementURL = (String) request.getAttribute("loginReplacementURL");
+%>
 <html>
+
 <head>
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">Admin <sup>2</sup></div>
-        </a>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" href="index.html">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Interface
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Users</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="../../../../startbootstrap-sb-admin-2-gh-pages/buttons.html">Buttons</a>
-                    <a class="collapse-item" href="../../../../startbootstrap-sb-admin-2-gh-pages/cards.html">Cards</a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Order</span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Utilities:</h6>
-                    <a class="collapse-item" href="../../../../startbootstrap-sb-admin-2-gh-pages/utilities-color.html">Colors</a>
-                    <a class="collapse-item" href="../../../../startbootstrap-sb-admin-2-gh-pages/utilities-border.html">Borders</a>
-                    <a class="collapse-item" href="../../../../startbootstrap-sb-admin-2-gh-pages/utilities-animation.html">Animations</a>
-                    <a class="collapse-item" href="../../../../startbootstrap-sb-admin-2-gh-pages/utilities-other.html">Other</a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Addons
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Tours</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="../../../../startbootstrap-sb-admin-2-gh-pages/login.html">Login</a>
-                    <a class="collapse-item" href="../../../../startbootstrap-sb-admin-2-gh-pages/register.html">Register</a>
-                    <a class="collapse-item" href="../../../../startbootstrap-sb-admin-2-gh-pages/forgot-password.html">Forgot Password</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="../../../../startbootstrap-sb-admin-2-gh-pages/404.html">404 Page</a>
-                    <a class="collapse-item" href="../../../../startbootstrap-sb-admin-2-gh-pages/blank.html">Blank Page</a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Nav Item - Comment -->
-        <li class="nav-item">
-            <a class="nav-link" href="../../../../startbootstrap-sb-admin-2-gh-pages/charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Comments</span></a>
-        </li>
-
-        <!-- Nav Item - Feedback -->
-        <li class="nav-item">
-            <a class="nav-link" href="../../../../startbootstrap-sb-admin-2-gh-pages/charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Feedbacks</span></a>
-        </li>
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="../../../../startbootstrap-sb-admin-2-gh-pages/charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Reports</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
-    </ul>
-    <title></title>
+    <![endif]-->
 </head>
-<body>
+
+
+<body class="fix-header fix-sidebar card-no-border">
+<div id="main-wrapper">
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <header class="topbar">
+        <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
+            <!-- ============================================================== -->
+            <!-- Logo -->
+            <!-- ============================================================== -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">
+                    <!-- Logo icon --><b>
+                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+
+                    <!-- Light Logo icon -->
+                    <img src="/assets/images/logo.png" alt="homepage" aria-valuetext="asd" class="light-logo"/>
+                    UIT
+                    travel
+
+                </b>
+                    <!--End Logo icon -->
+                    <!-- Logo text --><span>
+
+                         <!-- Light Logo text -->
+                </span> </a>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Logo -->
+            <!-- ============================================================== -->
+            <div class="navbar-collapse">
+                <!-- ============================================================== -->
+                <!-- toggle and nav items -->
+                <!-- ============================================================== -->
+                <ul class="navbar-nav mr-auto mt-md-0">
+                    <!-- This is  -->
+                    <li class="nav-item"><a
+                            class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
+                            href="javascript:void(0)"><i class="mdi mdi-menu"></i></a></li>
+                    <!-- ============================================================== -->
+                    <!-- Search -->
+                    <!-- ============================================================== -->
+                    <li class="nav-item hidden-sm-down search-box"><a
+                            class="nav-link hidden-sm-down text-muted waves-effect waves-dark"
+                            href="javascript:void(0)"><i class="ti-search"></i></a>
+                        <form class="app-search">
+                            <input type="text" class="form-control" placeholder="Search & enter"> <a
+                                class="srh-btn"><i
+                                class="ti-close"></i></a></form>
+                    </li>
+                </ul>
+                <!-- ============================================================== -->
+                <!-- User profile and search -->
+                <!-- ============================================================== -->
+                <nav class="main_nav ml-auto">
+                    <ul class="main_nav_list" style="list-style: none">
+                        <c:choose>
+                            <c:when test="<%=isAuthenticated%>">
+                                <div style="display: flex; justify-content: space-between; width: 250px">
+
+                                    <li class="main_nav_item">
+                                        <a class="btn waves-effect waves-light btn-warning hidden-md-down"
+                                           id="headerAccountLink"
+                                           href="/account">
+                                            <span>Xin chào, </span>
+                                            <c:choose>
+                                                <c:when test="<%=authenticatedName != null%>">
+                                                    <span><em><%=authenticatedName%></em></span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span><em><%=authenticatedUser%></em></span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </a>
+                                    </li>
+                                    <li class="main_nav_item">
+                                        <a class="btn waves-effect waves-light btn-warning hidden-md-down"
+                                           id="headerLogoutLink"
+                                           href="/logout">
+                                            Đăng xuất
+                                        </a>
+                                    </li>
+                                </div>
+                            </c:when>
+                        </c:choose>
+                    </ul>
+                </nav>
+            </div>
+        </nav>
+    </header>
+    <!-- ============================================================== -->
+    <!-- End Topbar header -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <aside class="left-sidebar">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav">
+                    <li><a class="waves-effect waves-dark" href="" aria-expanded="false"><i
+                            class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
+                    </li>
+                    <li><a class="waves-effect waves-dark" href="" aria-expanded="false"><i
+                            class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a>
+                    </li>
+                    <li><a class="waves-effect waves-dark" href="" aria-expanded="false"><i
+                            class="mdi mdi-table"></i><span class="hide-menu">Users</span></a>
+                    </li>
+                    <li><a class="waves-effect waves-dark" href="" aria-expanded="false"><i
+                            class="mdi mdi-emoticon"></i><span class="hide-menu">Orders</span></a>
+                    </li>
+                    <li><a class="waves-effect waves-dark" href="" aria-expanded="false"><i
+                            class="mdi mdi-earth"></i><span class="hide-menu">Tours</span></a>
+                    </li>
+                    <li><a class="waves-effect waves-dark" href="" aria-expanded="false"><i
+                            class="mdi mdi-book-open-variant"></i><span class="hide-menu">Comment</span></a>
+                    </li>
+                    <li><a class="waves-effect waves-dark" href="" aria-expanded="false"><i
+                            class="mdi mdi-help-circle"></i><span class="hide-menu">Feedback</span></a>
+                    </li>
+                    <li><a class="waves-effect waves-dark" href="" aria-expanded="false"><i
+                            class="mdi mdi-help-circle"></i><span class="hide-menu">Report</span></a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+        <!-- Bottom points-->
+        <div class="sidebar-footer">
+            <!-- item--><a href="" class="link" data-toggle="tooltip" title="Settings"><i
+                class="ti-settings"></i></a>
+            <!-- item--><a href="" class="link" data-toggle="tooltip" title="Email"><i
+                class="ti-email"></i></a>
+            <!-- item--><a href="" class="link" data-toggle="tooltip" title="Logout"><i
+                class="ti-power-off"></i></a>
+        </div>
+        <!-- End Bottom points-->
+    </aside>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+
+</div>
 
 </body>
 </html>

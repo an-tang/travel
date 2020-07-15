@@ -58,10 +58,10 @@
             </c:when>
             <c:otherwise>
                 <h5 class="mb-0">
-                    <a id="commentLoginLink" href="/login"
+                    Hãy <a id="commentLoginLink" href="/login"
                         <c:if test="<%=loginReplacementURL != null%>">
                             data-replacement-href="<%=loginReplacementURL%>"
-                        </c:if>>Đăng nhập</a> để bình luận.</h5>
+                        </c:if>>đăng nhập</a> để đăng tải bình luận của riêng bạn.</h5>
             </c:otherwise>
         </c:choose>
     </div>

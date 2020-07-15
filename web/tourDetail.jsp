@@ -84,6 +84,7 @@
                         <jsp:include page="components/tourDetail/commentForm.jsp" />
 
                         <!-- Comments - will be fetched and rendered using an AJAX request -->
+                        <h4 class="mb-3">Tất cả bình luận</h4>
                         <div class="comments"></div>
                     </div>
 

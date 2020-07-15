@@ -18,47 +18,40 @@ import java.util.ArrayList;
 public class CommentServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean isAuthenticated = SessionHelpers.validateSession(request);
-        if (isAuthenticated) {
-            int tourInfoId = Integer.parseInt(request.getParameter("tour_info"));
-            int start = request.getParameter("start") != null
-                    ? Integer.parseInt(request.getParameter("start"))
-                    : 0;
-            int size = request.getParameter("size") != null
-                    ? Integer.parseInt(request.getParameter("size"))
-                    : 10;
-            ArrayList<CommentBean> comments = new ArrayList<>();
-            String showMoreURL = "";
+        int tourInfoId = Integer.parseInt(request.getParameter("tour_info"));
+        int start = request.getParameter("start") != null
+                ? Integer.parseInt(request.getParameter("start"))
+                : 0;
+        int size = request.getParameter("size") != null
+                ? Integer.parseInt(request.getParameter("size"))
+                : 10;
+        ArrayList<CommentBean> comments = new ArrayList<>();
+        String showMoreURL = "";
 
-            try {
-                // Get comments on current page
-                CommentService commentService = new CommentService();
-                comments = commentService.GetCommentsByTourInfoID(tourInfoId, start, size);
+        try {
+            // Get comments on current page
+            CommentService commentService = new CommentService();
+            comments = commentService.GetCommentsByTourInfoID(tourInfoId, start, size);
 
-                // Calculations for next page
-                int nextStart = start + size;
-                ArrayList<CommentBean> nextComments = commentService.GetCommentsByTourInfoID(tourInfoId, nextStart, size);
-                if (nextComments.size() > 0) {
-                    showMoreURL = URLHelpers.buildUrlQuery(
-                            "/comment",
-                            "tour_info", String.valueOf(tourInfoId),
-                            "start", String.valueOf(nextStart),
-                            "size", String.valueOf(size)
-                    );
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
+            // Calculations for next page
+            int nextStart = start + size;
+            ArrayList<CommentBean> nextComments = commentService.GetCommentsByTourInfoID(tourInfoId, nextStart, size);
+            if (nextComments.size() > 0) {
+                showMoreURL = URLHelpers.buildUrlQuery(
+                        "/comment",
+                        "tour_info", String.valueOf(tourInfoId),
+                        "start", String.valueOf(nextStart),
+                        "size", String.valueOf(size)
+                );
             }
-
-            request.setAttribute("comments", comments);
-            request.setAttribute("showMoreURL", showMoreURL);
-            request.getRequestDispatcher("components/tourDetail/commentCards.jsp").forward(request, response);
-        } else {
-            response.setContentType("text/html");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
+
+        request.setAttribute("comments", comments);
+        request.setAttribute("showMoreURL", showMoreURL);
+        request.getRequestDispatcher("components/tourDetail/commentCards.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

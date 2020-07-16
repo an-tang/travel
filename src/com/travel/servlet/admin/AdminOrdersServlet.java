@@ -21,18 +21,16 @@ public class AdminOrdersServlet extends HttpServlet {
         HttpSession currentSession = request.getSession(false);
         boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
 
-        try {
-
-            UserService userService = new UserService();
-            String username = (String) currentSession.getAttribute("authenticatedUser");
-            if (isAuthenticated) {
-                if (userService.IsAdmin(username)){
+        if (isAuthenticated) {
+            try {
+                String username = (String) currentSession.getAttribute("authenticatedUser");
+                UserService userService = new UserService();
+                if (userService.IsAdmin(username)) {
                     request.getRequestDispatcher("AdminOrders.jsp").forward(request, response);
                 } else response.sendRedirect("/");
-            } else response.sendRedirect("/login");
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else response.sendRedirect("/login");
     }
 }

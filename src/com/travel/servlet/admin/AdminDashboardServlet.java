@@ -22,19 +22,19 @@ public class AdminDashboardServlet extends HttpServlet {
             ServletException, IOException {
         HttpSession currentSession = request.getSession(false);
         boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
+        if (isAuthenticated) {
+            try {
+                String username = (String) currentSession.getAttribute("authenticatedUser");
+                UserService userService = new UserService();
 
-        try {
-
-            UserService userService = new UserService();
-            String username = (String) currentSession.getAttribute("authenticatedUser");
-            if (isAuthenticated) {
-                if (userService.IsAdmin(username)){
+                if (userService.IsAdmin(username)) {
                     request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
                 } else response.sendRedirect("/");
-            } else response.sendRedirect("/login");
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else response.sendRedirect("/login");
     }
+
 }

@@ -1,5 +1,6 @@
 package com.travel.servlet.admin;
 
+import com.travel.bean.UserBean;
 import com.travel.helper.SessionHelpers;
 import com.travel.service.UserService;
 
@@ -14,6 +15,20 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/admin/Detail")
 public class AdminDetailServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession currentSession = request.getSession(false);
+        boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
+        if (isAuthenticated) {
+            try {
+                UserService userService = new UserService();
+
+                String adminPhone = request.getParameter("admin_phone");
+                String adminName = request.getParameter("admin_name");
+                String adminEmail = request.getParameter("admin_email");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -22,19 +37,22 @@ public class AdminDetailServlet extends HttpServlet {
         boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
 
         if (isAuthenticated) {
+            UserBean admin = null;
+            String username = (String) currentSession.getAttribute("authenticatedUser");
+
             try {
-                String username = (String) currentSession.getAttribute("authenticatedUser");
                 UserService userService = new UserService();
+                admin = userService.GetUserByUserName(username);
 
                 if (userService.IsAdmin(username)) {
-                    request.getRequestDispatcher("AdminProfile.jsp").forward(request, response);
+                    request.setAttribute("admin", admin);
+                    request.getRequestDispatcher("AdminDetail.jsp").forward(request, response);
                 } else response.sendRedirect("/");
 
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         } else response.sendRedirect("/login");
     }
 }

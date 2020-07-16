@@ -25,3 +25,16 @@
 <script src="/assets/plugins/c3-master/c3.min.js"></script>
 <!-- Chart JS -->
 <script src="js/dashboard1.js"></script>
+
+<script>
+    $(document).ready(() => {
+        console.log('ready')
+        $('#viewPassword').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const current = $('#password').attr('type')
+            $('#password').attr('type', current === 'text' ? 'password' : 'text')
+        })
+
+    })
+</script>

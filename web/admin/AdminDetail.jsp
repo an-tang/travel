@@ -1,4 +1,9 @@
+<%@ page import="com.travel.bean.UserBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    UserBean admin = (UserBean) request.getAttribute("admin");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +14,8 @@
 <body class="fix-header fix-sidebar card-no-border">
 <div class="preloader">
     <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
 </div>
 <div id="main-wrapper">
 
@@ -35,7 +41,8 @@
                     </ol>
                 </div>
                 <div class="col-md-7 col-4 align-self-center">
-                    <a href="https://wrappixel.com/templates/materialpro/" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
+                    <a href="https://wrappixel.com/templates/materialpro/"
+                       class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -51,35 +58,38 @@
                 <div class="col-lg-8 col-xlg-9 col-md-7">
                     <div class="card">
                         <div class="card-block">
-                            <form class="form-horizontal form-material">
+                            <form
+                                    class="form-horizontal form-material"
+                                    action="/admin/Detail">
                                 <div class="form-group">
-                                    <label class="col-md-12">Full Name</label>
+                                    <label class="col-md-12">Họ và tên</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                                        <input type="text" placeholder="name"
+                                               name="admin_name"
+                                               class="form-control form-control-line"
+                                               value="<%=admin.getName()%>"
+                                        >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">Email</label>
                                     <div class="col-md-12">
-                                        <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="example-email" id="example-email">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Password</label>
-                                    <div class="col-md-12">
-                                        <input type="password" value="password" class="form-control form-control-line">
+                                        <input type="email" placeholder="email@admin.com"
+                                               class="form-control form-control-line"
+                                               name="admin_email"
+                                               id="example-email"
+                                               value="<%=admin.getEmail()%>"
+                                        >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Phone No</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Message</label>
-                                    <div class="col-md-12">
-                                        <textarea rows="5" class="form-control form-control-line"></textarea>
+                                        <input type="text" placeholder="123 456 7890"
+                                               class="form-control form-control-line"
+                                               name="admin_phone"
+                                               value="<%=admin.getPhone()%>"
+                                        >
                                     </div>
                                 </div>
                                 <div class="form-group">

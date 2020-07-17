@@ -65,6 +65,12 @@ public class UserService {
         return count;
     }
 
+    public int UpdateUserByUserNameWithoutPassword(UserBean user) {
+        user.setPassword(user.getPassword());
+        int count = userDAO.UpdateUser(user);
+        return count;
+    }
+
     public boolean DeactivateUser(int userID) {
         if (userID <= 0) {
             return false;
@@ -72,9 +78,9 @@ public class UserService {
         return userDAO.DeactivateUser(userID);
     }
 
-    public boolean IsAdmin(String username){
+    public boolean IsAdmin(String username) {
         int role = userDAO.GetUserRole(username);
-        if (role == Role.ADMIN.getValue()){
+        if (role == Role.ADMIN.getValue()) {
             return true;
         }
 

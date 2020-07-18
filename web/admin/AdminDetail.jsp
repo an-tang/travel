@@ -40,10 +40,6 @@
                         <li class="breadcrumb-item active">Profile</li>
                     </ol>
                 </div>
-                <div class="col-md-7 col-4 align-self-center">
-                    <a href="https://wrappixel.com/templates/materialpro/"
-                       class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
-                </div>
             </div>
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
@@ -59,8 +55,20 @@
                     <div class="card">
                         <div class="card-block">
                             <form
-                                    class="form-horizontal form-material"
-                                    action="/admin/Detail">
+                                    action="/admin/Detail"
+                                    class="/admin/Detail"
+                                    method="post">
+                                <div class="form-group">
+                                    <label class="col-md-12">Tên đăng nhập</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="userName"
+                                               name="admin_user_name"
+                                               class="form-control form-control-line"
+                                               value="<%=admin.getUserName()%>"
+                                        >
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label class="col-md-12">Họ và tên</label>
                                     <div class="col-md-12">
@@ -106,8 +114,9 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button class="btn btn-success">Update Profile</button>
+                                        <button type="submit" name="/admin/Detail" class="btn btn-success">Update Profile</button>
                                     </div>
+                                    <input type="hidden" id="loginRedirectUrl" name="redirect_url" value="<%=request.getAttribute("redirectUrl")%>">
                                 </div>
                             </form>
                         </div>

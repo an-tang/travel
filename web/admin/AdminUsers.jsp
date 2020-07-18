@@ -31,11 +31,8 @@
                     <h3 class="text-themecolor m-b-0 m-t-0">Table</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Table</li>
+                        <li class="breadcrumb-item active">Users</li>
                     </ol>
-                </div>
-                <div class="col-md-7 col-4 align-self-center">
-                    <a href="https://wrappixel.com/templates/materialpro/" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
                 </div>
             </div>
             <!-- ============================================================== -->

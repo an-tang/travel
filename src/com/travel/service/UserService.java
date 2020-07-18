@@ -73,6 +73,12 @@ public class UserService {
         return "Success";
     }
 
+    public int UpdateUserByUserNameWithoutPassword(UserBean user) {
+        user.setPassword(user.getPassword());
+        int count = userDAO.UpdateUser(user);
+        return count;
+    }
+
     public boolean DeactivateUser(int userID) {
         if (userID <= 0) {
             return false;

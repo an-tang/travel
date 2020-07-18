@@ -67,6 +67,16 @@ public class UserBean implements Serializable {
         this.id = id;
     }
 
+    public UserBean(int id, String userName, String password, String name, String email, String phone, int status) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.status = status;
+    }
+
     public UserBean(String userName, String password, String name, String email, String phone, int status) {
         this.userName = userName;
         this.password = password;

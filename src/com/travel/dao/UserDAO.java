@@ -15,7 +15,7 @@ public class UserDAO extends BaseDAO {
         super();
     }
 
-    public void CreateUser(UserBean user, int type) throws SQLException {
+    public void CreateUser(UserBean user, int role) throws SQLException {
         try {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO USERS (user_name, password, name, email, phone, status, created_at, updated_at) VALUES "
@@ -36,7 +36,7 @@ public class UserDAO extends BaseDAO {
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int id = generatedKeys.getInt(1);
-                    createUserRole(type, id);
+                    createUserRole(role, id);
                 } else {
                     throw new SQLException("Creating user failed, no ID obtained.");
                 }
@@ -146,9 +146,9 @@ public class UserDAO extends BaseDAO {
         return true;
     }
 
-    public int GetUserRole(String username){
+    public int GetUserRole(String username) {
         int role = -1;
-        try{
+        try {
             connection = DBConnection.getConnect();
             String sql = "SELECT r.id FROM users u INNER JOIN user_roles ur ON u.id = ur.user_id" +
                     " INNER JOIN roles r ON ur.role_id = r.id" +
@@ -156,23 +156,53 @@ public class UserDAO extends BaseDAO {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
 
-            ResultSet rs  = preparedStatement.executeQuery();
-            while(rs.next()){
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
                 role = rs.getInt("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             return -1;
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return role;
     }
 
-    private void createUserRole(int type, int id) throws SQLException {
+    public UserBean GetUserByID(int id) {
+        UserBean userBean = null;
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM users WHERE id = ? LIMIT 1;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String userName = rs.getString("user_name");
+                String name = rs.getString("name");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                int status = rs.getInt("status");
+                userBean = new UserBean(id, userName, password, name, email, phone, status);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return userBean;
+    }
+
+    private void createUserRole(int role, int id) throws SQLException {
         String sql = "INSERT INTO user_roles (user_id, role_id, created_at, updated_at) VALUES " + "( ?, ?, now(), now());";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
-        preparedStatement.setInt(2, type);
+        preparedStatement.setInt(2, role);
         preparedStatement.execute();
     }
 

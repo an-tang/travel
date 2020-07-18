@@ -14,7 +14,7 @@ public class UserService {
         userDAO = new UserDAO();
     }
 
-    public String CreateUser(UserBean user, int type) {
+    public String CreateUser(UserBean user, int role) {
         try {
             UserBean existingUser = userDAO.GetUserByUserName(user.getUserName());
             if (existingUser != null) {
@@ -24,7 +24,7 @@ public class UserService {
                 return "Tên đăng nhập, mật khẩu hoặc số điện thoại không được để trống.\nXác nhận mật khẩu phải trùng khớp.";
             }
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-            userDAO.CreateUser(user, type);
+            userDAO.CreateUser(user, role);
         } catch (Exception e) {
             e.printStackTrace();
             return "Exception thrown";
@@ -59,10 +59,18 @@ public class UserService {
         return listUsers;
     }
 
-    public int UpdateUserByUserName(UserBean user) {
+    public String UpdateUserByUserName(UserBean user) {
+        UserBean existingUser = userDAO.GetUserByUserName(user.getUserName());
+        if (existingUser == null) {
+            return "Không tìm thấy tài khoản trong hệ thống";
+        }
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+
         int count = userDAO.UpdateUser(user);
-        return count;
+        if (count == 0) {
+            return "Cập nhật thông tin thất bại";
+        }
+        return "Success";
     }
 
     public boolean DeactivateUser(int userID) {
@@ -72,12 +80,20 @@ public class UserService {
         return userDAO.DeactivateUser(userID);
     }
 
-    public boolean IsAdmin(String username){
+    public boolean IsAdmin(String username) {
         int role = userDAO.GetUserRole(username);
-        if (role == Role.ADMIN.getValue()){
+        if (role == Role.ADMIN.getValue()) {
             return true;
         }
 
         return false;
+    }
+
+    public UserBean GetUserByID(int id) {
+        if (id <= 0) {
+            return null;
+        }
+
+        return userDAO.GetUserByID(id);
     }
 }

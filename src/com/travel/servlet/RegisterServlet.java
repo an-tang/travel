@@ -24,7 +24,7 @@ public class RegisterServlet extends HttpServlet {
         // get form fields
         String username = request.getParameter("user");
         String password = request.getParameter("pwd");
-        String passwordConfirm = request.getParameter("pwdConfirm");
+        String passwordConfirm = request.getParameter("pwd_confirm");
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");

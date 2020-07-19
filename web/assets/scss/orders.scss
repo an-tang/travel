@@ -2,7 +2,4 @@
 @import '../vendor/bootstrap/scss/mixins';
 @import 'utilities/variables';
 @import 'utilities/mixins';
-@import 'homePage/homeBanner';
-@import 'homePage/homeTours';
-@import 'homePage/homeBreadcrumbs';
-@import 'homePage/responsive';
+@import 'components/staticHeader';

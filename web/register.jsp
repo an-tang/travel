@@ -65,7 +65,7 @@
                                     type="password"
                                     id="registerConfirmPassword"
                                     class="form-control"
-                                    name="pwdConfirm"
+                                    name="pwd_confirm"
                                     required
                                     data-missing-error="Vui lòng xác nhận mật khẩu"
                                     data-password-mismatch="Mật khẩu không trùng khớp">

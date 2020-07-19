@@ -3,4 +3,13 @@
 @import 'utilities/variables';
 @import 'utilities/mixins';
 @import 'components/staticHeader';
-@import 'login/loginForm';
+
+.customer-profile {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+}

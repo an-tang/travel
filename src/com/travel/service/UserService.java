@@ -64,13 +64,12 @@ public class UserService {
         if (existingUser == null) {
             return "Không tìm thấy tài khoản trong hệ thống";
         }
-        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 
         int count = userDAO.UpdateUser(user);
         if (count == 0) {
             return "Cập nhật thông tin thất bại";
         }
-        return "Success";
+        return "success";
     }
 
     public int UpdateUserByUserNameWithoutPassword(UserBean user) {

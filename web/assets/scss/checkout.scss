@@ -2,8 +2,7 @@
 @import '../vendor/bootstrap/scss/mixins';
 @import 'utilities/variables';
 @import 'utilities/mixins';
-
-@import 'checkout/checkoutHeader';
+@import 'components/staticHeader';
 @import 'checkout/checkoutCard';
 @import 'checkout/checkoutForm';
 @import 'checkout/placeOrderModal';

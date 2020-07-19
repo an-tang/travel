@@ -27,4 +27,12 @@ public class OrderHistory implements Serializable {
         this.username = username;
         this.tours = tours;
     }
+
+    @Override
+    public String toString() {
+        return "OrderHistory{" +
+                "username='" + username + '\'' +
+                ", tours=" + tours +
+                '}';
+    }
 }

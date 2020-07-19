@@ -3,6 +3,7 @@ package com.travel.service;
 import com.travel.bean.UserBean;
 import com.travel.dao.UserDAO;
 import com.travel.enumerize.Role;
+import com.travel.enumerize.Status;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
@@ -83,7 +84,28 @@ public class UserService {
         if (userID <= 0) {
             return false;
         }
-        return userDAO.DeactivateUser(userID);
+        return userDAO.UpdateUserStatus(userID, Status.DEACTIVE);
+    }
+
+    public boolean ActivateUser(int userID) {
+        if (userID <= 0) {
+            return false;
+        }
+        return userDAO.UpdateUserStatus(userID, Status.ACTIVE);
+    }
+
+    // Sample: GetAllUsersHaveSorting("name", "ASC", 1, 0, 5)
+    public ArrayList<UserBean> GetAllUsersHaveSorting(String fieldName, String sortType, int status, int page, int perPage){
+        page = Math.max(page, 0);
+        perPage = perPage < 0 ? 10 : perPage;
+        fieldName = ((fieldName == null) || (fieldName == "")) ? "user_name" : fieldName;
+        sortType = ((sortType == null) || (sortType == "")) ? "ASC" : sortType;
+        status = status < 0 ? 2 : status;
+
+        String params = status == 2 ? "" : " AND status = " + status;
+        params = params + " ORDER BY " + fieldName + " " + sortType;
+
+        return userDAO.GetAllUsersHaveSorting(params, page, perPage);
     }
 
     public boolean IsAdmin(String username) {

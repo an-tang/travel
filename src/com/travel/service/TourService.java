@@ -34,17 +34,19 @@ public class TourService {
         fieldName = ((fieldName == null) || (fieldName == "")) ? "name" : fieldName;
         sortType = ((sortType == null) || (sortType == "")) ? "ASC" : sortType;
         String keyword = name.replace(" ", "&");
+        String params = " ORDER BY " + fieldName + " " + sortType;
 
-        return tourDAO.GetToursByName(keyword, fieldName, sortType, start, size);
+        return tourDAO.GetToursByName(keyword, params, start, size);
     }
 
-    public ArrayList<TourBean> GetToursInProvinceByID(int provinceID, String fieldName, String sortType, int start, int size){
+    public ArrayList<TourBean> GetToursInProvinceByID(int provinceID, String fieldName, String sortType, int start, int size) {
         start = Math.max(start, 0);
         size = size < 0 ? 10 : size;
         fieldName = ((fieldName == null) || (fieldName == "")) ? "name" : fieldName;
         sortType = ((sortType == null) || (sortType == "")) ? "ASC" : sortType;
+        String params = " ORDER BY " + fieldName + " " + sortType;
 
-        return tourDAO.GetToursInProvinceByID(provinceID, fieldName, sortType, start, size);
+        return tourDAO.GetToursInProvinceByID(provinceID, params, start, size);
     }
 
     public ArrayList<TourBean> GetToursInProviceByName(String name, int provinceID, int page, int perPage) {
@@ -121,8 +123,37 @@ public class TourService {
             image.setTourInfoID(tourInfoID);
         }
 
-
         return true;
+    }
+
+    // Sample: GetAllTourHaveSorting("name", "ASC", 1, 0, 5)
+    public ArrayList<TourBean> GetAllTourHaveSorting(String fieldName, String sortType, int status, int page, int perPage) {
+        page = Math.max(page, 0);
+        perPage = perPage < 0 ? 10 : perPage;
+        fieldName = ((fieldName == null) || (fieldName == "")) ? "name" : fieldName;
+        sortType = ((sortType == null) || (sortType == "")) ? "ASC" : sortType;
+        status = status < 0 ? 2 : status;
+
+        String params = status == 2 ? "" : " WHERE status = " + status;
+        params = params + " ORDER BY " + fieldName + " " + sortType;
+
+        return tourDAO.GetAllToursHaveSorting(params, page, perPage);
+    }
+
+    public boolean DeactivateTour(int tourID) {
+        if (tourID <= 0) {
+            return false;
+        }
+
+        return tourDAO.UpdateTourStatus(tourID, Status.DEACTIVE);
+    }
+
+    public boolean ActiveTour(int tourID) {
+        if (tourID <= 0) {
+            return false;
+        }
+
+        return tourDAO.UpdateTourStatus(tourID, Status.ACTIVE);
     }
 
     private String parseTourIDToString(ArrayList<TourBean> tours) {

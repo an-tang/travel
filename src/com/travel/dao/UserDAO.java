@@ -1,7 +1,9 @@
 package com.travel.dao;
 
+import com.travel.bean.TourBean;
 import com.travel.dbconnection.DBConnection;
 import com.travel.bean.UserBean;
+import com.travel.enumerize.Role;
 import com.travel.enumerize.Status;
 
 import java.sql.*;
@@ -20,6 +22,7 @@ public class UserDAO extends BaseDAO {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO USERS (user_name, password, name, email, phone, status, created_at, updated_at) VALUES "
                     + " (? , ?, ?, ?, ?, ?, now(), now());";
+
             preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getPassword());
@@ -54,12 +57,12 @@ public class UserDAO extends BaseDAO {
         UserBean user = null;
         try {
             connection = DBConnection.getConnect();
+
             String sql = "SELECT * FROM USERS WHERE (user_name = ?);";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userName);
-            System.out.println(preparedStatement);
-            ResultSet rs = preparedStatement.executeQuery();
 
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("name");
                 String phone = rs.getString("phone");
@@ -73,6 +76,7 @@ public class UserDAO extends BaseDAO {
         } finally {
             BaseDAO.closeConnection(preparedStatement, connection);
         }
+
         return user;
     }
 
@@ -82,6 +86,7 @@ public class UserDAO extends BaseDAO {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM users "
                     + " ORDER BY id ASC LIMIT ? OFFSET ?;";
+
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, page * perPage + perPage);
             preparedStatement.setInt(2, page * perPage);
@@ -100,6 +105,7 @@ public class UserDAO extends BaseDAO {
         } finally {
             BaseDAO.closeConnection(preparedStatement, connection);
         }
+
         return listUsers;
     }
 
@@ -109,6 +115,7 @@ public class UserDAO extends BaseDAO {
             connection = DBConnection.getConnect();
             String sql = "UPDATE users SET password = ?, name = ?, phone = ?, email = ?, updated_at = NOW()"
                     + " WHERE user_name = ?;";
+
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getPassword());
             preparedStatement.setString(2, user.getName());
@@ -124,12 +131,13 @@ public class UserDAO extends BaseDAO {
         return count;
     }
 
-    public boolean DeactivateUser(int userID) {
+    public boolean UpdateUserStatus(int userID, Status status) {
         try {
             connection = DBConnection.getConnect();
             String sql = "UPDATE users SET status = ?, updated_at = now() WHERE id = ?;";
+
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, Status.DEACTIVE.getValue());
+            preparedStatement.setInt(1, status.getValue());
             preparedStatement.setInt(2, userID);
 
             int affectedRows = preparedStatement.executeUpdate();
@@ -153,6 +161,7 @@ public class UserDAO extends BaseDAO {
             String sql = "SELECT r.id FROM users u INNER JOIN user_roles ur ON u.id = ur.user_id" +
                     " INNER JOIN roles r ON ur.role_id = r.id" +
                     " WHERE user_name = ? LIMIT 1;";
+
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
 
@@ -175,6 +184,7 @@ public class UserDAO extends BaseDAO {
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM users WHERE id = ? LIMIT 1;";
+
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
 
@@ -198,6 +208,39 @@ public class UserDAO extends BaseDAO {
         return userBean;
     }
 
+    public ArrayList<UserBean> GetAllUsersHaveSorting(String params, int page, int perPage) {
+        ArrayList<UserBean> listUsers = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM users u INNER JOIN user_roles ur ON u.id = ur.user_id "
+                    + " WHERE ur.role_id = ? "
+                    + params
+                    + " LIMIT ? OFFSET ?";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, Role.CUSTOMER.getValue());
+            preparedStatement.setInt(2, page * perPage + perPage);
+            preparedStatement.setInt(3, page * perPage);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String userName = rs.getString("user_name");
+                String email = rs.getString("email");
+                String name = rs.getString("name");
+                String phone = rs.getString("phone");
+                int status = rs.getInt("status");
+                listUsers.add(new UserBean(id, userName, name, email, phone, status));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return listUsers;
+    }
+
     private void createUserRole(int role, int id) throws SQLException {
         String sql = "INSERT INTO user_roles (user_id, role_id, created_at, updated_at) VALUES " + "( ?, ?, now(), now());";
         preparedStatement = connection.prepareStatement(sql);
@@ -205,5 +248,4 @@ public class UserDAO extends BaseDAO {
         preparedStatement.setInt(2, role);
         preparedStatement.execute();
     }
-
 }

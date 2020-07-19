@@ -102,6 +102,15 @@ public class UserBean implements Serializable {
         this.phone = phone;
     }
 
+    public UserBean(int id, String userName, String name, String email, String phone, int status) {
+        this.id = id;
+        this.userName = userName;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "UserBean{" +

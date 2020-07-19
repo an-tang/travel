@@ -8,6 +8,7 @@ import com.travel.viewmodel.TourDetail;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class OrderDAO extends BaseDAO {
 
@@ -123,7 +124,9 @@ public class OrderDAO extends BaseDAO {
             String sql = "SELECT t.id, t.name, t.image, ti.price , o.created_at, o.passenger, o.user_name"
                     + " FROM orders o INNER JOIN tours t on o.tour_id = t.id"
                     + " INNER JOIN tour_infos ti ON t.id = ti.tour_id WHERE user_name = ?;";
+
             preparedStatement = connection.prepareStatement(sql);
+
             preparedStatement.setString(1, userName);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -131,7 +134,9 @@ public class OrderDAO extends BaseDAO {
                 String name = rs.getString("name");
                 String image = rs.getString("image");
                 long price = rs.getLong("price");
-                Time created_at = rs.getTime("created_at");
+                Date date = rs.getDate("created_at");
+                Time time = rs.getTime("created_at");
+                String created_at = time.toString() + " " + date.toString();
                 int passenger = rs.getInt("passenger");
                 tourDetails.add(new TourDetail(id, name, created_at, image, price, passenger));
             }

@@ -1,12 +1,11 @@
 package com.travel.viewmodel;
 
 import java.io.Serializable;
-import java.sql.Time;
 
 public class TourDetail implements Serializable {
     int id;
     String name;
-    Time created_at;
+    String created_at;
     String image;
     long price;
     int passenger;
@@ -28,11 +27,11 @@ public class TourDetail implements Serializable {
         this.name = name;
     }
 
-    public Time getCreated_at() {
+    public String getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Time created_at) {
+    public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
 
@@ -71,7 +70,7 @@ public class TourDetail implements Serializable {
     public TourDetail() {
     }
 
-    public TourDetail(int id, String name, Time created_at, String image, long price, int passenger) {
+    public TourDetail(int id, String name, String created_at, String image, long price, int passenger) {
         this.id = id;
         this.name = name;
         this.created_at = created_at;
@@ -79,5 +78,18 @@ public class TourDetail implements Serializable {
         this.price = price;
         this.passenger = passenger;
         this.totalAmount = price * passenger;
+    }
+
+    @Override
+    public String toString() {
+        return "TourDetail{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", created_at=" + created_at +
+                ", image='" + image + '\'' +
+                ", price=" + price +
+                ", passenger=" + passenger +
+                ", totalAmount=" + totalAmount +
+                '}';
     }
 }

@@ -27,48 +27,46 @@ import java.io.IOException;
 public class CheckoutServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession currentSession = request.getSession(false);
-        boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
-        if (isAuthenticated) {
-            Cookie cookie = CookieHelpers.getExistingCookie(request, "checkoutTourId");
-            if (cookie != null) {
-                int checkoutTourId = Integer.parseInt(cookie.getValue());
-                String username = (String) currentSession.getAttribute("authenticatedUser");
-                UserBean customer = null;
-                TourBean tour = null;
-                TourInfoBean tourInfo = null;
-
-                try {
+        try {
+            HttpSession currentSession = request.getSession(false);
+            boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
+            if (isAuthenticated) {
+                Cookie cookie = CookieHelpers.getExistingCookie(request, "checkoutTourId");
+                if (cookie != null) {
                     UserService userService = new UserService();
                     TourService tourService = new TourService();
                     TourInfoService tourInfoService = new TourInfoService();
 
-                    customer = userService.GetUserByUserName(username);
-                    tour = tourService.GetTourByID(checkoutTourId);
-                    tourInfo = tourInfoService.GetTourInfoByTourID(checkoutTourId);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    String username = (String) currentSession.getAttribute("authenticatedUser");
+                    int checkoutTourId = Integer.parseInt(cookie.getValue());
 
-                currentSession.setAttribute("orderTourId", cookie.getValue());
-                request.setAttribute("customer", customer);
-                request.setAttribute("checkoutTour", tour);
-                request.setAttribute("checkoutTourInfo", tourInfo);
-                request.getRequestDispatcher("checkout.jsp").forward(request, response);
+                    UserBean customer = userService.GetUserByUserName(username);
+                    TourBean tour = tourService.GetTourByID(checkoutTourId);
+                    TourInfoBean tourInfo = tourInfoService.GetTourInfoByTourID(checkoutTourId);
+
+                    currentSession.setAttribute("orderTourId", cookie.getValue());
+                    request.setAttribute("customer", customer);
+                    request.setAttribute("checkoutTour", tour);
+                    request.setAttribute("checkoutTourInfo", tourInfo);
+                    request.getRequestDispatcher("checkout.jsp").forward(request, response);
+                } else {
+                    response.sendRedirect("/");
+                }
             } else {
-                response.sendRedirect("/");
+                response.sendRedirect("/login");
             }
-        } else {
-            response.sendRedirect("/login");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AjaxResponse ajaxResponse = new AjaxResponse();
-        HttpSession currentSession = request.getSession(false);
-        boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
-        if (isAuthenticated) {
-            try {
+
+        try {
+            HttpSession currentSession = request.getSession(false);
+            boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
+            if (isAuthenticated) {
                 // Init services
                 OrderService orderService = new OrderService();
                 TourInfoService tourInfoService = new TourInfoService();
@@ -111,52 +109,31 @@ public class CheckoutServlet extends HttpServlet {
                     // Generate one-time token
                     String token = TokenHelpers.generateToken();
                     currentSession.setAttribute("orderConfirmationToken", token);
-                    try {
-                        ajaxResponse = new AjaxResponse(
-                                true,
-                                "Giao dịch thành công",
-                                URLHelpers.buildUrlQuery(
-                                        "/orderconfirmation",
-                                        "order", String.valueOf(orderId),
-                                        "t", token
-                                )
-                        );
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        e.printStackTrace();
-
-                        ajaxResponse = new AjaxResponse(
-                                false,
-                                "Exception thrown",
-                                null
-                        );
-                    }
+                    ajaxResponse = new AjaxResponse(
+                            true,
+                            "Giao dịch thành công",
+                            URLHelpers.buildUrlQuery(
+                                    "/orderconfirmation",
+                                    "order", String.valueOf(orderId),
+                                    "t", token
+                            )
+                    );
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                ajaxResponse = new AjaxResponse(
-                        false,
-                        "Giao dịch không thành công",
-                        null
-                );
-            }
-        } else {
-            try {
+            } else {
                 ajaxResponse = new AjaxResponse(
                         false,
                         "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.",
                         URLHelpers.buildUrlQuery("/login", "redirect", "checkout")
                 );
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-
-                ajaxResponse = new AjaxResponse(
-                        false,
-                        "Exception thrown",
-                        null
-                );
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            ajaxResponse = new AjaxResponse(
+                    false,
+                    "Exception thrown on our side",
+                    null
+            );
         }
 
         response.setContentType("application/json");

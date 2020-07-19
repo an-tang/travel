@@ -19,64 +19,61 @@ import java.io.IOException;
 public class TourDetailServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idParam = request.getParameter("id");
-        int tourId = Integer.parseInt(idParam);
-        TourInfoBean tourInfo = null;
-        String loginRedirectURL = null;
-
         try {
+            String idParam = request.getParameter("id");
             TourInfoService tourInfoService = new TourInfoService();
-            tourInfo = tourInfoService.GetTourInfoByTourID(tourId);
-            loginRedirectURL = URLHelpers.buildUrlQuery("/login", "redirect", "tour", "id", idParam);
+            int tourId = Integer.parseInt(idParam);
+            TourInfoBean tourInfo = tourInfoService.GetTourInfoByTourID(tourId);
+            String loginRedirectURL = URLHelpers.buildUrlQuery("/login", "redirect", "tour", "id", idParam);
+
+            request.setAttribute("tourInfo", tourInfo);
+            if (loginRedirectURL != null) {
+                request.setAttribute("loginReplacementURL", loginRedirectURL);
+            }
+            request.getRequestDispatcher("tourDetail.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        request.setAttribute("tourInfo", tourInfo);
-        if (loginRedirectURL != null) {
-            request.setAttribute("loginReplacementURL", loginRedirectURL);
-        }
-
-        request.getRequestDispatcher("tourDetail.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        AjaxResponse ajaxResponse;
-        boolean isAuthenticated = SessionHelpers.validateSession(request);
-        if (isAuthenticated) {
-            ajaxResponse = new AjaxResponse(
-                    true,
-                    "Proceed to Checkout",
-                    "/checkout"
-            );
-        } else {
-            String redirectUrl = "/login";
-            try {
-                redirectUrl = URLHelpers.buildUrlQuery(redirectUrl, "redirect", "checkout");
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            }
+        AjaxResponse ajaxResponse = new AjaxResponse();
 
-            ajaxResponse = new AjaxResponse(
-                    false,
-                    "Vui lòng đăng nhập trước khi tiến hành thanh toán",
-                    redirectUrl
-            );
-        }
-
-        String checkoutTourId = request.getParameter("checkoutTourId");
-        // Create a cookie that stores the tour ID before getting to Checkout
-        if (checkoutTourId != null) {
-            String cookieName = "checkoutTourId";
-            Cookie existingCookie = CookieHelpers.getExistingCookie(request, cookieName);
-            if (existingCookie != null) {
-                existingCookie.setValue(checkoutTourId);
-                response.addCookie(existingCookie);
+        try {
+            boolean isAuthenticated = SessionHelpers.validateSession(request);
+            if (isAuthenticated) {
+                ajaxResponse = new AjaxResponse(
+                        true,
+                        "Proceed to Checkout",
+                        "/checkout"
+                );
             } else {
-                // This cookie is session-lasting
-                response.addCookie(CookieHelpers.createCookie(cookieName, checkoutTourId, -1));
+                String redirectUrl = "/login";
+                redirectUrl = URLHelpers.buildUrlQuery(redirectUrl, "redirect", "checkout");
+                ajaxResponse = new AjaxResponse(
+                        false,
+                        "Vui lòng đăng nhập trước khi tiến hành thanh toán",
+                        redirectUrl
+                );
             }
+
+            String checkoutTourId = request.getParameter("checkoutTourId");
+            // Create a cookie that stores the tour ID before getting to Checkout
+            if (checkoutTourId != null) {
+                String cookieName = "checkoutTourId";
+                Cookie existingCookie = CookieHelpers.getExistingCookie(request, cookieName);
+
+                if (existingCookie != null) {
+                    existingCookie.setValue(checkoutTourId);
+                    response.addCookie(existingCookie);
+                } else {
+                    // Make a session-lasting cookie
+                    response.addCookie(CookieHelpers.createCookie(cookieName, checkoutTourId, -1));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
         response.setContentType("application/json");

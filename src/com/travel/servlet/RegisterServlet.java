@@ -21,27 +21,32 @@ public class RegisterServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // get form fields
-        String username = request.getParameter("user");
-        String password = request.getParameter("pwd");
-        String passwordConfirm = request.getParameter("pwd_confirm");
-        String name = request.getParameter("name");
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-        UserBean newUser = new UserBean(
-                !username.equals("") ? username : null,
-                !password.equals("") && password.equals(passwordConfirm) ? password : null,
-                !name.equals("") ? name : null,
-                !email.equals("") ? email : null,
-                !phone.equals("") ? phone : null,
-                Status.ACTIVE.getValue()
-        );
         AjaxResponse ajaxResponse;
 
         try {
+            // Get form fields
+            String username = request.getParameter("user");
+            String password = request.getParameter("pwd");
+            String passwordConfirm = request.getParameter("pwd_confirm");
+            String name = request.getParameter("name");
+            String phone = request.getParameter("phone");
+            String email = request.getParameter("email");
+
+            // Prepare new user
+            UserBean newUser = new UserBean(
+                    !username.equals("") ? username : null,
+                    !password.equals("") && password.equals(passwordConfirm) ? password : null,
+                    !name.equals("") ? name : null,
+                    !email.equals("") ? email : null,
+                    !phone.equals("") ? phone : null,
+                    Status.ACTIVE.getValue()
+            );
+
+            // Save new user to database
             UserService userService = new UserService();
             String resultMessage = userService.CreateUser(newUser, Role.CUSTOMER.getValue());
 
+            // Handle result cases
             if (resultMessage.equals("success")) {
                 ajaxResponse = new AjaxResponse(
                         true,
@@ -59,7 +64,7 @@ public class RegisterServlet extends HttpServlet {
             e.printStackTrace();
             ajaxResponse = new AjaxResponse(
                     false,
-                    "Exception thrown",
+                    "Exception thrown on our side",
                     null
             );
         }

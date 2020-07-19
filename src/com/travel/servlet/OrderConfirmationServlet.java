@@ -16,25 +16,24 @@ import java.io.PrintWriter;
 public class OrderConfirmationServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (TokenHelpers.verifyRequestToken(request)) {
-            request.getSession().removeAttribute("orderConfirmationToken");
-            int orderId = Integer.parseInt(request.getParameter("order"));
-            OrderBean order = null;
+        try {
+            if (TokenHelpers.verifyRequestToken(request)) {
+                request.getSession().removeAttribute("orderConfirmationToken");
+                int orderId = Integer.parseInt(request.getParameter("order"));
 
-            try {
                 OrderService orderService = new OrderService();
-                order = orderService.GetOrderByID(orderId);
-            } catch (Exception e) {
-                e.printStackTrace();
+                OrderBean order = orderService.GetOrderByID(orderId);
+
+                request.setAttribute("order", order);
+                request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
+            } else {
+                // request.getRequestDispatcher("error.jsp").forward(request, response);
+
+                PrintWriter out = response.getWriter();
+                out.println("<h1>" + "Sorry, the requested page no longer exists." + "</h1>");
             }
-
-            request.setAttribute("order", order);
-            request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
-        } else {
-            // request.getRequestDispatcher("error.jsp").forward(request, response);
-
-            PrintWriter out = response.getWriter();
-            out.println("<h1>" + "Sorry, the requested page no longer exists." + "</h1>");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -58,7 +58,7 @@ function showPlaceOrderModal(formElement) {
                     <h5 class="modal-title" id="placeOrderModalLabel">Xác nhận đặt tour</h5>
                 </div>
                 <div class="modal-body">
-                    <p>Để đặt tour này hãy chuyển khoản số tiền <span class="modal-total-price">${$('#totalPrice').text()}</span> vào tài khoản ngân hàng của chúng tôi và nhấn nút <b>Đặt tour</b>.</p>
+                    <p>Để đặt tour này bạn hãy chuyển khoản số tiền <span class="modal-total-price">${$('#totalPrice').text()}</span> vào tài khoản ngân hàng của chúng tôi và nhấn nút <b>Đặt tour</b>.</p>
                     <p class="mb-0"><em>Thông tin TK ngân hàng:</em></p>
                     <div class="pl-4">
                         <p class="mb-0">Ngân hàng: <b>Vietcombank - CN Bắc Sài Gòn</b></p>

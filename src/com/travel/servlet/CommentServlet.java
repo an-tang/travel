@@ -37,7 +37,7 @@ public class CommentServlet extends HttpServlet {
             int nextStart = start + size;
             ArrayList<CommentBean> nextComments = commentService.GetCommentsByTourInfoID(tourInfoId, nextStart, size);
             if (nextComments.size() > 0) {
-                showMoreURL = URLHelpers.buildUrlQuery(
+                showMoreURL = URLHelpers.buildRelativeURL(
                         "/comment",
                         "tour_info", String.valueOf(tourInfoId),
                         "start", String.valueOf(nextStart),
@@ -84,7 +84,7 @@ public class CommentServlet extends HttpServlet {
                 ajaxResponse = new AjaxResponse(
                         false,
                         "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.",
-                        URLHelpers.buildUrlQuery(
+                        URLHelpers.buildRelativeURL(
                                 "/login",
                                 "redirect", "tour",
                                 "id", String.valueOf(tourInfoId)

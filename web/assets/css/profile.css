@@ -2,11 +2,11 @@ header.header.scrolled {
   position: static;
 }
 
-.customer-profile {
+section.customer-profile {
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
-.customer-profile h2 {
+section.customer-profile h2 {
   text-align: center;
   margin-bottom: 2rem;
 }

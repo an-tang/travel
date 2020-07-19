@@ -104,7 +104,7 @@ public class ProfileServlet extends HttpServlet {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                ajaxResponse = new AjaxResponse(false, "Exception thrown", null);
+                ajaxResponse = new AjaxResponse(false, "Exception thrown on our side", null);
             }
 
             response.setContentType("application/json");

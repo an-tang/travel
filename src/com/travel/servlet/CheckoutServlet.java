@@ -112,7 +112,7 @@ public class CheckoutServlet extends HttpServlet {
                     ajaxResponse = new AjaxResponse(
                             true,
                             "Giao dịch thành công",
-                            URLHelpers.buildUrlQuery(
+                            URLHelpers.buildRelativeURL(
                                     "/orderconfirmation",
                                     "order", String.valueOf(orderId),
                                     "t", token
@@ -123,7 +123,7 @@ public class CheckoutServlet extends HttpServlet {
                 ajaxResponse = new AjaxResponse(
                         false,
                         "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.",
-                        URLHelpers.buildUrlQuery("/login", "redirect", "checkout")
+                        URLHelpers.buildRelativeURL("/login", "redirect", "checkout")
                 );
             }
         } catch (Exception e) {

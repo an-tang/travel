@@ -20,7 +20,7 @@ public class SearchServlet extends HttpServlet {
             TourService tourService = new TourService();
             String searchTerm = request.getParameter("q");
             ArrayList<TourBean> searchResult = tourService.GetToursByName(searchTerm, "title", "ASC", 0, 8);
-            String loginRedirectURL = URLHelpers.buildUrlQuery("/login", "redirect", "search", "q", searchTerm);
+            String loginRedirectURL = URLHelpers.buildRelativeURL("/login", "redirect", "search", "q", searchTerm);
 
             request.setAttribute("q", searchTerm);
             request.setAttribute("searchResult", searchResult);

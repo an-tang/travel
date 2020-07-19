@@ -1,8 +1,9 @@
 package com.travel.servlet;
 
-import com.travel.bean.UserBean;
+import com.travel.bean.OrderBean;
 import com.travel.helper.SessionHelpers;
-import com.travel.service.UserService;
+import com.travel.helper.URLHelpers;
+import com.travel.service.OrderService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(urlPatterns = {"/orders"})
 public class OrderServlet extends HttpServlet {
@@ -21,15 +23,16 @@ public class OrderServlet extends HttpServlet {
             boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
             if (isAuthenticated) {
                 String username = (String) currentSession.getAttribute("authenticatedUser");
-                UserService userService = new UserService();
-                UserBean customer = userService.GetUserByUserName(username);
+                OrderService orderService = new OrderService();
+                ArrayList<OrderBean> orders = orderService.GetOrdersByUserName(username);
 
-                request.setAttribute("customer", customer);
+                request.setAttribute("orders", orders);
                 request.getRequestDispatcher("orders.jsp").forward(request, response);
             } else {
-                response.sendRedirect("/login");
+                response.sendRedirect(URLHelpers.buildRelativeURL("/login", "redirect", "orders"));
             }
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }

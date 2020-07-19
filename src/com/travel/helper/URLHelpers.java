@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 
 public class URLHelpers {
 
-    public static String buildUrlQuery(String basePath, String... keysAndValues) throws Exception {
+    public static String buildRelativeURL(String basePath, String... keysAndValues) throws Exception {
         if (keysAndValues.length == 0) return basePath;
 
         if (keysAndValues.length % 2 != 0)

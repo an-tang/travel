@@ -29,14 +29,17 @@ public class LoginServlet extends HttpServlet {
                     case "checkout":
                         redirectUrl = "/checkout";
                         break;
+                    case "orders":
+                        redirectUrl = "/orders";
+                        break;
                     case "wishlist":
                         redirectUrl = "/wishlist";
                         break;
                     case "search":
-                        redirectUrl = URLHelpers.buildUrlQuery("/search", "q", request.getParameter("q"));
+                        redirectUrl = URLHelpers.buildRelativeURL("/search", "q", request.getParameter("q"));
                         break;
                     case "tour":
-                        redirectUrl = URLHelpers.buildUrlQuery("/tour", "id", request.getParameter("id"));
+                        redirectUrl = URLHelpers.buildRelativeURL("/tour", "id", request.getParameter("id"));
                         break;
                     default:
                         redirectUrl = "";
@@ -55,12 +58,12 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("user");
-        String password = request.getParameter("pwd");
-        String redirectUrl = request.getParameter("redirect_url");
         AjaxResponse ajaxResponse;
 
         try {
+            String username = request.getParameter("user");
+            String password = request.getParameter("pwd");
+            String redirectUrl = request.getParameter("redirect_url");
             UserService userService = new UserService();
             boolean loginSuccess = userService.Login(username, password);
 
@@ -90,7 +93,7 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
             ajaxResponse = new AjaxResponse(
                     false,
-                    "Exception thrown",
+                    "Exception thrown on our side",
                     null
             );
         }

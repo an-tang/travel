@@ -24,7 +24,7 @@ public class TourDetailServlet extends HttpServlet {
             TourInfoService tourInfoService = new TourInfoService();
             int tourId = Integer.parseInt(idParam);
             TourInfoBean tourInfo = tourInfoService.GetTourInfoByTourID(tourId);
-            String loginRedirectURL = URLHelpers.buildUrlQuery("/login", "redirect", "tour", "id", idParam);
+            String loginRedirectURL = URLHelpers.buildRelativeURL("/login", "redirect", "tour", "id", idParam);
 
             request.setAttribute("tourInfo", tourInfo);
             if (loginRedirectURL != null) {
@@ -49,7 +49,7 @@ public class TourDetailServlet extends HttpServlet {
                 );
             } else {
                 String redirectUrl = "/login";
-                redirectUrl = URLHelpers.buildUrlQuery(redirectUrl, "redirect", "checkout");
+                redirectUrl = URLHelpers.buildRelativeURL(redirectUrl, "redirect", "checkout");
                 ajaxResponse = new AjaxResponse(
                         false,
                         "Vui lòng đăng nhập trước khi tiến hành thanh toán",

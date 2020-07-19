@@ -38,7 +38,7 @@
                         <a href="/" class="btn btn-outline-danger px-3 py-2 mr-3" role="button">
                             Tiếp tục mua sắm
                         </a>
-                        <a href="/account#orders" class="btn btn-danger btn-accent px-3 py-2" role="button">
+                        <a href="/orders" class="btn btn-danger btn-accent px-3 py-2" role="button">
                             Xem đơn hàng
                         </a>
                     </div>

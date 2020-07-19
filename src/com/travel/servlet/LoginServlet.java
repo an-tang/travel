@@ -17,56 +17,53 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean isAuthenticated = SessionHelpers.validateSession(request);
-        if (!isAuthenticated) {
-            // Prepare redirect URL for successful login
-            String redirectParam = request.getParameter("redirect") != null
-                    ? request.getParameter("redirect")
-                    : "";
-            String redirectUrl;
-            switch (redirectParam) {
-                case "checkout":
-                    redirectUrl = "/checkout";
-                    break;
-                case "wishlist":
-                    redirectUrl = "/wishlist";
-                    break;
-                case "search":
-                    redirectUrl = "";
-                    try {
-                        redirectUrl = URLHelpers.buildUrlQuery("/search", "q", request.getParameter("q"));
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        e.printStackTrace();
-                    }
-                    break;
-                case "tour":
-                    redirectUrl = "";
-                    try {
-                        redirectUrl = URLHelpers.buildUrlQuery("/tour", "id", request.getParameter("id"));
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        e.printStackTrace();
-                    }
-                    break;
-                default:
-                    redirectUrl = "";
-            }
+        try {
+            boolean isAuthenticated = SessionHelpers.validateSession(request);
+            if (!isAuthenticated) {
+                // Prepare redirect URL for successful login
+                String redirectParam = request.getParameter("redirect") != null
+                        ? request.getParameter("redirect")
+                        : "";
+                String redirectUrl;
+                switch (redirectParam) {
+                    case "checkout":
+                        redirectUrl = "/checkout";
+                        break;
+                    case "orders":
+                        redirectUrl = "/orders";
+                        break;
+                    case "wishlist":
+                        redirectUrl = "/wishlist";
+                        break;
+                    case "search":
+                        redirectUrl = URLHelpers.buildRelativeURL("/search", "q", request.getParameter("q"));
+                        break;
+                    case "tour":
+                        redirectUrl = URLHelpers.buildRelativeURL("/tour", "id", request.getParameter("id"));
+                        break;
+                    default:
+                        redirectUrl = "";
+                }
 
-            request.setAttribute("redirectUrl", redirectUrl);
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("/account");
+                // Render login form
+                request.setAttribute("redirectUrl", redirectUrl);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("/account");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("user");
-        String password = request.getParameter("pwd");
-        String redirectUrl = request.getParameter("redirect_url");
         AjaxResponse ajaxResponse;
 
         try {
+            String username = request.getParameter("user");
+            String password = request.getParameter("pwd");
+            String redirectUrl = request.getParameter("redirect_url");
             UserService userService = new UserService();
             boolean loginSuccess = userService.Login(username, password);
 
@@ -83,7 +80,7 @@ public class LoginServlet extends HttpServlet {
                 ajaxResponse = new AjaxResponse(
                         true,
                         "Đăng nhập thành công",
-                        !redirectUrl.equals("") ? redirectUrl : userService.IsAdmin(username) ? "/admin/Dashboard" : "/account"
+                        !redirectUrl.equals("") ? redirectUrl : (userService.IsAdmin(username) ? "/admin/Dashboard" : "/account")
                 );
             } else {
                 ajaxResponse = new AjaxResponse(
@@ -96,7 +93,7 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
             ajaxResponse = new AjaxResponse(
                     false,
-                    "Exception thrown",
+                    "Exception thrown on our side",
                     null
             );
         }

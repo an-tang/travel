@@ -44,7 +44,7 @@
                         <div class="card-header">
                             <div class="d-flex flex-row align-items-center">
                                 <h5 class="card-header-title flex-grow-1">Thông tin khách hàng</h5>
-                                <a href="#" class="card-header-action">Chỉnh sửa</a>
+                                <a href="/profile" class="card-header-action">Chỉnh sửa</a>
                             </div>
                         </div>
                         <div class="card-body">

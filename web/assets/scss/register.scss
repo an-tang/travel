@@ -2,6 +2,5 @@
 @import '../vendor/bootstrap/scss/mixins';
 @import 'utilities/variables';
 @import 'utilities/mixins';
-
-@import 'register/registerHeader';
+@import 'components/staticHeader';
 @import 'register/registerForm';

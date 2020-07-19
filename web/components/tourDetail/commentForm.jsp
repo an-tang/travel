@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.travel.helper.SessionHelpers" %>
 <%@ page import="com.travel.bean.TourInfoBean" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     HttpSession currentSession = request.getSession(false);
     boolean isAuthenticated = SessionHelpers.validateSession(currentSession);

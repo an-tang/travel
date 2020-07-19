@@ -7,14 +7,17 @@
     String showMoreURL = (String) request.getAttribute("showMoreURL");
     boolean hasShowMore = !showMoreURL.equals("");
 %>
-<c:forEach items="${comments}" var="comment">
-    <div class="card comment-card">
-        <h5 class="card-header">${comment.getUserName()}</h5>
-        <div class="card-body">
-            <p>${comment.getContent()}</p>
+
+<c:if test="<%=comments.size() > 0%>">
+    <c:forEach items="${comments}" var="comment">
+        <div class="card comment-card">
+            <h5 class="card-header">${comment.getUserName()}</h5>
+            <div class="card-body">
+                <p>${comment.getContent()}</p>
+            </div>
         </div>
-    </div>
-</c:forEach>
+    </c:forEach>
+</c:if>
 
 <c:if test="<%=hasShowMore%>">
     <div class="show-more">

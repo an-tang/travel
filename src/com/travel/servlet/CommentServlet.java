@@ -18,17 +18,17 @@ import java.util.ArrayList;
 public class CommentServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int tourInfoId = Integer.parseInt(request.getParameter("tour_info"));
-        int start = request.getParameter("start") != null
-                ? Integer.parseInt(request.getParameter("start"))
-                : 0;
-        int size = request.getParameter("size") != null
-                ? Integer.parseInt(request.getParameter("size"))
-                : 10;
-        ArrayList<CommentBean> comments = new ArrayList<>();
-        String showMoreURL = "";
-
         try {
+            int tourInfoId = Integer.parseInt(request.getParameter("tour_info"));
+            int start = request.getParameter("start") != null
+                    ? Integer.parseInt(request.getParameter("start"))
+                    : 0;
+            int size = request.getParameter("size") != null
+                    ? Integer.parseInt(request.getParameter("size"))
+                    : 10;
+            ArrayList<CommentBean> comments = new ArrayList<>();
+            String showMoreURL = "";
+
             // Get comments on current page
             CommentService commentService = new CommentService();
             comments = commentService.GetCommentsByTourInfoID(tourInfoId, start, size);
@@ -37,39 +37,40 @@ public class CommentServlet extends HttpServlet {
             int nextStart = start + size;
             ArrayList<CommentBean> nextComments = commentService.GetCommentsByTourInfoID(tourInfoId, nextStart, size);
             if (nextComments.size() > 0) {
-                showMoreURL = URLHelpers.buildUrlQuery(
+                showMoreURL = URLHelpers.buildRelativeURL(
                         "/comment",
                         "tour_info", String.valueOf(tourInfoId),
                         "start", String.valueOf(nextStart),
                         "size", String.valueOf(size)
                 );
             }
+
+            request.setAttribute("comments", comments);
+            request.setAttribute("showMoreURL", showMoreURL);
+            request.getRequestDispatcher("components/tourDetail/commentCards.jsp").forward(request, response);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-
-        request.setAttribute("comments", comments);
-        request.setAttribute("showMoreURL", showMoreURL);
-        request.getRequestDispatcher("components/tourDetail/commentCards.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AjaxResponse ajaxResponse;
-        int tourInfoId = Integer.parseInt(request.getParameter("tour_info"));
-        boolean isAuthenticated = SessionHelpers.validateSession(request);
 
-        if (isAuthenticated) {
-            ajaxResponse = new AjaxResponse(
-                    false,
-                    "Đăng tải bình luận không thành công",
-                    null
-            );
-            String username = request.getParameter("username");
-            String commentContent = request.getParameter("comment_content");
-            CommentBean comment = new CommentBean(username, commentContent, tourInfoId, 1);
+        try {
+            int tourInfoId = Integer.parseInt(request.getParameter("tour_info"));
+            boolean isAuthenticated = SessionHelpers.validateSession(request);
 
-            try {
+            if (isAuthenticated) {
+                ajaxResponse = new AjaxResponse(
+                        false,
+                        "Đăng tải bình luận không thành công",
+                        null
+                );
+                String username = request.getParameter("username");
+                String commentContent = request.getParameter("comment_content");
+                CommentBean comment = new CommentBean(username, commentContent, tourInfoId, 1);
+
                 CommentService commentService = new CommentService();
                 boolean success = commentService.CreateComment(comment);
                 if (success) {
@@ -79,30 +80,26 @@ public class CommentServlet extends HttpServlet {
                             null
                     );
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
+            } else {
                 ajaxResponse = new AjaxResponse(
                         false,
                         "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.",
-                        URLHelpers.buildUrlQuery(
+                        URLHelpers.buildRelativeURL(
                                 "/login",
                                 "redirect", "tour",
                                 "id", String.valueOf(tourInfoId)
                         )
                 );
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-
-                ajaxResponse = new AjaxResponse(
-                        false,
-                        "Exception thrown",
-                        null
-                );
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+
+            ajaxResponse = new AjaxResponse(
+                    false,
+                    "Exception thrown on our side",
+                    null
+            );
         }
 
         response.setContentType("application/json");

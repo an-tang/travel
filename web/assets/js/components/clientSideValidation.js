@@ -18,8 +18,8 @@ function validateForm(event) {
             }
         });
     } else {
-        let pwdInput = $('form input[name="pwd"]');
-        let pwdConfirmInput = $('form input[name="pwdConfirm"]');
+        let pwdInput = $('form input[name="pwd"], form input[name="new_pwd"]');
+        let pwdConfirmInput = $('form input[name="pwd_confirm"], form input[name="new_pwd_confirm"]');
 
         if (
             pwdInput.length

@@ -1,0 +1,8 @@
+header.header.scrolled {
+  position: static;
+}
+
+section.order-history {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}

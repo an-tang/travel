@@ -63,6 +63,7 @@
                                     <div class="col-md-12">
                                         <input type="text" placeholder="userName"
                                                name="admin_user_name"
+                                               readonly
                                                class="form-control form-control-line"
                                                value="<%=admin.getUserName()%>"
                                         >

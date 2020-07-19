@@ -32,6 +32,10 @@ Header
             height: 75px;
         }
     }
+
+    &.static.scrolled {
+        position: static;
+    }
 }
 
 /*********************************

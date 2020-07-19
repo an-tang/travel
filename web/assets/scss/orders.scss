@@ -2,7 +2,10 @@
 @import '../vendor/bootstrap/scss/mixins';
 @import 'utilities/variables';
 @import 'utilities/mixins';
-@import 'homePage/homeBanner';
-@import 'homePage/homeTours';
-@import 'homePage/homeBreadcrumbs';
-@import 'homePage/responsive';
+@import 'components/staticHeader';
+@import 'orders/orderEntry';
+
+section.order-history {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}

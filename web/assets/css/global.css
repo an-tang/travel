@@ -580,6 +580,9 @@ Header
 .header.scrolled .header_container {
   height: 75px;
 }
+.header.static.scrolled {
+  position: static;
+}
 
 /*********************************
 4.1 Logo

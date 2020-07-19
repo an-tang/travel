@@ -16,24 +16,21 @@ import java.util.ArrayList;
 public class SearchServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String searchTerm = request.getParameter("q");
-        ArrayList<TourBean> searchResult = null;
-        String loginRedirectURL = null;
-
         try {
             TourService tourService = new TourService();
-            searchResult = tourService.GetToursByName(searchTerm, "title", "ASC", 0, 8);
-            loginRedirectURL = URLHelpers.buildUrlQuery("/login", "redirect", "search", "q", searchTerm);
+            String searchTerm = request.getParameter("q");
+            ArrayList<TourBean> searchResult = tourService.GetToursByName(searchTerm, "title", "ASC", 0, 8);
+            String loginRedirectURL = URLHelpers.buildRelativeURL("/login", "redirect", "search", "q", searchTerm);
+
+            request.setAttribute("q", searchTerm);
+            request.setAttribute("searchResult", searchResult);
+            if (loginRedirectURL != null) {
+                request.setAttribute("loginReplacementURL", loginRedirectURL);
+            }
+            request.getRequestDispatcher("search.jsp").forward(request, response);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
-
-        request.setAttribute("q", searchTerm);
-        request.setAttribute("searchResult", searchResult);
-        if (loginRedirectURL != null) {
-            request.setAttribute("loginReplacementURL", loginRedirectURL);
-        }
-
-        request.getRequestDispatcher("search.jsp").forward(request, response);
     }
 }

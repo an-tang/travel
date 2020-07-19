@@ -1,4 +1,11 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.travel.bean.UserBean" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    ArrayList<UserBean> listUsers = (ArrayList<UserBean>) request.getAttribute("listUsers");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +16,8 @@
 <body class="fix-header fix-sidebar card-no-border">
 <div class="preloader">
     <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
 </div>
 <div id="main-wrapper">
 
@@ -49,52 +57,32 @@
                             <h4 class="card-title">Users</h4>
                             <h6 class="card-subtitle">Add class <code>.table</code></h6>
                             <div class="table-responsive">
+
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
+                                        <th>STT</th>
+                                        <th readonly="">Tên đăng nhập</th>
+                                        <th>Họ và tên</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Deshmukh</td>
-                                        <td>Prohaska</td>
-                                        <td>@Genelia</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Deshmukh</td>
-                                        <td>Gaylord</td>
-                                        <td>@Ritesh</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Sanghani</td>
-                                        <td>Gusikowski</td>
-                                        <td>@Govinda</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Roshan</td>
-                                        <td>Rogahn</td>
-                                        <td>@Hritik</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Joshi</td>
-                                        <td>Hickle</td>
-                                        <td>@Maruti</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Nigam</td>
-                                        <td>Eichmann</td>
-                                        <td>@Sonu</td>
-                                    </tr>
+                                    <c:forEach items="${listUsers}" var="user">
+                                        <c:url var="userUrl" value="/admin/Detail">
+                                            <c:param name="id" value="${user.getId()}"/>
+                                        </c:url>
+                                        <tr>
+
+                                            <td>1</td>
+                                            <td>${user.getUserName()}</td>
+                                            <td>${user.getName()}</td>
+                                            <td>${user.getEmail()}</td>
+                                            <td>${user.getStatus() == 0 ? "Activated":"Deactivated"}</td>
+                                        </tr>
+                                    </c:forEach>
+
                                     </tbody>
                                 </table>
                             </div>

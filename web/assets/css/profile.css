@@ -1,0 +1,12 @@
+header.header.scrolled {
+  position: static;
+}
+
+section.customer-profile {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+section.customer-profile h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}

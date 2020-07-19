@@ -78,3 +78,45 @@ set created_at = NOW(), updated_at = NOW()
 
 ==== Update role_id
 ALTER TABLE user_roles ALTER COLUMN role_id TYPE integer USING (role_id::integer);
+
+==== Add column payment_method
+ALTER TABLE orders ADD COLUMN payment_id integer;
+
+--
+CREATE SEQUENCE public.payments_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER SEQUENCE public.payments_id_seq
+    OWNER TO postgres;
+--
+
+--
+CREATE TABLE public.payments
+  (
+      id integer NOT NULL DEFAULT nextval('payments_id_seq'::regclass),
+      name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+      created_at timestamp without time zone,
+      updated_at timestamp without time zone,
+      CONSTRAINT payments_pkey PRIMARY KEY (id)
+  )
+  WITH (
+      OIDS = FALSE
+  )
+  TABLESPACE pg_default;
+--
+
+--
+ALTER TABLE public.payments
+    OWNER to postgres;
+--
+
+--
+CREATE INDEX roles_id_idx
+    ON public.roles USING btree
+    (id ASC NULLS LAST)
+    TABLESPACE pg_default;
+--

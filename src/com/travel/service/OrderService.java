@@ -45,7 +45,7 @@ public class OrderService {
         return orderDAO.GetOrderByUserName(userName);
     }
 
-    public OrderHistory GetOrderHistoryByUserName(String userName) {
+    public ArrayList<OrderHistory> GetOrderHistoryByUserName(String userName) {
         return orderDAO.GetOrderHistoryByUserName(userName);
     }
 

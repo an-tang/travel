@@ -123,7 +123,7 @@ public class OrderDAO extends BaseDAO {
         ArrayList<OrderDetail> orderDetails = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT t.id, t.name, t.image, ti.price , o.created_at, o.passenger, o.user_name, o.status, p.name as payment_name"
+            String sql = "SELECT t.id, t.name, t.image, ti.price , o.created_at, o.passenger, o.user_name, o.status, o.description, p.name as payment_name"
                     + " FROM orders o INNER JOIN tours t ON o.tour_id = t.id INNER JOIN payments p ON o.payment_id = p.id"
                     + " INNER JOIN tour_infos ti ON t.id = ti.tour_id WHERE user_name = ?;";
 
@@ -142,7 +142,43 @@ public class OrderDAO extends BaseDAO {
                 int status = rs.getInt("status");
                 String paymentMethod = rs.getString("payment_name");
                 int passenger = rs.getInt("passenger");
-                orderDetails.add(new OrderDetail(id, name, created_at, image, price, passenger, paymentMethod, status));
+                String description = rs.getString("description");
+                orderDetails.add(new OrderDetail(id, name, created_at, image, price, passenger, paymentMethod, status, description));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return orderDetails;
+    }
+
+    public ArrayList<OrderDetail> GetOrdersHaveSorting(String params, int page, int perPage) {
+        ArrayList<OrderDetail> orderDetails = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT t.id, t.name, t.image, ti.price , o.created_at, o.passenger, o.user_name, o.status, o.description, p.name as payment_name"
+                    + " FROM orders o INNER JOIN tours t ON o.tour_id = t.id INNER JOIN payments p ON o.payment_id = p.id"
+                    + " INNER JOIN tour_infos ti ON t.id = ti.tour_id "
+                    + params
+                    + " LIMIT ? OFFSET ?";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, page * perPage + perPage);
+            preparedStatement.setInt(2, page * perPage);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String image = rs.getString("image");
+                long price = rs.getLong("price");
+                Date date = rs.getDate("created_at");
+                Time time = rs.getTime("created_at");
+                String created_at = time.toString() + " " + date.toString();
+                int status = rs.getInt("status");
+                String paymentMethod = rs.getString("payment_name");
+                int passenger = rs.getInt("passenger");
+                String description = rs.getString("description");
+                orderDetails.add(new OrderDetail(id, name, created_at, image, price, passenger, paymentMethod, status, description));
             }
         } catch (SQLException e) {
             e.printStackTrace();

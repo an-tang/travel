@@ -7,6 +7,7 @@ import com.travel.dao.TourDAO;
 import com.travel.dao.TourInfoDAO;
 import com.travel.enumerize.Status;
 import com.travel.viewmodel.CreateTourRequest;
+import com.travel.viewmodel.TourDetail;
 
 import java.util.ArrayList;
 
@@ -127,7 +128,7 @@ public class TourService {
     }
 
     // Sample: GetAllTourHaveSorting("name", "ASC", 1, 0, 5)
-    public ArrayList<TourBean> GetAllTourHaveSorting(String fieldName, String sortType, int status, int page, int perPage) {
+    public ArrayList<TourDetail> GetAllTourHaveSorting(String fieldName, String sortType, int status, int page, int perPage) {
         page = Math.max(page, 0);
         perPage = perPage < 0 ? 10 : perPage;
         fieldName = ((fieldName == null) || (fieldName == "")) ? "name" : fieldName;

@@ -1,9 +1,8 @@
 package com.travel.dao;
 
-import com.travel.bean.CommentBean;
 import com.travel.bean.FeedbackBean;
 import com.travel.dbconnection.DBConnection;
-import com.travel.enumerize.Status;
+import com.travel.enumerize.State;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,12 +23,13 @@ public class FeedbackDAO extends BaseDAO {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO feedbacks (user_name, email, title, content, status, created_at, updated_at)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?);";
+
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, feedback.getUsername());
             preparedStatement.setString(2, feedback.getEmail());
             preparedStatement.setString(3, feedback.getTitle());
             preparedStatement.setString(4, feedback.getContent());
-            preparedStatement.setInt(5, Status.ACTIVE.getValue());
+            preparedStatement.setInt(5, State.NEW.getValue());
             preparedStatement.execute();
 
             int affectedRows = preparedStatement.executeUpdate();
@@ -50,6 +50,7 @@ public class FeedbackDAO extends BaseDAO {
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM feedbacks ORDER BY status DESC, created_at DESC LIMIT ? OFFSET ?;";
+
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, page * perPage + perPage);
             preparedStatement.setInt(2, page * perPage);
@@ -77,8 +78,9 @@ public class FeedbackDAO extends BaseDAO {
         try {
             connection = DBConnection.getConnect();
             String sql = "UPDATE feedbacks SET status = ?, updated_at = now() WHERE id = ?;";
+
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, Status.DEACTIVE.getValue());
+            preparedStatement.setInt(1, State.READ.getValue());
             preparedStatement.setInt(2, feedbackID);
 
             int affectedRows = preparedStatement.executeUpdate();

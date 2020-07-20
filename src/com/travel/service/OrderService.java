@@ -65,6 +65,15 @@ public class OrderService {
         return orderDAO.UpdateOrder(orderID, OrderStatus.COMPLETED);
     }
 
+    public ArrayList<OrderDetail> GetOrdersHaveSorting(String fieldName, String sortType, int page, int perPage){
+        page = Math.max(page, 0);
+        perPage = perPage < 0 ? 10 : perPage;
+        fieldName = ((fieldName == null) || (fieldName == "")) ? "user_name" : fieldName;
+        sortType = ((sortType == null) || (sortType == "")) ? "ASC" : sortType;
+        String params = "ORDER BY " + fieldName + " " + sortType;
+        return orderDAO.GetOrdersHaveSorting(params, page, perPage);
+    }
+
     public void Callback(int orderID, int status) {
         OrderBean loadOrder = orderDAO.GetOrderByID(orderID);
         if (loadOrder == null) {

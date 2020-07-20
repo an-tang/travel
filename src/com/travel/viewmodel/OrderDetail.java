@@ -12,6 +12,7 @@ public class OrderDetail implements Serializable {
     long totalAmount;
     String paymentMethod;
     int status;
+    String description;
 
     public int getId() {
         return id;
@@ -85,10 +86,18 @@ public class OrderDetail implements Serializable {
         this.status = status;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public OrderDetail() {
     }
 
-    public OrderDetail(int id, String name, String created_at, String image, long price, int passenger, String paymentMethod, int status) {
+    public OrderDetail(int id, String name, String created_at, String image, long price, int passenger, String paymentMethod, int status, String description) {
         this.id = id;
         this.name = name;
         this.created_at = created_at;
@@ -98,6 +107,7 @@ public class OrderDetail implements Serializable {
         this.totalAmount = price * passenger;
         this.paymentMethod = paymentMethod;
         this.status = status;
+        this.description = description;
     }
 
     @Override

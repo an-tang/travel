@@ -51,7 +51,6 @@ public class HomeServlet extends HttpServlet {
 
             // 3 - Get top provinces
             homepageProvinces = homeProvinceService.GetHomePageProvinces(5);
-            tourService.GetToursByListIDs(new int[]{1,2,3});
         } catch (Exception e) {
             e.printStackTrace();
         }

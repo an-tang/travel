@@ -3,6 +3,7 @@ package com.travel.dao;
 import com.travel.dbconnection.DBConnection;
 import com.travel.bean.TourBean;
 import com.travel.enumerize.Status;
+import com.travel.viewmodel.TourDetail;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -107,7 +108,7 @@ public class TourDAO extends BaseDAO {
             String sql = "SELECT * FROM tours t INNER JOIN tour_infos ti ON t.id = ti.tour_id "
                     + " WHERE t.province_id = ? AND ti.status = ? "
                     + params
-                    +  " LIMIT ? OFFSET ?;";
+                    + " LIMIT ? OFFSET ?;";
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, provinceID);
@@ -325,11 +326,13 @@ public class TourDAO extends BaseDAO {
         return true;
     }
 
-    public ArrayList<TourBean> GetAllToursHaveSorting(String params, int page, int perPage) {
-        ArrayList<TourBean> listTours = new ArrayList<>();
+    public ArrayList<TourDetail> GetAllToursHaveSorting(String params, int page, int perPage) {
+        ArrayList<TourDetail> listTours = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM tours t INNER JOIN tour_infos ti ON t.id = ti.tour_id "
+            String sql = "SELECT t.id, t.name, ti.title, ti.price, ti.status, p.name as province FROM tours t "
+                    + " INNER JOIN tour_infos ti ON t.id = ti.tour_id "
+                    + " INNER JOIN provinces p on t.province_id = p.id "
                     + params
                     + " LIMIT ? OFFSET ?";
 
@@ -341,10 +344,10 @@ public class TourDAO extends BaseDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String tourName = rs.getString("name");
-                String image = rs.getString("image");
-                int provinceID = rs.getInt("province_id");
+                String title = rs.getString("title");
+                String province = rs.getString("province");
                 long price = rs.getLong("price");
-                listTours.add(new TourBean(id, tourName, image, provinceID, price));
+                listTours.add(new TourDetail(id, tourName, title, province, price));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -379,7 +382,7 @@ public class TourDAO extends BaseDAO {
             e.printStackTrace();
         }
 
-        for(TourBean t:tours){
+        for (TourBean t : tours) {
             System.out.println(t.toString());
         }
         return tours;

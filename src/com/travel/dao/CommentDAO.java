@@ -47,7 +47,7 @@ public class CommentDAO extends BaseDAO {
         ArrayList<CommentBean> comments = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM comments ORDER BY CREATED_AT DESC LIMIT ? OFFSET ?";
+            String sql = "SELECT * FROM comments ORDER BY created_at DESC LIMIT ? OFFSET ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, page * perPage + perPage);
             preparedStatement.setInt(2, page * perPage);

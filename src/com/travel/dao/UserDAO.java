@@ -98,7 +98,8 @@ public class UserDAO extends BaseDAO {
                 String name = rs.getString("name");
                 String phone = rs.getString("phone");
                 String email = rs.getString("email");
-                listUsers.add(new UserBean(id, userName, name, email, phone));
+                int status = rs.getInt("status");
+                listUsers.add(new UserBean(id, userName, name, email, phone, status));
             }
         } catch (SQLException e) {
             e.printStackTrace();

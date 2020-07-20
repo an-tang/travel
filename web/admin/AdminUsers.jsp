@@ -86,7 +86,7 @@
                                             <td>${user.getUserName()}</td>
                                             <td>${user.getName()}</td>
                                             <td>${user.getEmail()}</td>
-                                            <td>${user.getStatus() == 0 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                            <td>${user.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
                                         </tr>
                                     </c:forEach>
 

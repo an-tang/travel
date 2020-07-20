@@ -95,6 +95,7 @@ public class CheckoutServlet extends HttpServlet {
 
                 // Handle payment cases
                 if (paymentMethod == PaymentMethod.MOMO.getValue()) {
+                    order.setPaymentMethod(PaymentMethod.MOMO);
                     TourInfoBean tourInfo = tourInfoService.GetTourInfoByTourID(orderTourId);
                     Checkout checkout = orderService.RequestPayment(tourInfo, order);
                     ajaxResponse = new CheckoutResponse(
@@ -104,6 +105,7 @@ public class CheckoutServlet extends HttpServlet {
                             checkout
                     );
                 } else if (paymentMethod == PaymentMethod.BANK_TRANSFER.getValue()) {
+                    order.setPaymentMethod(PaymentMethod.BANK_TRANSFER);
                     int orderId = orderService.CreateOrder(order);
 
                     // Generate one-time token

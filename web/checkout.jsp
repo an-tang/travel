@@ -133,14 +133,14 @@
                                     <h6 class="card-title">Hình thức thanh toán</h6>
                                     <div class="form-check mt-2">
                                         <input class="form-check-input" type="radio" name="payment"
-                                               id="momoWallet" value="0" checked>
+                                               id="momoWallet" value="1" checked>
                                         <label class="form-check-label" for="momoWallet">
                                             Thanh toán qua ví điện tử MoMo
                                         </label>
                                     </div>
                                     <div class="form-check mt-2">
                                         <input class="form-check-input" type="radio" name="payment"
-                                               id="bankTransfer" value="1">
+                                               id="bankTransfer" value="2">
                                         <label class="form-check-label" for="bankTransfer">
                                             Chuyển khoản ngân hàng
                                         </label>

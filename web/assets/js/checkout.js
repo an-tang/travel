@@ -89,9 +89,9 @@ function handleSubmitCheckoutForm() {
         const valid = validateForm.call(this, e);
         if (valid) {
             const payment = $('input[name="payment"]:checked').val();
-            if (payment === '0') {
+            if (payment === '1') {
                 placeOrder.call(this);
-            } else if (payment === '1') {
+            } else if (payment === '2') {
                 showPlaceOrderModal(this);
             }
         }

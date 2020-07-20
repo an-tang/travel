@@ -104,7 +104,8 @@
                                     id="registerEmail"
                                     class="form-control"
                                     name="email"
-                                    pattern="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$"
+                                    required pattern="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$"
+                                    data-missing-error="Vui lòng nhập email"
                                     data-pattern-mismatch="Vui lòng sử dụng email hợp lệ">
                             <div class="invalid-msg"></div>
                         </div>

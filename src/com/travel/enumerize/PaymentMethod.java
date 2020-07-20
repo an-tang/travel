@@ -1,8 +1,8 @@
 package com.travel.enumerize;
 
 public enum PaymentMethod {
-    MOMO(0),
-    BANK_TRANSFER(1);
+    MOMO(1),
+    BANK_TRANSFER(2);
 
     private final int paymentMethod;
 

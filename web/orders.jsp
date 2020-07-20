@@ -1,10 +1,12 @@
 <%@ page import="com.travel.helper.CustomStringFormatter" %>
+<%@ page import="com.travel.enumerize.PaymentStatus" %>
 <%@ page import="com.travel.viewmodel.OrderDetail" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     ArrayList<OrderDetail> orders = (ArrayList<OrderDetail>) request.getAttribute("orders");
+    PaymentStatus.FAILED.getValue();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,16 +51,27 @@
                                         </thead>
                                         <tbody>
                                             <c:forEach items="${orders}" var="order" varStatus="status">
-                                            <tr>
-                                                <th scope="row">${status.index + 1}</th>
-                                                <td>${order.getName()}</td>
-                                                <td>${CustomStringFormatter.getFormattedPrice(order.getPrice(), "đ")}</td>
-                                                <td>${order.getPassenger()}</td>
-                                                <td>${CustomStringFormatter.getFormattedPrice(order.getTotalAmount(), "đ")}</td>
-                                                <td>${order.getPaymentMethod()}</td>
-                                                <td>${order.getStatus()}</td>
-                                                <td>${order.getCreated_at()}</td>
-                                            </tr>
+                                                <c:choose>
+                                                    <c:when test="${order.getStatus() == PaymentStatus.NEW.getValue()}">
+                                                        <c:set var="paymentStatus" value="Chưa thanh toán" scope="page"></c:set>
+                                                    </c:when>
+                                                    <c:when test="${order.getStatus() == PaymentStatus.PAID.getValue()}">
+                                                        <c:set var="paymentStatus" value="Đã thanh toán" scope="page"></c:set>
+                                                    </c:when>
+                                                    <c:when test="${order.getStatus() == PaymentStatus.FAILED.getValue()}">
+                                                        <c:set var="paymentStatus" value="Thất bại" scope="page"></c:set>
+                                                    </c:when>
+                                                </c:choose>
+                                                <tr>
+                                                    <th scope="row">${status.index + 1}</th>
+                                                    <td>${order.getName()}</td>
+                                                    <td>${CustomStringFormatter.getFormattedPrice(order.getPrice(), "đ")}</td>
+                                                    <td>${order.getPassenger()}</td>
+                                                    <td>${CustomStringFormatter.getFormattedPrice(order.getTotalAmount(), "đ")}</td>
+                                                    <td>${order.getPaymentMethod()}</td>
+                                                    <td>${paymentStatus}</td>
+                                                    <td>${order.getCreated_at()}</td>
+                                                </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>

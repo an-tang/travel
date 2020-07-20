@@ -1,6 +1,8 @@
 package com.travel.servlet.admin;
 
+import com.travel.bean.OrderBean;
 import com.travel.helper.SessionHelpers;
+import com.travel.service.OrderService;
 import com.travel.service.UserService;
 
 import javax.servlet.ServletException;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(urlPatterns = "/admin/Orders")
 public class AdminOrdersServlet extends HttpServlet {
@@ -24,6 +27,12 @@ public class AdminOrdersServlet extends HttpServlet {
         if (isAuthenticated) {
             try {
                 String username = (String) currentSession.getAttribute("authenticatedUser");
+
+                //-------------get list Orders-----------------
+                OrderService orderService = new OrderService();
+                ArrayList<OrderBean> list = orderService.GetAllOrders(0, 10);
+                request.setAttribute("listOrders", list);
+
                 UserService userService = new UserService();
                 if (userService.IsAdmin(username)) {
                     request.getRequestDispatcher("AdminOrders.jsp").forward(request, response);

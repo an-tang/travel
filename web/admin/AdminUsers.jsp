@@ -65,21 +65,28 @@
                                         <th readonly="">Tên đăng nhập</th>
                                         <th>Họ và tên</th>
                                         <th>Email</th>
-                                        <th>Status</th>
+                                        <th>Trạng Thái</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <%--STT--%>
+                                    <%
+                                        int i = 1;
+
+                                    %>
                                     <c:forEach items="${listUsers}" var="user">
-                                        <c:url var="userUrl" value="/admin/Detail">
+                                        <c:url var="userUrl" value="/profile">
                                             <c:param name="id" value="${user.getId()}"/>
                                         </c:url>
                                         <tr>
-
-                                            <td>1</td>
+                                            <%
+                                                out.println("<td>" + i + "</td>");
+                                                i++;
+                                            %>
                                             <td>${user.getUserName()}</td>
                                             <td>${user.getName()}</td>
                                             <td>${user.getEmail()}</td>
-                                            <td>${user.getStatus() == 0 ? "Activated":"Deactivated"}</td>
+                                            <td>${user.getStatus() == 0 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
                                         </tr>
                                     </c:forEach>
 

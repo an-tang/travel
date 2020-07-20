@@ -1,6 +1,8 @@
 package com.travel.servlet.admin;
 
+import com.travel.bean.CommentBean;
 import com.travel.helper.SessionHelpers;
+import com.travel.service.CommentService;
 import com.travel.service.UserService;
 
 import javax.servlet.ServletException;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(urlPatterns = "/admin/Comment")
 public class AdminCommentServlet extends HttpServlet {
@@ -24,6 +27,12 @@ public class AdminCommentServlet extends HttpServlet {
         if (isAuthenticated) {
             try {
                 String username = (String) currentSession.getAttribute("authenticatedUser");
+
+                //-------------get list Comments-----------------
+                CommentService commentService = new CommentService();
+                ArrayList<CommentBean> list = commentService.GetComments(0, 10);
+                request.setAttribute("listComments", list);
+
                 UserService userService = new UserService();
                 if (userService.IsAdmin(username)) {
                     request.getRequestDispatcher("AdminComment.jsp").forward(request, response);

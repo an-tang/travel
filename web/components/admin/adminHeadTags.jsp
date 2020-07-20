@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/home.jpg">
 <title>UIT Travel</title>
 <!-- Bootstrap Core CSS -->
-<link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/assets/vendor/bootstrap-admin/css/bootstrap.min.css" rel="stylesheet">
 <!-- chartist CSS -->
 <link href="/assets/vendor/chartist-js/dist/chartist.min.css" rel="stylesheet">
 <link href="/assets/vendor/chartist-js/dist/chartist-init.css" rel="stylesheet">

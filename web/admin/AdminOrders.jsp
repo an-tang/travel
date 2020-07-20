@@ -1,4 +1,11 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.travel.bean.OrderBean" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    ArrayList<OrderBean> listOrders = (ArrayList<OrderBean>) request.getAttribute("listOrders");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +16,8 @@
 <body class="fix-header fix-sidebar card-no-border">
 <div class="preloader">
     <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
 </div>
 <div id="main-wrapper">
 
@@ -52,49 +60,38 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
+                                        <th>STT</th>
+                                        <th>Tour</th>
+                                        <th>Khách hàng</th>
+                                        <th>SĐT</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Ghi chú</th>
+                                        <th>Trạng Thái</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Deshmukh</td>
-                                        <td>Prohaska</td>
-                                        <td>@Genelia</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Deshmukh</td>
-                                        <td>Gaylord</td>
-                                        <td>@Ritesh</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Sanghani</td>
-                                        <td>Gusikowski</td>
-                                        <td>@Govinda</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Roshan</td>
-                                        <td>Rogahn</td>
-                                        <td>@Hritik</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Joshi</td>
-                                        <td>Hickle</td>
-                                        <td>@Maruti</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Nigam</td>
-                                        <td>Eichmann</td>
-                                        <td>@Sonu</td>
-                                    </tr>
+                                    <%--STT--%>
+                                    <%
+                                        int i = 1;
+
+                                    %>
+                                    <c:forEach items="${listOrders}" var="order">
+                                        <c:url var="orderUrl" value="/orders">
+                                            <c:param name="id" value="${order.getId()}"/>
+                                        </c:url>
+                                        <tr>
+                                            <%
+                                                out.println("<td>" + i + "</td>");
+                                                i++;
+                                            %>
+                                            <td>${order.getTourID()}</td>
+                                            <td>${order.getUsername()}</td>
+                                            <td>${order.getPhone()}</td>
+                                            <td>${order.getAddress()}</td>
+                                            <td>${order.getDescription()}</td>
+                                            <td>${order.getStatus() == 0 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

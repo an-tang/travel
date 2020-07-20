@@ -17,14 +17,6 @@ import java.util.ArrayList;
 public class AdminUsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        try {
-            UserService userService = new UserService();
-            ArrayList<UserBean> list = userService.GetAllUsers(1, 10);
-            request.setAttribute("listUsers", list);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

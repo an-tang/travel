@@ -1,4 +1,10 @@
+<%@ page import="com.travel.bean.CommentBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    ArrayList<CommentBean> listComments = (ArrayList<CommentBean>) request.getAttribute("listComments");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,49 +58,34 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
+                                        <th>STT</th>
+                                        <th>Bình luận</th>
+                                        <th>Tour</th>
+                                        <th>Khách hàng</th>
+                                        <th>Trạng thái</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Deshmukh</td>
-                                        <td>Prohaska</td>
-                                        <td>@Genelia</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Deshmukh</td>
-                                        <td>Gaylord</td>
-                                        <td>@Ritesh</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Sanghani</td>
-                                        <td>Gusikowski</td>
-                                        <td>@Govinda</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Roshan</td>
-                                        <td>Rogahn</td>
-                                        <td>@Hritik</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Joshi</td>
-                                        <td>Hickle</td>
-                                        <td>@Maruti</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Nigam</td>
-                                        <td>Eichmann</td>
-                                        <td>@Sonu</td>
-                                    </tr>
+                                    <%--STT--%>
+                                    <%
+                                        int i = 1;
+
+                                    %>
+                                    <c:forEach items="${listComments}" var="comment">
+                                        <c:url var="commentUrl" value="/comment">
+                                            <c:param name="id" value="${comment.getId()}"/>
+                                        </c:url>
+                                        <tr>
+                                            <%
+                                                out.println("<td>" + i + "</td>");
+                                                i++;
+                                            %>
+                                            <td>${comment.getContent()}</td>
+                                            <td>${comment.getTourInfoID()}</td>
+                                            <td>${comment.getUserName()}</td>
+                                            <td>${comment.getStatus() == 0 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

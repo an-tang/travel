@@ -1,9 +1,9 @@
 package com.travel.servlet;
 
-import com.travel.bean.OrderBean;
 import com.travel.helper.SessionHelpers;
 import com.travel.helper.URLHelpers;
 import com.travel.service.OrderService;
+import com.travel.viewmodel.OrderDetail;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +24,7 @@ public class OrderServlet extends HttpServlet {
             if (isAuthenticated) {
                 String username = (String) currentSession.getAttribute("authenticatedUser");
                 OrderService orderService = new OrderService();
-                ArrayList<OrderBean> orders = orderService.GetOrdersByUserName(username);
+                ArrayList<OrderDetail> orders = orderService.GetOrderHistoryByUserName(username);
 
                 request.setAttribute("orders", orders);
                 request.getRequestDispatcher("orders.jsp").forward(request, response);

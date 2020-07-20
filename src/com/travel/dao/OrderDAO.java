@@ -22,8 +22,8 @@ public class OrderDAO extends BaseDAO {
         int id = 0;
         try {
             connection = DBConnection.getConnect();
-            String sql = "INSERT INTO orders (user_name, tour_id, phone, address, passenger, description, status, created_at, updated_at) "
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, now(), now());";
+            String sql = "INSERT INTO orders (user_name, tour_id, phone, address, passenger, description, status, payment_id, created_at, updated_at) "
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, now(), now());";
 
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, order.getUsername());
@@ -33,6 +33,7 @@ public class OrderDAO extends BaseDAO {
             preparedStatement.setInt(5, order.getPassenger());
             preparedStatement.setString(6, order.getDescription());
             preparedStatement.setInt(7, OrderStatus.NEW.getValue());
+            preparedStatement.setInt(8, order.getPaymentMethod().getValue());
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {

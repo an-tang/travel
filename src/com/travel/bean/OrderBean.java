@@ -1,5 +1,7 @@
 package com.travel.bean;
 
+import com.travel.enumerize.PaymentMethod;
+
 import java.io.Serializable;
 
 public class OrderBean implements Serializable {
@@ -12,6 +14,7 @@ public class OrderBean implements Serializable {
     String description;
     int status;
     int tourID;
+    PaymentMethod paymentMethod;
 
     public int getId() {
         return id;
@@ -83,6 +86,14 @@ public class OrderBean implements Serializable {
 
     public void setTourID(int tourID) {
         this.tourID = tourID;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentID) {
+        this.paymentMethod = paymentID;
     }
 
     public OrderBean(int id, String username, int tourID, String phone, String address, int userID, int passenger, String description, int status) {

@@ -359,10 +359,12 @@ public class TourDAO extends BaseDAO {
         ArrayList<TourBean> tours = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT t.*, ti.price FROM tours t INNER JOIN tour_info ti WHERE t.id IN ("
+            String sql = "SELECT t.*, ti.price FROM tours t INNER JOIN tour_infos ti ON t.id = ti.tour_id WHERE ti.status = ? AND t.id IN ("
                     + params
                     + " ) ORDER BY price DESC;";
+
             preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, Status.ACTIVE.getValue());
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -377,6 +379,9 @@ public class TourDAO extends BaseDAO {
             e.printStackTrace();
         }
 
+        for(TourBean t:tours){
+            System.out.println(t.toString());
+        }
         return tours;
     }
 

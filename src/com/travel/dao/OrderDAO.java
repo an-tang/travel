@@ -3,7 +3,7 @@ package com.travel.dao;
 import com.travel.bean.OrderBean;
 import com.travel.dbconnection.DBConnection;
 import com.travel.enumerize.OrderStatus;
-import com.travel.viewmodel.OrderHistory;
+import com.travel.viewmodel.OrderDetail;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -119,8 +119,8 @@ public class OrderDAO extends BaseDAO {
         return listOrders;
     }
 
-    public ArrayList<OrderHistory> GetOrderHistoryByUserName(String userName) {
-        ArrayList<OrderHistory> orderDetails = new ArrayList<>();
+    public ArrayList<OrderDetail> GetOrderHistoryByUserName(String userName) {
+        ArrayList<OrderDetail> orderDetails = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
             String sql = "SELECT t.id, t.name, t.image, ti.price , o.created_at, o.passenger, o.user_name, o.status, p.name as payment_name"
@@ -142,7 +142,7 @@ public class OrderDAO extends BaseDAO {
                 int status = rs.getInt("status");
                 String paymentMethod = rs.getString("payment_name");
                 int passenger = rs.getInt("passenger");
-                orderDetails.add(new OrderHistory(id, name, created_at, image, price, passenger, paymentMethod, status));
+                orderDetails.add(new OrderDetail(id, name, created_at, image, price, passenger, paymentMethod, status));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,7 +151,7 @@ public class OrderDAO extends BaseDAO {
         return orderDetails;
     }
 
-    public boolean UpdateOrder(int orderID, OrderStatus status){
+    public boolean UpdateOrder(int orderID, OrderStatus status) {
         try {
             connection = DBConnection.getConnect();
             String sql = "UPDATE orders SET status = ?, updated_at = now() WHERE id = ?;";
@@ -174,7 +174,7 @@ public class OrderDAO extends BaseDAO {
         return true;
     }
 
-    public OrderBean GetOrderByID(int orderID){
+    public OrderBean GetOrderByID(int orderID) {
         OrderBean order = null;
         try {
             connection = DBConnection.getConnect();
@@ -184,7 +184,7 @@ public class OrderDAO extends BaseDAO {
             preparedStatement.setInt(1, orderID);
 
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 String username = rs.getString("user_name");
                 int tourID = rs.getInt("tour_id");
                 String address = rs.getString("address");

@@ -6,11 +6,14 @@ import com.travel.dao.OrderDAO;
 import com.travel.enumerize.OrderStatus;
 import com.travel.enumerize.PaymentStatus;
 import com.travel.viewmodel.Checkout;
-import com.travel.viewmodel.OrderHistory;
+import com.travel.viewmodel.OrderDetail;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 
 public class OrderService {
     OrderDAO orderDAO = null;
+
     public OrderService() throws Exception {
         orderDAO = new OrderDAO();
     }
@@ -45,7 +49,7 @@ public class OrderService {
         return orderDAO.GetOrderByUserName(userName);
     }
 
-    public ArrayList<OrderHistory> GetOrderHistoryByUserName(String userName) {
+    public ArrayList<OrderDetail> GetOrderHistoryByUserName(String userName) {
         return orderDAO.GetOrderHistoryByUserName(userName);
     }
 
@@ -63,7 +67,7 @@ public class OrderService {
 
     public void Callback(int orderID, int status) {
         OrderBean loadOrder = orderDAO.GetOrderByID(orderID);
-        if (loadOrder == null){
+        if (loadOrder == null) {
             System.out.println("Cannot found order" + orderID);
             return;
         }
@@ -72,11 +76,11 @@ public class OrderService {
         orderDAO.UpdateOrder(orderID, orderStatus);
     }
 
-    public OrderBean GetOrderByID(int orderID){
+    public OrderBean GetOrderByID(int orderID) {
         return orderDAO.GetOrderByID(orderID);
     }
 
-    public Checkout RequestPayment(TourInfoBean tourInfo, OrderBean orderBean){
+    public Checkout RequestPayment(TourInfoBean tourInfo, OrderBean orderBean) {
         HttpURLConnection connection = null;
         Checkout checkout = null;
         int orderID = 0;
@@ -86,7 +90,7 @@ public class OrderService {
             e.printStackTrace();
         }
         try {
-            if (orderID == 0){
+            if (orderID == 0) {
                 return null;
             }
             System.out.println(String.valueOf(orderID));
@@ -118,7 +122,7 @@ public class OrderService {
                 response.append(line);
             }
             JSONParser jsonParser = new JSONParser();
-            JSONObject result = (JSONObject)jsonParser.parse(response.toString());
+            JSONObject result = (JSONObject) jsonParser.parse(response.toString());
 
             checkout = new Checkout(
                     result.get("qr_text").toString(),

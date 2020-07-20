@@ -1,9 +1,10 @@
-<%@ page import="com.travel.bean.OrderBean" %>
+<%@ page import="com.travel.helper.CustomStringFormatter" %>
+<%@ page import="com.travel.viewmodel.OrderDetail" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
-    ArrayList<OrderBean> orders = (ArrayList<OrderBean>) request.getAttribute("orders");
+    ArrayList<OrderDetail> orders = (ArrayList<OrderDetail>) request.getAttribute("orders");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,13 +51,13 @@
                                             <c:forEach items="${orders}" var="order" varStatus="status">
                                             <tr>
                                                 <th scope="row">${status.index + 1}</th>
-                                                <td>Sài Gòn - Đà Lạt</td>
-                                                <td>3,500,000đ</td>
-                                                <td>3</td>
-                                                <td>10,500,000đ</td>
-                                                <td>Chuyển khoản ngân hàng</td>
-                                                <td>Chờ thanh toán</td>
-                                                <td>10:00 03/07/2020</td>
+                                                <td>${order.getName()}</td>
+                                                <td>${CustomStringFormatter.getFormattedPrice(order.getPrice(), "đ")}</td>
+                                                <td>${order.getPassenger()}</td>
+                                                <td>${CustomStringFormatter.getFormattedPrice(order.getTotalAmount(), "đ")}</td>
+                                                <td>${order.getPaymentMethod()}</td>
+                                                <td>${order.getStatus()}</td>
+                                                <td>${order.getCreated_at()}</td>
                                             </tr>
                                             </c:forEach>
                                         </tbody>

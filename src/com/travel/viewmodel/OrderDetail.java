@@ -2,7 +2,7 @@ package com.travel.viewmodel;
 
 import java.io.Serializable;
 
-public class OrderHistory implements Serializable {
+public class OrderDetail implements Serializable {
     int id;
     String name;
     String created_at;
@@ -85,10 +85,10 @@ public class OrderHistory implements Serializable {
         this.status = status;
     }
 
-    public OrderHistory() {
+    public OrderDetail() {
     }
 
-    public OrderHistory(int id, String name, String created_at, String image, long price, int passenger, String paymentMethod, int status) {
+    public OrderDetail(int id, String name, String created_at, String image, long price, int passenger, String paymentMethod, int status) {
         this.id = id;
         this.name = name;
         this.created_at = created_at;

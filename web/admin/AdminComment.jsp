@@ -83,7 +83,7 @@
                                             <td>${comment.getContent()}</td>
                                             <td>${comment.getTourInfoID()}</td>
                                             <td>${comment.getUserName()}</td>
-                                            <td>${comment.getStatus() == 0 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                            <td>${comment.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

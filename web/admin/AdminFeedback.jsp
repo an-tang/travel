@@ -87,7 +87,7 @@
                                             <td>${feedback.getTitle()}</td>
                                             <td>${feedback.getUsername()}</td>
                                             <td>${feedback.getEmail()}</td>
-                                            <td>${feedback.getStatus() == 0 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                            <td>${feedback.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

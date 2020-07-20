@@ -89,7 +89,7 @@
                                             <td>${order.getPhone()}</td>
                                             <td>${order.getAddress()}</td>
                                             <td>${order.getDescription()}</td>
-                                            <td>${order.getStatus() == 0 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                            <td>${order.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

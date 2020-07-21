@@ -8,6 +8,7 @@ $(document).ready(function () {
     initBannerCarousel();
     processMultiLineText('.tour-detail');
     handleBookTour();
+    handleAddToWishlist();
 
     // Prepare comment form
     handleFieldInvalid();
@@ -50,7 +51,7 @@ function handleBookTour() {
             url: self.data('action'),
             type: 'post',
             dataType: 'json',
-            data: {checkoutTourId: self.data('tour-id')}
+            data: { checkoutTourId: self.data('tour-id') }
         })
             .done(data => {
                 if (!data.success) {
@@ -66,6 +67,25 @@ function handleBookTour() {
                     alert(self.data('request-error'));
                 }
             });
+    });
+}
+
+function handleAddToWishlist() {
+    $('#addToWishlist').on('click.addToWishlist', function () {
+        const tourID = parseInt($(this).data('tour-id'), 10);
+        const jsonTourIDs = window.localStorage.getItem('tourIDs');
+        let tourIDs = jsonTourIDs ? JSON.parse(jsonTourIDs) : [];
+        let message;
+
+        if (!tourIDs.includes(tourID)) {
+            tourIDs.push(tourID);
+            window.localStorage.setItem('tourIDs', JSON.stringify(tourIDs));
+            message = 'Thêm tour vào danh sách yêu thích thành công\n'
+                + 'Để xem danh sách tour yêu thích hãy vào mục: Tài khoản > Tour yêu thích';
+        } else {
+            message = 'Tour đã tồn tại trong danh sách yêu thích';
+        }
+        alert(message);
     });
 }
 

@@ -90,6 +90,14 @@
                                             <td>${order.getAddress()}</td>
                                             <td>${order.getDescription()}</td>
                                             <td>${order.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                            <td><a class="btn waves-effect waves-green btn-facebook hidden-md-down"
+                                                   href="/a">
+                                                Active
+                                            </a></td>
+                                            <td><a class="btn waves-effect waves-red btn-red hidden-md-down"
+                                                   href="/b">
+                                                Deactive
+                                            </a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

@@ -89,7 +89,12 @@
                                             <td>${order.getPhone()}</td>
                                             <td>${order.getAddress()}</td>
                                             <td>${order.getDescription()}</td>
-                                            <td>${order.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                            <td>${order.getStatus() == 1 ? "Mới"
+                                            : order.getStatus() == 2? "Đã Thanh Toán"
+                                            :order.getStatus() == 3?"Lỗi"
+                                            :order.getStatus() == 4?"Hoàn tất"
+                                            :order.getStatus() == 5?"Đã hủy"
+                                            :"Ngưng hoạt động"}</td>
                                             <td><a class="btn waves-effect waves-green btn-facebook hidden-md-down"
                                                    href="/a">
                                                 Active

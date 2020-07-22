@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.travel.bean.OrderBean" %>
+<%@ page import="com.travel.viewmodel.OrderDetail" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ArrayList<OrderBean> listOrders = (ArrayList<OrderBean>) request.getAttribute("listOrders");
+    ArrayList<OrderDetail> listOrders = (ArrayList<OrderDetail>) request.getAttribute("listOrders");
 %>
 
 <!DOCTYPE html>
@@ -62,9 +62,10 @@
                                     <tr>
                                         <th>STT</th>
                                         <th>Tour</th>
-                                        <th>Khách hàng</th>
-                                        <th>SĐT</th>
-                                        <th>Địa chỉ</th>
+                                        <th >Giá/lượt</th>
+                                        <th>Số lượng khách</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Phương thức thanh toán</th>
                                         <th>Ghi chú</th>
                                         <th>Trạng Thái</th>
                                     </tr>
@@ -79,31 +80,42 @@
                                         <c:url var="orderUrl" value="/orders">
                                             <c:param name="id" value="${order.getId()}"/>
                                         </c:url>
-                                        <tr>
-                                            <%
-                                                out.println("<td>" + i + "</td>");
-                                                i++;
-                                            %>
-                                            <td>${order.getTourID()}</td>
-                                            <td>${order.getUsername()}</td>
-                                            <td>${order.getPhone()}</td>
-                                            <td>${order.getAddress()}</td>
-                                            <td>${order.getDescription()}</td>
-                                            <td>${order.getStatus() == 1 ? "Mới"
-                                            : order.getStatus() == 2? "Đã Thanh Toán"
-                                            :order.getStatus() == 3?"Lỗi"
-                                            :order.getStatus() == 4?"Hoàn tất"
-                                            :order.getStatus() == 5?"Đã hủy"
-                                            :"Ngưng hoạt động"}</td>
-                                            <td><a class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                   href="/a">
-                                                Active
-                                            </a></td>
-                                            <td><a class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                   href="/b">
-                                                Deactive
-                                            </a></td>
-                                        </tr>
+                                        <form action="/admin/Orders"
+                                              method="post">
+                                            <tr>
+                                                <%
+                                                    out.println("<td>" + i + "</td>");
+                                                    i++;
+                                                %>
+                                                <td>${order.getName()}</td>
+                                                <td>${order.getPrice()}</td>
+                                                <td>${order.getPassenger()}</td>
+                                                <td>${order.getTotalAmount()}</td>
+                                                <td>${order.getPaymentMethod()}</td>
+                                                <td>${order.getDescription()}</td>
+                                                <td>${order.getStatus() == 1 ? "Mới"
+                                                        : order.getStatus() == 2? "Đã Thanh Toán"
+                                                        :order.getStatus() == 3?"Lỗi"
+                                                        :order.getStatus() == 4?"Hoàn tất"
+                                                        :order.getStatus() == 5?"Đã hủy"
+                                                        :"Ngưng hoạt động"}</td>
+                                                <td>
+
+                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
+                                                            type="submit" name="id_order_active"
+                                                            value="${order.getId()}">
+                                                        Complete
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button class="btn waves-effect waves-red btn-red hidden-md-down"
+                                                            type="submit" name="id_order_deactive"
+                                                            value="${order.getId()}">
+                                                        Cancel
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </form>
                                     </c:forEach>
                                     </tbody>
                                 </table>

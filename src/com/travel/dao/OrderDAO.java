@@ -156,7 +156,7 @@ public class OrderDAO extends BaseDAO {
         ArrayList<OrderDetail> orderDetails = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT t.id, t.name, t.image, ti.price , o.created_at, o.passenger, o.user_name, o.status, o.description, p.name as payment_name"
+            String sql = "SELECT o.id, t.name, t.image, ti.price , o.created_at, o.passenger, o.user_name, o.status, o.description, p.name as payment_name"
                     + " FROM orders o INNER JOIN tours t ON o.tour_id = t.id INNER JOIN payments p ON o.payment_id = p.id"
                     + " INNER JOIN tour_infos ti ON t.id = ti.tour_id "
                     + params

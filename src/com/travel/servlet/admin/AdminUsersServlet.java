@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class AdminUsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
         String id_user_active = request.getParameter("id_user_active");
         String id_user_deactive = request.getParameter("id_user_deactive");
         try {

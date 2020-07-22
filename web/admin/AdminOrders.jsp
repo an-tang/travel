@@ -137,7 +137,7 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer">
-            © 2017 Material Pro Admin by wrappixel.com
+            © 2020 UIT Travel Admin
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->

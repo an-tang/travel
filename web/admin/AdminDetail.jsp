@@ -116,7 +116,8 @@
                                     <div class="col-sm-12">
                                         <button type="submit" class="btn btn-success">Update Profile</button>
                                     </div>
-                                    <input type="hidden" id="loginRedirectUrl" name="redirect_url" value="<%=request.getAttribute("redirectUrl")%>">
+                                    <input type="hidden" id="loginRedirectUrl" name="redirect_url"
+                                           value="<%=request.getAttribute("redirectUrl")%>">
                                 </div>
                             </form>
                         </div>
@@ -136,7 +137,7 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer">
-            © 2017 Material Pro Admin by wrappixel.com
+            © 2020 UIT Travel Admin
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->

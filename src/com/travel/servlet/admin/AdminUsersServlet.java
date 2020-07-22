@@ -26,7 +26,7 @@ public class AdminUsersServlet extends HttpServlet {
             } else userService.DeactivateUser(Integer.parseInt(id_user_deactive));
 
             //---------------Get List User-----------------
-            ArrayList<UserBean> list = userService.GetAllUsers(0, 20);
+            ArrayList<UserBean> list = userService.GetAllUsersHaveSorting("name", "asc", 2, 0, 20);
             request.setAttribute("listUsers", list);
             request.getRequestDispatcher("AdminUsers.jsp").forward(request, response);
         } catch (Exception e) {
@@ -45,7 +45,7 @@ public class AdminUsersServlet extends HttpServlet {
                 String username = (String) currentSession.getAttribute("authenticatedUser");
                 UserService userService = new UserService();
 //              //---------------Get List User-----------------
-                ArrayList<UserBean> list = userService.GetAllUsers(0, 20);
+                ArrayList<UserBean> list = userService.GetAllUsersHaveSorting("name", "asc", 2, 0, 20);
                 request.setAttribute("listUsers", list);
                 if (userService.IsAdmin(username)) {
                     request.getRequestDispatcher("AdminUsers.jsp").forward(request, response);

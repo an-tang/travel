@@ -90,7 +90,8 @@
                                                 <td>
 
                                                     <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                            type="submit" name="id_comment_active"
+                                                            type="submit"
+                                                            name="id_comment_active"
                                                             value="${comment.getId()}">
                                                         Active
 
@@ -98,7 +99,8 @@
                                                 </td>
                                                 <td>
                                                     <button class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                            type="submit" name="id_comment_deactive"
+                                                            type="submit"
+                                                            name="id_comment_deactive"
                                                             value="${comment.getId()}">
                                                         Deactive
 

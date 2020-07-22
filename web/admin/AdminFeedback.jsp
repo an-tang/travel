@@ -78,25 +78,39 @@
                                         <c:url var="feedbackUrl" value="/admin/Feedback">
                                             <c:param name="id" value="${feedback.getId()}"/>
                                         </c:url>
-                                        <tr>
-                                            <%
-                                                out.println("<td>" + i + "</td>");
-                                                i++;
-                                            %>
-                                            <td>${feedback.getContent()}</td>
-                                            <td>${feedback.getTitle()}</td>
-                                            <td>${feedback.getUsername()}</td>
-                                            <td>${feedback.getEmail()}</td>
-                                            <td>${feedback.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
-                                            <td><a class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                   href="/a">
-                                                Active
-                                            </a></td>
-                                            <td><a class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                   href="/b">
-                                                Deactive
-                                            </a></td>
-                                        </tr>
+                                        <form action="/admin/Comment"
+                                              method="post">
+                                            <tr>
+                                                <%
+                                                    out.println("<td>" + i + "</td>");
+                                                    i++;
+                                                %>
+                                                <td>${feedback.getContent()}</td>
+                                                <td>${feedback.getTitle()}</td>
+                                                <td>${feedback.getUsername()}</td>
+                                                <td>${feedback.getEmail()}</td>
+                                                <td>${feedback.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                                <td>
+
+                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
+                                                            type="submit"
+                                                            name="id_feedback_active"
+                                                            value="${feedback.getId()}">
+                                                        Active
+
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button class="btn waves-effect waves-red btn-red hidden-md-down"
+                                                            type="submit"
+                                                            name="id_feedback_deactive"
+                                                            value="${feedback.getId()}">
+                                                        Deactive
+
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </form>
                                     </c:forEach>
                                     </tbody>
                                 </table>

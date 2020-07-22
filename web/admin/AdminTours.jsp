@@ -2,9 +2,10 @@
 <%@ page import="com.travel.bean.OrderBean" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.travel.bean.TourBean" %>
+<%@ page import="com.travel.viewmodel.TourDetail" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ArrayList<TourBean> listTours = (ArrayList<TourBean>) request.getAttribute("listTours");
+    ArrayList<TourDetail> listTours = (ArrayList<TourDetail>) request.getAttribute("listTours");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,11 +62,12 @@
                                     <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Tour</th>
-                                        <th>Giới thiệu</th>
-                                        <th>Thông tin</th>
-                                        <th>Đơn Giá</th>
-<%--                                        <th>Trạng Thái</th>--%>
+                                        <th>Name</th>
+                                        <th>Title</th>
+                                        <th>Price</th>
+                                        <th>Province</th>
+                                        <th>Status</th>
+                                        <%--                                        <th>Trạng Thái</th>--%>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -78,25 +80,39 @@
                                         <c:url var="tourUrl" value="/tour">
                                             <c:param name="id" value="${tour.getId()}"/>
                                         </c:url>
-                                        <tr>
-                                            <%
-                                                out.println("<td>" + i + "</td>");
-                                                i++;
-                                            %>
-                                            <td>${tour.getName()}</td>
-                                            <td>${tour.getImage()}</td>
-                                            <td>${tour.getProvinceID()}</td>
-                                            <td>${tour.getPrice()}</td>
-<%--                                            <td>${tour.getStatus() == 0 ? "Đang hoạt động":"Ngưng hoạt động"}</td>--%>
-                                            <td><a class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                   href="/a">
-                                                Active
-                                            </a></td>
-                                            <td><a class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                   href="/b">
-                                                Deactive
-                                            </a></td>
-                                        </tr>
+                                        <form action="/admin/Tours"
+                                              method="post">
+                                            <tr>
+                                                <%
+                                                    out.println("<td>" + i + "</td>");
+                                                    i++;
+                                                %>
+                                                <td>${tour.getName()}</td>
+                                                <td>${tour.getTitle()}</td>
+                                                <td>${tour.getPrice()}</td>
+                                                <td>${tour.getProvince()}</td>
+                                                <td>Chờ API getStatus</td>
+                                                    <%--todo API getTourStatus--%>
+                                                    <%--<td>${tour.getStatus() == 0 ? "Đang hoạt động":"Ngưng hoạt động"}</td>--%>
+                                                <td>
+
+                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
+                                                            type="submit"
+                                                            name="id_tour_active"
+                                                            value="${tour.getId()}">
+                                                        Complete
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button class="btn waves-effect waves-red btn-red hidden-md-down"
+                                                            type="submit"
+                                                            name="id_tour_deactive"
+                                                            value="${tour.getId()}">
+                                                        Cancel
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </form>
                                     </c:forEach>
                                     </tbody>
                                 </table>

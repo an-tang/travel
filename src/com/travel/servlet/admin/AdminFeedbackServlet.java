@@ -17,7 +17,23 @@ import java.util.ArrayList;
 @WebServlet(urlPatterns = "/admin/Feedback")
 public class AdminFeedbackServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String id_feedback_active = request.getParameter("id_feedback_active");
+        String id_feedback_deactive = request.getParameter("id_feedback_deactive");
+        /// TODO: 22/07/2020 API Active, Deactive Feedback 
+//        try {
+//            FeedbackService feedbackService = new FeedbackService();
+//            if (id_feedback_active != null) {
+//                feedbackService.ActiveComment(Integer.parseInt(id_feedback_active));
+//            } else feedbackService.DeactivateComment(Integer.parseInt(id_feedback_deactive));
+//
+//            //-------------get list Comments-----------------
+//            ArrayList<CommentBean> list = feedbackService.GetComments(0, 10);
+//            request.setAttribute("listComments", list);
+//            request.getRequestDispatcher("AdminComment.jsp").forward(request, response);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            response.sendRedirect("/");
+//        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,9 +1,9 @@
 package com.travel.servlet.admin;
 
-import com.travel.bean.TourBean;
 import com.travel.helper.SessionHelpers;
 import com.travel.service.TourService;
 import com.travel.service.UserService;
+import com.travel.viewmodel.TourDetail;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +17,23 @@ import java.util.ArrayList;
 @WebServlet(urlPatterns = "/admin/Tours")
 public class AdminToursServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id_tour_active = request.getParameter("id_tour_active");
+        String id_tour_deactive = request.getParameter("id_tour_deactive");
+        try {
+            TourService tourService = new TourService();
+            if (id_tour_active != null) {
+                tourService.ActiveTour(Integer.parseInt(id_tour_active));
+            } else tourService.DeactivateTour(Integer.parseInt(id_tour_deactive));
 
+            //---------------Get List User-----------------
+            ArrayList<TourDetail> list = tourService.GetAllTourHaveSorting("name", "asc", 2, 0, 10);
+            request.setAttribute("listTours", list);
+
+            request.getRequestDispatcher("AdminTours.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("/");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,8 +46,8 @@ public class AdminToursServlet extends HttpServlet {
 
                 //-------------get list Orders-----------------
                 TourService tourService = new TourService();
-                //todo API getAllTourInfo
-                ArrayList<TourBean> list = tourService.GetAllTours(0, 10);
+                //todo API getAllTourInfo -> status
+                ArrayList<TourDetail> list = tourService.GetAllTourHaveSorting("name", "asc", 2, 0, 10);
                 request.setAttribute("listTours", list);
 
                 UserService userService = new UserService();

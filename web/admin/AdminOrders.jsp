@@ -102,14 +102,16 @@
                                                 <td>
 
                                                     <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                            type="submit" name="id_order_active"
+                                                            type="submit"
+                                                            name="id_order_active"
                                                             value="${order.getId()}">
                                                         Complete
                                                     </button>
                                                 </td>
                                                 <td>
                                                     <button class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                            type="submit" name="id_order_deactive"
+                                                            type="submit"
+                                                            name="id_order_deactive"
                                                             value="${order.getId()}">
                                                         Cancel
                                                     </button>

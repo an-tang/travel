@@ -92,14 +92,16 @@
                                                 <td>
 
                                                     <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                            type="submit" name="id_user_active" value="${user.getId()}">
+                                                            type="submit"
+                                                            name="id_user_active" value="${user.getId()}">
                                                         Active
 
                                                     </button>
                                                 </td>
                                                 <td>
                                                     <button class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                            type="submit" name="id_user_deactive"
+                                                            type="submit"
+                                                            name="id_user_deactive"
                                                             value="${user.getId()}">
                                                         Deactive
 

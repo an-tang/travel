@@ -384,6 +384,7 @@
 
 .special_content {
   margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .special_item_content {
@@ -462,6 +463,14 @@
 
 .special_slider_nav:hover {
   opacity: 0.8;
+}
+
+.see-all-provinces a {
+  color: #fe435b;
+  transition: color 0.3s;
+}
+.see-all-provinces a:hover {
+  color: #bd2130;
 }
 
 .home_breadcrumbs {

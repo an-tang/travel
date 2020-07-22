@@ -13,7 +13,7 @@
 <head>
     <jsp:include page="components/globalHeadTags.jsp" />
     <link rel="stylesheet" type="text/css" href="assets/css/search.css">
-    <title>Tour tỉnh</title>
+    <title>Tour <%=provinceName%></title>
 </head>
 
 <body>

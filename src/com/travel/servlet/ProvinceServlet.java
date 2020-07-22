@@ -3,6 +3,7 @@ package com.travel.servlet;
 import com.travel.bean.ProvinceBean;
 import com.travel.bean.TourBean;
 import com.travel.enumerize.PagingSize;
+import com.travel.enumerize.Region;
 import com.travel.helper.URLHelpers;
 import com.travel.service.ProvinceService;
 import com.travel.service.TourService;
@@ -21,6 +22,9 @@ public class ProvinceServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String provinceIdParam = request.getParameter("prv_id");
+            TourService tourService = new TourService();
+            ProvinceService provinceService = new ProvinceService();
+
             if (provinceIdParam != null) {
                 /* Province Tours Page */
 
@@ -39,7 +43,6 @@ public class ProvinceServlet extends HttpServlet {
                         && request.getHeader("x-requested-with").equals("XMLHttpRequest");
 
                 // Get search result on current page
-                TourService tourService = new TourService();
                 ArrayList<TourBean> provinceTours = tourService.GetToursInProvinceByID(provinceId, sortField, sortType, start, size);
                 request.setAttribute("tours", provinceTours);
 
@@ -60,7 +63,6 @@ public class ProvinceServlet extends HttpServlet {
                 request.setAttribute("showMoreURL", showMoreURL);
 
                 if (!isAjax) {
-                    ProvinceService provinceService = new ProvinceService();
                     ProvinceBean province = provinceService.GetProvinceByID(provinceId);
                     String loginRedirectURL = URLHelpers.buildRelativeURL("/login", "redirect", "province", "prv_id", String.valueOf(provinceId));
 
@@ -75,6 +77,16 @@ public class ProvinceServlet extends HttpServlet {
                 }
             } else {
                 /* Province Listing Page */
+
+                // Get all possible provinces from all 3 regions
+                ArrayList<ProvinceBean> northernProvinces = provinceService.GetProvincesByAreaID(Region.NORTH.getValue());
+                ArrayList<ProvinceBean> centralProvinces = provinceService.GetProvincesByAreaID(Region.CENTRAL.getValue());
+                ArrayList<ProvinceBean> southernProvinces = provinceService.GetProvincesByAreaID(Region.SOUTH.getValue());
+
+                request.setAttribute("northernProvinces", northernProvinces);
+                request.setAttribute("centralProvinces", centralProvinces);
+                request.setAttribute("southernProvinces", southernProvinces);
+                request.getRequestDispatcher("provinceListingPage.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

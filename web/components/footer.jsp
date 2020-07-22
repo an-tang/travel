@@ -21,7 +21,7 @@
 
             <div class="col-lg-4 footer_col">
                 <div class="footer_latest">
-                    <div class="footer_title">Tin mới nhất</div>
+                    <div class="footer_title">Tin du lịch</div>
                     <div class="footer_latest_content">
                         <!-- Footer Latest Post -->
                         <div class="footer_latest_item">
@@ -30,7 +30,7 @@
                             </div>
                             <div class="footer_latest_item_content">
                                 <div class="footer_latest_item_title">
-                                    <a href="#">Một kỳ nghỉ hoàn hảo</a>
+                                    <a target="_blank" href="https://suckhoedoisong.vn/10-bi-quyet-giup-ban-co-mot-ky-nghi-hoan-hao-n120808.html">Một kỳ nghỉ hoàn hảo</a>
                                 </div>
                                 <div class="footer_latest_item_date">Mar 25, 2019</div>
                             </div>
@@ -43,7 +43,7 @@
                             </div>
                             <div class="footer_latest_item_content">
                                 <div class="footer_latest_item_title">
-                                    <a href="#">Mùa hè ở miền biển nhiệt đới</a>
+                                    <a target="_blank" href="https://mytour.vn/location/11281-mua-he-bung-no-voi-5-hon-dao-nhiet-doi-o-viet-nam.html">Mùa hè ở miền biển nhiệt đới</a>
                                 </div>
                                 <div class="footer_latest_item_date">Jan 09, 2018</div>
                             </div>

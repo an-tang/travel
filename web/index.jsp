@@ -221,6 +221,16 @@
                     </div>
                 </div>
             </div>
+
+            <div class="see-all-provinces container">
+                <div class="row">
+                    <div class="col">
+                        <div class="section_title text-center">
+                            <a href="/province">Xem tất cả tỉnh thành &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Newsletter -->

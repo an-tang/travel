@@ -17,7 +17,25 @@ import java.util.ArrayList;
 public class AdminUsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
+        String id_user_active = request.getParameter("id_user_active");
+        String id_user_deactive = request.getParameter("id_user_deactive");
+        try {
+            UserService userService = new UserService();
+            if (id_user_active != null) {
+                userService.ActivateUser(Integer.parseInt(id_user_active));
+            } else userService.DeactivateUser(Integer.parseInt(id_user_deactive));
+
+            //---------------Get List User-----------------
+            ArrayList<UserBean> list = userService.GetAllUsers(0, 20);
+            request.setAttribute("listUsers", list);
+            request.getRequestDispatcher("AdminUsers.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("/");
+        }
     }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession currentSession = request.getSession(false);

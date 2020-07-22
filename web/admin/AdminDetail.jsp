@@ -56,7 +56,6 @@
                         <div class="card-block">
                             <form
                                     action="/admin/Detail"
-                                    class="/admin/Detail"
                                     method="post">
                                 <div class="form-group">
                                     <label class="col-md-12">Tên đăng nhập</label>
@@ -115,7 +114,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button type="submit" name="/admin/Detail" class="btn btn-success">Update Profile</button>
+                                        <button type="submit" class="btn btn-success">Update Profile</button>
                                     </div>
                                     <input type="hidden" id="loginRedirectUrl" name="redirect_url" value="<%=request.getAttribute("redirectUrl")%>">
                                 </div>

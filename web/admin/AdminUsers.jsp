@@ -78,24 +78,36 @@
                                         <c:url var="userUrl" value="/profile">
                                             <c:param name="id" value="${user.getId()}"/>
                                         </c:url>
-                                        <tr>
-                                            <%
-                                                out.println("<td>" + i + "</td>");
-                                                i++;
-                                            %>
-                                            <td>${user.getUserName()}</td>
-                                            <td>${user.getName()}</td>
-                                            <td>${user.getEmail()}</td>
-                                            <td>${user.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
-                                            <td><a class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                   href="/a">
-                                                Active
-                                            </a></td>
-                                            <td><a class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                   href="/b">
-                                                Deactive
-                                            </a></td>
-                                        </tr>
+                                        <form action="/admin/Users"
+                                              method="post">
+                                            <tr>
+                                                <%
+                                                    out.println("<td>" + i + "</td>");
+                                                    i++;
+                                                %>
+                                                <td>${user.getUserName()}</td>
+                                                <td>${user.getName()}</td>
+                                                <td>${user.getEmail()}</td>
+                                                <td>${user.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                                <td>
+
+                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
+                                                            type="submit" name="id_user_active" value="${user.getId()}">
+                                                        Active
+
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button class="btn waves-effect waves-red btn-red hidden-md-down"
+                                                            type="submit" name="id_user_deactive"
+                                                            value="${user.getId()}">
+                                                        Deactive
+
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </form>
+
                                     </c:forEach>
 
                                     </tbody>

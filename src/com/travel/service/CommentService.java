@@ -21,6 +21,7 @@ public class CommentService {
         if (comment.getUserName() == null || comment.getContent() ==null || comment.getTourInfoID() == 0){
             return false;
         }
+
         return commentDAO.CreateComment(comment);
     }
 
@@ -31,6 +32,7 @@ public class CommentService {
     public ArrayList<CommentBean> GetComments(int page, int perPage) {
         page = Math.max(page, 0);
         perPage = perPage < 0 ? 10 : perPage;
+
         return commentDAO.GetAllComments(page, perPage);
     }
 

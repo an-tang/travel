@@ -74,11 +74,12 @@ public class CommentDAO extends BaseDAO {
         ArrayList<CommentBean> comments = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT * FROM comments WHERE tour_info_id = ? ORDER BY CREATED_AT DESC LIMIT ? OFFSET ?";
+            String sql = "SELECT * FROM comments WHERE tour_info_id = ? AND status = ? ORDER BY created_at DESC LIMIT ? OFFSET ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, tourInfoID);
-            preparedStatement.setInt(2, size);
-            preparedStatement.setInt(3, start);
+            preparedStatement.setInt(2, Status.ACTIVE.getValue());
+            preparedStatement.setInt(3, size);
+            preparedStatement.setInt(4, start);
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {

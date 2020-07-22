@@ -15,7 +15,8 @@
 <body class="fix-header fix-sidebar card-no-border">
 <div class="preloader">
     <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
 </div>
 <div id="main-wrapper">
 
@@ -75,24 +76,36 @@
                                         <c:url var="commentUrl" value="/comment">
                                             <c:param name="id" value="${comment.getId()}"/>
                                         </c:url>
-                                        <tr>
-                                            <%
-                                                out.println("<td>" + i + "</td>");
-                                                i++;
-                                            %>
-                                            <td>${comment.getContent()}</td>
-                                            <td>${comment.getTourInfoID()}</td>
-                                            <td>${comment.getUserName()}</td>
-                                            <td>${comment.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
-                                            <td><a class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                   href="/a">
-                                                Active
-                                            </a></td>
-                                            <td><a class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                   href="/b">
-                                                Deactive
-                                            </a></td>
-                                        </tr>
+                                        <form action="/admin/Comment"
+                                              method="post">
+                                            <tr>
+                                                <%
+                                                    out.println("<td>" + i + "</td>");
+                                                    i++;
+                                                %>
+                                                <td>${comment.getContent()}</td>
+                                                <td>${comment.getTourInfoID()}</td>
+                                                <td>${comment.getUserName()}</td>
+                                                <td>${comment.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                                <td>
+
+                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
+                                                            type="submit" name="id_comment_active"
+                                                            value="${comment.getId()}">
+                                                        Active
+
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button class="btn waves-effect waves-red btn-red hidden-md-down"
+                                                            type="submit" name="id_comment_deactive"
+                                                            value="${comment.getId()}">
+                                                        Deactive
+
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </form>
                                     </c:forEach>
                                     </tbody>
                                 </table>

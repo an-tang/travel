@@ -198,6 +198,9 @@
                     <div class="owl-carousel owl-theme special_slider">
 
                         <c:forEach items="${homepageProvinces}" var="province">
+                            <c:url var="provinceUrl" value="/province">
+                                <c:param name="prv_id" value="${province.getProvinceID()}"/>
+                            </c:url>
                             <div class="owl-item">
                                 <div class="special_item">
                                     <div class="special_item_background">
@@ -205,7 +208,7 @@
                                     </div>
                                     <div class="special_item_content text-center">
                                         <div class="special_title">
-                                            <a href="#">${province.getName()}</a>
+                                            <a href="${provinceUrl}">${province.getName()}</a>
                                         </div>
                                     </div>
                                 </div>

@@ -5,7 +5,7 @@
 <%
     ArrayList<CommentBean> comments = (ArrayList<CommentBean>) request.getAttribute("comments");
     String showMoreURL = (String) request.getAttribute("showMoreURL");
-    boolean hasShowMore = !showMoreURL.equals("");
+    boolean hasShowMore = showMoreURL != null && !showMoreURL.equals("");
 %>
 
 <c:if test="<%=comments.size() > 0%>">

@@ -3,6 +3,8 @@
 $(document).ready(function () {
     initParallax();
     initIsotope();
+    handleShowMoreClick();
+    handleSortOptionChange();
 });
 
 /* Init Parallax */
@@ -103,4 +105,38 @@ function initIsotope() {
             });
         }
     }
+}
+
+function fetchResults(url, isReload) {
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'html'
+    })
+        .done(response => {
+            if (typeof response === 'string' && response) {
+                if (isReload) {
+                    $('.tour-listing-row').empty().append(response);
+                } else {
+                    $('.show-more').replaceWith(response);
+                }
+                $('.show-more .btn').on('click.showMoreResults', function () {
+                    fetchResults($(this).data('url'), false);
+                });
+            }
+        });
+}
+
+function handleSortOptionChange() {
+    $('#sortOptions').on('change.sortOptions', function () {
+        const url = $(this).val();
+        fetchResults(url, true);
+    });
+}
+
+function handleShowMoreClick() {
+    $('.show-more .btn').on('click.showMoreResults', function () {
+        const url = $(this).data('url');
+        fetchResults(url, false);
+    });
 }

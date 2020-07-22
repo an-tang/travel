@@ -1,11 +1,10 @@
-<%@ page import="com.travel.bean.TourBean" %>
-<%@ page import="com.travel.helper.CustomStringFormatter" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.travel.helper.URLHelpers" %>
+<%@ page import="com.travel.enumerize.PagingSize" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
+    String pageSize = String.valueOf(PagingSize.SEARCH.getValue());
     String searchQuery = (String) request.getAttribute("q");
-    ArrayList<TourBean> searchResult = (ArrayList<TourBean>) request.getAttribute("searchResult");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,21 +25,7 @@
         <jsp:include page="components/menu.jsp"/>
 
         <!-- Home -->
-        <div class="search-banner">
-            <div class="home_background parallax-window" data-parallax="scroll" data-image-src="assets/images/offers.jpg" data-speed="0.8"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="home_content">
-                            <div class="home_content_inner">
-                                <div class="home_title">Tìm kiếm</div>
-                                <div class="home_title_small">Tìm kiếm tour du lịch trong mơ của bạn</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <jsp:include page="components/search/searchBanner.jsp"/>
 
         <!-- Offers -->
         <div class="offers container">
@@ -49,6 +34,33 @@
                     <div class="section_title text-center">
                         <h2 id="section_title-with-q">Kết quả tìm kiếm cho '<%=searchQuery%>'</h2>
                     </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-8"></div>
+                <div class="col-1 d-flex align-items-center">
+                    <h5 class="mb-0">Sắp xếp:</h5>
+                </div>
+                <div class="col-3">
+                    <select class="form-control custom-select" id="sortOptions">
+                        <option
+                            selected
+                            value="<%=URLHelpers.buildRelativeURL("/search", "q", searchQuery, "sortField", "name", "sortType", "ASC", "start", "0", "size", pageSize)%>">
+                            Tên từ A-Z
+                        </option>
+                        <option
+                            value="<%=URLHelpers.buildRelativeURL("/search", "q", searchQuery, "sortField", "name", "sortType", "DESC", "start", "0", "size", pageSize)%>">
+                            Tên từ Z-A
+                        </option>
+                        <option
+                            value="<%=URLHelpers.buildRelativeURL("/search", "q", searchQuery, "sortField", "price", "sortType", "ASC", "start", "0", "size", pageSize)%>">
+                            Giá từ thấp đến cao
+                        </option>
+                        <option
+                            value="<%=URLHelpers.buildRelativeURL("/search", "q", searchQuery, "sortField", "price", "sortType", "DESC", "start", "0", "size", pageSize)%>">
+                            Giá từ thấp đến cao
+                        </option>
+                    </select>
                 </div>
             </div>
             <div class="row filtering_row d-none">
@@ -115,42 +127,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-
-                <c:choose>
-                    <c:when test="${searchResult.size() > 0}">
-                        <c:forEach items="${searchResult}" var="tour">
-                            <c:url var="tourUrl" value="/tour">
-                                <c:param name="id" value="${tour.getId()}"/>
-                            </c:url>
-                            <div class="item col-lg-6">
-                                <div class="item_image">
-                                    <img src="${tour.getImage()}" alt="">
-                                </div>
-                                <div class="item_content">
-                                    <div class="item_title">${tour.getName()}</div>
-                                    <div class="item_price">${CustomStringFormatter.getFormattedPrice(tour.getPrice(), "đ")}</div>
-                                    <div class="rating rating_5 d-block" data-rating="5">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="item_more_link">
-                                        <a href="${tourUrl}">Xem thêm</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="col-12">
-                            <h5 class="text-center">Không có kết quả tìm kiếm phù hợp.</h5>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-
+            <div class="row tour-listing-row">
+                <jsp:include page="components/search/tourListing.jsp" />
             </div>
         </div>
 

@@ -17,43 +17,41 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            boolean isAuthenticated = SessionHelpers.validateSession(request);
-            if (!isAuthenticated) {
-                // Prepare redirect URL for successful login
-                String redirectParam = request.getParameter("redirect") != null
-                        ? request.getParameter("redirect")
-                        : "";
-                String redirectUrl;
-                switch (redirectParam) {
-                    case "checkout":
-                        redirectUrl = "/checkout";
-                        break;
-                    case "orders":
-                        redirectUrl = "/orders";
-                        break;
-                    case "wishlist":
-                        redirectUrl = "/wishlist";
-                        break;
-                    case "search":
-                        redirectUrl = URLHelpers.buildRelativeURL("/search", "q", request.getParameter("q"));
-                        break;
-                    case "tour":
-                        redirectUrl = URLHelpers.buildRelativeURL("/tour", "id", request.getParameter("id"));
-                        break;
-                    default:
-                        redirectUrl = "";
-                }
-
-                // Render login form
-                request.setAttribute("redirectUrl", redirectUrl);
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("/account");
+        boolean isAuthenticated = SessionHelpers.validateSession(request);
+        if (!isAuthenticated) {
+            // Prepare redirect URL for successful login
+            String redirectParam = request.getParameter("redirect") != null
+                    ? request.getParameter("redirect")
+                    : "";
+            String redirectUrl;
+            switch (redirectParam) {
+                case "checkout":
+                    redirectUrl = "/checkout";
+                    break;
+                case "orders":
+                    redirectUrl = "/orders";
+                    break;
+                case "wishlist":
+                    redirectUrl = "/wishlist";
+                    break;
+                case "search":
+                    redirectUrl = URLHelpers.buildRelativeURL("/search", "q", request.getParameter("q"));
+                    break;
+                case "province":
+                    redirectUrl = URLHelpers.buildRelativeURL("/province", "prv_id", request.getParameter("prv_id"));
+                    break;
+                case "tour":
+                    redirectUrl = URLHelpers.buildRelativeURL("/tour", "id", request.getParameter("id"));
+                    break;
+                default:
+                    redirectUrl = "";
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+
+            // Render login form
+            request.setAttribute("redirectUrl", redirectUrl);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/account");
         }
     }
 

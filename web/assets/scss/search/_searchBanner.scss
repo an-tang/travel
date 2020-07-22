@@ -1,41 +1,33 @@
-.header {
-    position: fixed;
-}
+//.header {
+//    position: fixed;
+//}
 
 .search-banner {
+    position: relative;
     width: 100%;
 
     .home_background {
-        position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
-        height: 100%;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
+
+        img {
+            display: block;
+            max-height: 36vw;
+        }
     }
 
     .home_content {
-        width: 100%;
-        height: 601px;
+        position: absolute;
+        top: 40%;
+        left: 8%;
 
-        .home_content_inner {
-            position: absolute;
-            top: 46%;
-            left: 0;
-            width: 100%;
-            text-align: left;
+        .home_title {
+            font-size: 48px;
+            font-weight: 100;
+            color: $white;
+        }
 
-            .home_title {
-                font-size: 48px;
-                font-weight: 100;
-                color: #FFFFFF;
-            }
-
-            .home_title_small {
-                color: #FFFFFF;
-            }
+        .home_title_small {
+            color: $white;
         }
     }
 

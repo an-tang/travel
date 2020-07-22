@@ -32,7 +32,6 @@ public class OrderServlet extends HttpServlet {
                 response.sendRedirect(URLHelpers.buildRelativeURL("/login", "redirect", "orders"));
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }

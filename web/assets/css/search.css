@@ -1,38 +1,26 @@
-.header {
-  position: fixed;
-}
-
 .search-banner {
+  position: relative;
   width: 100%;
 }
 .search-banner .home_background {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
+}
+.search-banner .home_background img {
+  display: block;
+  max-height: 36vw;
 }
 .search-banner .home_content {
-  width: 100%;
-  height: 601px;
-}
-.search-banner .home_content .home_content_inner {
   position: absolute;
-  top: 46%;
-  left: 0;
-  width: 100%;
-  text-align: left;
+  top: 40%;
+  left: 8%;
 }
-.search-banner .home_content .home_content_inner .home_title {
+.search-banner .home_content .home_title {
   font-size: 48px;
   font-weight: 100;
-  color: #FFFFFF;
+  color: #fff;
 }
-.search-banner .home_content .home_content_inner .home_title_small {
-  color: #FFFFFF;
+.search-banner .home_content .home_title_small {
+  color: #fff;
 }
 .search-banner .home_breadcrumbs {
   margin-top: -6px;

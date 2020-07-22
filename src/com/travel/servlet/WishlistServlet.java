@@ -18,16 +18,11 @@ import java.util.Arrays;
 public class WishlistServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            boolean isAuthenticated = SessionHelpers.validateSession(request);
-            if (isAuthenticated) {
-                request.getRequestDispatcher("wishlist.jsp").forward(request, response);
-            } else {
-                response.sendRedirect(URLHelpers.buildRelativeURL("/login", "redirect", "wishlist"));
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+        boolean isAuthenticated = SessionHelpers.validateSession(request);
+        if (isAuthenticated) {
+            request.getRequestDispatcher("wishlist.jsp").forward(request, response);
+        } else {
+            response.sendRedirect(URLHelpers.buildRelativeURL("/login", "redirect", "wishlist"));
         }
     }
 

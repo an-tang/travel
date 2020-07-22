@@ -32,8 +32,8 @@ public class TourService {
     public ArrayList<TourBean> GetToursByName(String name, String fieldName, String sortType, int start, int size) {
         start = Math.max(start, 0);
         size = size < 0 ? 10 : size;
-        fieldName = ((fieldName == null) || (fieldName == "")) ? "name" : fieldName;
-        sortType = ((sortType == null) || (sortType == "")) ? "ASC" : sortType;
+        fieldName = fieldName == null || fieldName.equals("") ? "name" : fieldName;
+        sortType = sortType == null || sortType.equals("") ? "ASC" : sortType;
         String keyword = name.replace(" ", "&");
         String params = " ORDER BY " + fieldName + " " + sortType;
 
@@ -43,8 +43,8 @@ public class TourService {
     public ArrayList<TourBean> GetToursInProvinceByID(int provinceID, String fieldName, String sortType, int start, int size) {
         start = Math.max(start, 0);
         size = size < 0 ? 10 : size;
-        fieldName = ((fieldName == null) || (fieldName == "")) ? "name" : fieldName;
-        sortType = ((sortType == null) || (sortType == "")) ? "ASC" : sortType;
+        fieldName = fieldName == null || fieldName.equals("") ? "name" : fieldName;
+        sortType = sortType == null || sortType.equals("") ? "ASC" : sortType;
         String params = " ORDER BY " + fieldName + " " + sortType;
 
         return tourDAO.GetToursInProvinceByID(provinceID, params, start, size);

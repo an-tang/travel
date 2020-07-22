@@ -19,6 +19,7 @@ public class CommentServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            // Get request parameters
             int tourInfoId = Integer.parseInt(request.getParameter("tour_info"));
             int start = request.getParameter("start") != null
                     ? Integer.parseInt(request.getParameter("start"))
@@ -26,14 +27,13 @@ public class CommentServlet extends HttpServlet {
             int size = request.getParameter("size") != null
                     ? Integer.parseInt(request.getParameter("size"))
                     : 10;
-            ArrayList<CommentBean> comments = new ArrayList<>();
-            String showMoreURL = "";
 
             // Get comments on current page
             CommentService commentService = new CommentService();
-            comments = commentService.GetCommentsByTourInfoID(tourInfoId, start, size);
+            ArrayList<CommentBean> comments = commentService.GetCommentsByTourInfoID(tourInfoId, start, size);
 
             // Calculations for next page
+            String showMoreURL = "";
             int nextStart = start + size;
             ArrayList<CommentBean> nextComments = commentService.GetCommentsByTourInfoID(tourInfoId, nextStart, size);
             if (nextComments.size() > 0) {
@@ -49,7 +49,6 @@ public class CommentServlet extends HttpServlet {
             request.setAttribute("showMoreURL", showMoreURL);
             request.getRequestDispatcher("components/tourDetail/commentCards.jsp").forward(request, response);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -92,7 +91,6 @@ public class CommentServlet extends HttpServlet {
                 );
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
 
             ajaxResponse = new AjaxResponse(

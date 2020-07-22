@@ -38,42 +38,37 @@ public class TourDetailServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AjaxResponse ajaxResponse = new AjaxResponse();
+        boolean isAuthenticated = SessionHelpers.validateSession(request);
 
-        try {
-            boolean isAuthenticated = SessionHelpers.validateSession(request);
-            if (isAuthenticated) {
-                ajaxResponse = new AjaxResponse(
-                        true,
-                        "Proceed to Checkout",
-                        "/checkout"
-                );
+        if (isAuthenticated) {
+            ajaxResponse = new AjaxResponse(
+                    true,
+                    "Proceed to Checkout",
+                    "/checkout"
+            );
+        } else {
+            String redirectUrl = "/login";
+            redirectUrl = URLHelpers.buildRelativeURL(redirectUrl, "redirect", "checkout");
+            ajaxResponse = new AjaxResponse(
+                    false,
+                    "Vui lòng đăng nhập trước khi tiến hành thanh toán",
+                    redirectUrl
+            );
+        }
+
+        String checkoutTourId = request.getParameter("checkoutTourId");
+        // Create a cookie that stores the tour ID before getting to Checkout
+        if (checkoutTourId != null) {
+            String cookieName = "checkoutTourId";
+            Cookie existingCookie = CookieHelpers.getExistingCookie(request, cookieName);
+
+            if (existingCookie != null) {
+                existingCookie.setValue(checkoutTourId);
+                response.addCookie(existingCookie);
             } else {
-                String redirectUrl = "/login";
-                redirectUrl = URLHelpers.buildRelativeURL(redirectUrl, "redirect", "checkout");
-                ajaxResponse = new AjaxResponse(
-                        false,
-                        "Vui lòng đăng nhập trước khi tiến hành thanh toán",
-                        redirectUrl
-                );
+                // Make a session-lasting cookie
+                response.addCookie(CookieHelpers.createCookie(cookieName, checkoutTourId, -1));
             }
-
-            String checkoutTourId = request.getParameter("checkoutTourId");
-            // Create a cookie that stores the tour ID before getting to Checkout
-            if (checkoutTourId != null) {
-                String cookieName = "checkoutTourId";
-                Cookie existingCookie = CookieHelpers.getExistingCookie(request, cookieName);
-
-                if (existingCookie != null) {
-                    existingCookie.setValue(checkoutTourId);
-                    response.addCookie(existingCookie);
-                } else {
-                    // Make a session-lasting cookie
-                    response.addCookie(CookieHelpers.createCookie(cookieName, checkoutTourId, -1));
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
         }
 
         response.setContentType("application/json");

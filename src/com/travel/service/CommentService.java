@@ -2,6 +2,7 @@ package com.travel.service;
 
 import com.travel.bean.CommentBean;
 import com.travel.dao.CommentDAO;
+import com.travel.enumerize.Status;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +35,10 @@ public class CommentService {
     }
 
     public boolean DeactivateComment(int commentID) {
-        return commentDAO.DeactivateComment(commentID);
+        return commentDAO.UpdateCommentStatus(commentID, Status.DEACTIVE);
+    }
+
+    public boolean ActiveComment(int commentID){
+        return commentDAO.UpdateCommentStatus(commentID, Status.ACTIVE);
     }
 }

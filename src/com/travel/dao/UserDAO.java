@@ -58,9 +58,10 @@ public class UserDAO extends BaseDAO {
         try {
             connection = DBConnection.getConnect();
 
-            String sql = "SELECT * FROM USERS WHERE (user_name = ?);";
+            String sql = "SELECT * FROM USERS WHERE (user_name = ?) AND status = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userName);
+            preparedStatement.setInt(2, Status.ACTIVE.getValue());
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {

@@ -125,12 +125,12 @@ public class CommentDAO extends BaseDAO {
         return comments;
     }
 
-    public boolean DeactivateComment(int commentID) {
+    public boolean UpdateCommentStatus(int commentID, Status status) {
         try {
             connection = DBConnection.getConnect();
             String sql = "UPDATE comments SET status = ?, updated_at = now() WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, Status.DEACTIVE.getValue());
+            preparedStatement.setInt(1, status.getValue());
             preparedStatement.setInt(2, commentID);
 
             int affectedRows = preparedStatement.executeUpdate();

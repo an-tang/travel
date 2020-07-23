@@ -31,7 +31,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h2 class="mb-4">Đặt tour</h2>
+                    <h2 class="section-title mb-4">Đặt tour</h2>
                 </div>
             </div>
             <form

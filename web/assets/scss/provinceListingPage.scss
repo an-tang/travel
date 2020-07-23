@@ -4,3 +4,55 @@
 @import 'utilities/mixins';
 @import 'components/staticHeader';
 @import 'search/searchBanner';
+
+.province-listing-banner {
+    .home_background {
+        position: relative;
+
+        &::before {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            content: "";
+            z-index: 0;
+        }
+
+        img {
+            max-height: 40vw;
+        }
+    }
+}
+
+section.province-listing-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+    .region-name {
+        h3 {
+            display: inline-block;
+            text-transform: uppercase;
+            padding-bottom: 1rem;
+            border-bottom: solid $darkNavy 1px;
+            font-weight: 600;
+        }
+    }
+
+    .regional-province {
+        padding-top: 0.75rem;
+
+        a {
+            color: $darkNavy;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            font-weight: 500;
+
+            &:hover {
+                color: $lightCardinal;
+            }
+        }
+    }
+}

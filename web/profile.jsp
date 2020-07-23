@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h2 id="customerProfile">Thông tin khách hàng</h2>
+                        <h2 id="customerProfile" class="section-title">Thông tin khách hàng</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -102,7 +102,7 @@
 
                 <div class="row pt-5">
                     <div class="col-12">
-                        <h2 id="changePassword">Đổi mật khẩu</h2>
+                        <h2 id="changePassword" class="section-title">Đổi mật khẩu</h2>
                     </div>
                 </div>
                 <div class="row">

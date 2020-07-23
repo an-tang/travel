@@ -11,6 +11,7 @@ header.header.scrolled {
 }
 .search-banner .home_background img {
   display: block;
+  width: 100%;
   max-height: 36vw;
 }
 .search-banner .home_content {
@@ -48,4 +49,46 @@ header.header.scrolled {
 }
 .search-banner .home_breadcrumbs .home_breadcrumb a:hover {
   color: #fe3c52;
+}
+
+.province-listing-banner .home_background {
+  position: relative;
+}
+.province-listing-banner .home_background::before {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  content: "";
+  z-index: 0;
+}
+.province-listing-banner .home_background img {
+  max-height: 40vw;
+}
+
+section.province-listing-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+section.province-listing-section .region-name h3 {
+  display: inline-block;
+  text-transform: uppercase;
+  padding-bottom: 1rem;
+  border-bottom: solid #131a2f 1px;
+  font-weight: 600;
+}
+section.province-listing-section .regional-province {
+  padding-top: 0.75rem;
+}
+section.province-listing-section .regional-province a {
+  color: #131a2f;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  font-weight: 500;
+}
+section.province-listing-section .regional-province a:hover {
+  color: #fe435b;
 }

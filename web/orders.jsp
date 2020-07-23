@@ -27,7 +27,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h2 id="customerProfile">Đơn hàng của bạn</h2>
+                    <h2 id="customerProfile" class="section-title">Đơn hàng của bạn</h2>
                 </div>
             </div>
             <div class="row">

@@ -18,7 +18,7 @@
         <div class="container">
             <div class="row pb-4">
                 <div class="col-12">
-                    <h2>Tour yêu thích</h2>
+                    <h2 class="section-title">Tour yêu thích</h2>
                 </div>
             </div>
             <div id="wishlistTours" class="row"></div>

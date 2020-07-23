@@ -345,7 +345,7 @@
 
 .special_content {
     margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .special_item_content {
@@ -430,11 +430,11 @@
 
 .see-all-provinces {
     a {
-        color: $lightCardinal;
+        color: $darkNavy;
         transition: color 0.3s;
 
         &:hover {
-            color: $cardinal;
+            color: $lightCardinal;
         }
     }
 }

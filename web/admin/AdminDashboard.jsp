@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     ArrayList<ChartValue> chartValues = (ArrayList<ChartValue>) request.getAttribute("chartValues");
+    ArrayList<ChartValue> chartValues1 = (ArrayList<ChartValue>) request.getAttribute("chartValues1");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,18 +58,8 @@
                                 <div class="col-12">
                                     <div class="d-flex flex-wrap">
                                         <div>
-                                            <h3 class="card-title">Tour mới nhất vừa đặt</h3>
+                                            <h3 class="card-title">Biểu đồ Order theo tỉnh</h3>
                                             <h6 class="card-subtitle">template</h6></div>
-                                        <div class="ml-auto">
-                                            <ul class="list-inline">
-                                                <li>
-                                                    <h6 class="text-muted text-success"><i
-                                                            class="fa fa-circle font-10 m-r-10 "></i>Ample</h6></li>
-                                                <li>
-                                                    <h6 class="text-muted  text-info"><i
-                                                            class="fa fa-circle font-10 m-r-10"></i>Pixel</h6></li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -81,7 +72,7 @@
                 <div class="col-lg-4 col-md-5">
                     <div class="card">
                         <div class="card-block">
-                            <h3 class="card-title">Biểu đồ doanh thu theo Khu vực </h3>
+                            <h3 class="card-title">Biểu đồ Order theo Khu vực </h3>
                             <h6 class="card-subtitle">template</h6>
                             <div id="visitor" style="height:290px; width:100%;"></div>
                         </div>
@@ -91,15 +82,17 @@
                         <div class="card-block text-center ">
                             <ul class="list-inline m-b-0">
                                 <li>
-                                    <h6 class="text-muted  text-primary"><i class="fa fa-circle font-10 m-r-10"></i>Miền Bắc
+                                    <h6 class="text-muted  text-primary"><i class="fa fa-circle font-10 m-r-10"></i>Miền
+                                        Bắc
                                     </h6>
-
                                 </li>
                                 <li>
-                                    <h6 class="text-muted text-info"><i class="fa fa-circle font-10 m-r-10 "></i>Miền Trung
+                                    <h6 class="text-muted text-info"><i class="fa fa-circle font-10 m-r-10 "></i>Miền
+                                        Trung
                                     </h6></li>
                                 <li>
-                                    <h6 class="text-muted  text-success"><i class="fa fa-circle font-10 m-r-10"></i>Miền Nam
+                                    <h6 class="text-muted  text-success"><i class="fa fa-circle font-10 m-r-10"></i>Miền
+                                        Nam
                                     </h6></li>
                             </ul>
                         </div>
@@ -438,6 +431,7 @@
 <jsp:include page="../components/admin/adminScipts.jsp"/>
 <script>
     $(document).ready(function () {
+        //chart donut Area
         var chart = c3.generate({
             bindto: '#visitor',
             data: {
@@ -475,6 +469,36 @@
             color: {
                 pattern: ['#eceff1', '#745af2', '#26c6da', '#1e88e5']
             }
+        });
+
+        //chart column province
+        var chart2 = new Chartist.Bar('.amp-pxl', {
+            labels: [
+                <c:forEach items="${chartValues1}" var="chartArea">
+                ['${chartArea.getKey()}',],
+                </c:forEach>
+            ],
+            series: [
+                [<c:forEach items="${chartValues1}" var="chartArea">
+                    ${chartArea.getValue()},
+                    </c:forEach>
+                ]
+            ]
+        }, {
+            axisX: {
+                // On the x-axis start means top and end means bottom
+                position: 'end',
+                showGrid: false
+            },
+            axisY: {
+                // On the y-axis start means left and end means right
+                position: 'start'
+            },
+            high: '12',
+            low: '0',
+            plugins: [
+                Chartist.plugins.tooltip()
+            ]
         });
     })
 </script>

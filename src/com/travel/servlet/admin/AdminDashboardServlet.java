@@ -1,6 +1,7 @@
 package com.travel.servlet.admin;
 
 import com.travel.dao.AreaDAO;
+import com.travel.dao.HomeProvinceDAO;
 import com.travel.helper.SessionHelpers;
 import com.travel.service.UserService;
 import com.travel.viewmodel.ChartValue;
@@ -28,10 +29,13 @@ public class AdminDashboardServlet extends HttpServlet {
         boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
         if (isAuthenticated) {
             try {
-//                get List ChartArea
+//                get List Chart
                 AreaDAO areaDAO = new AreaDAO();
-                List<ChartValue> chartValues = areaDAO.AreaWithOrders();
-                request.setAttribute("chartValues", chartValues);
+                HomeProvinceDAO homeProvinceDAO = new HomeProvinceDAO();
+                List<ChartValue> provinceWithOrders = homeProvinceDAO.ProvinceWithOrders(5);
+                List<ChartValue> AreaChartValues = areaDAO.AreaWithOrders();
+                request.setAttribute("chartValues", AreaChartValues);
+                request.setAttribute("chartValues1", provinceWithOrders);
 
                 String username = (String) currentSession.getAttribute("authenticatedUser");
                 UserService userService = new UserService();

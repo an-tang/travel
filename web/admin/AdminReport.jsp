@@ -44,7 +44,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">Reports</h4>
+                            <h4 class="card-title">Thống kê Doanh Thu</h4>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>

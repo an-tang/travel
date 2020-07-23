@@ -1,10 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.travel.viewmodel.ChartValue" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.travel.viewmodel.OrderDetail" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     ArrayList<ChartValue> chartValues = (ArrayList<ChartValue>) request.getAttribute("chartValues");
     ArrayList<ChartValue> chartValues1 = (ArrayList<ChartValue>) request.getAttribute("chartValues1");
+    ArrayList<OrderDetail> listNewOrders = (ArrayList<OrderDetail>) request.getAttribute("listNewOrders");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +53,8 @@
             <!-- Row -->
             <div class="row">
                 <!-- Column -->
+
+                <%--                Biểu đồ theo tỉnh--%>
                 <div class="col-lg-8 col-md-7">
                     <div class="card">
                         <div class="card-block">
@@ -59,7 +63,7 @@
                                     <div class="d-flex flex-wrap">
                                         <div>
                                             <h3 class="card-title">Biểu đồ Order theo tỉnh</h3>
-                                            <h6 class="card-subtitle">template</h6></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -69,11 +73,12 @@
                         </div>
                     </div>
                 </div>
+
+                <%--                Biểu đồ theo khu vực--%>
                 <div class="col-lg-4 col-md-5">
                     <div class="card">
                         <div class="card-block">
                             <h3 class="card-title">Biểu đồ Order theo Khu vực </h3>
-                            <h6 class="card-subtitle">template</h6>
                             <div id="visitor" style="height:290px; width:100%;"></div>
                         </div>
                         <div>
@@ -98,28 +103,27 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <!-- Row -->
             <!-- Row -->
             <div class="row">
-                <!-- Column -->
+                <!-- Top Orders mới nhất -->
                 <div class="col-lg-8 col-lg-7">
                     <div class="card">
                         <div class="card-block">
                             <h4 class="card-title">Orders mới nhất</h4>
-                            <h6 class="card-subtitle">Add class <code>.table</code></h6>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th>STT</th>
                                         <th>Tour</th>
-                                        <th >Giá/lượt</th>
-                                        <th>Số lượng khách</th>
-                                        <th>Tổng tiền</th>
-                                        <th>Phương thức thanh toán</th>
-                                        <th>Ghi chú</th>
-                                        <th>Trạng Thái</th>
+                                        <th>Price</th>
+                                        <th>Passenger</th>
+                                        <th>Total</th>
+                                        <th>Payment</th>
+                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -128,32 +132,25 @@
                                         int i = 1;
 
                                     %>
-                                    <c:forEach items="${listOrders}" var="order">
-                                        <c:url var="orderUrl" value="/orders">
-                                            <c:param name="id" value="${order.getId()}"/>
-                                        </c:url>
-                                        <form action="/admin/Orders"
-                                              method="post">
-                                            <tr>
-                                                <%
-                                                    out.println("<td>" + i + "</td>");
-                                                    i++;
-                                                %>
-                                                <td>${order.getName()}</td>
-                                                <td>${order.getPrice()}</td>
-                                                <td>${order.getPassenger()}</td>
-                                                <td>${order.getTotalAmount()}</td>
-                                                <td>${order.getPaymentMethod()}</td>
-                                                <td>${order.getDescription()}</td>
-                                                <td>${order.getStatus() == 1 ? "Mới"
-                                                        : order.getStatus() == 2? "Đã Thanh Toán"
-                                                        :order.getStatus() == 3?"Lỗi"
-                                                        :order.getStatus() == 4?"Hoàn tất"
-                                                        :order.getStatus() == 5?"Đã hủy"
-                                                        :"Ngưng hoạt động"}
-                                                </td>
-                                            </tr>
-                                        </form>
+                                    <c:forEach items="${listNewOrders}" var="order">
+                                        <tr>
+                                            <%
+                                                out.println("<td>" + i + "</td>");
+                                                i++;
+                                            %>
+                                            <td>${order.getName()}</td>
+                                            <td>${order.getPrice()}</td>
+                                            <td>${order.getPassenger()}</td>
+                                            <td>${order.getTotalAmount()}</td>
+                                            <td>${order.getPaymentMethod()}</td>
+                                            <td>${order.getStatus() == 1 ? "Mới"
+                                                    : order.getStatus() == 2? "Đã Thanh Toán"
+                                                    :order.getStatus() == 3?"Lỗi"
+                                                    :order.getStatus() == 4?"Hoàn tất"
+                                                    :order.getStatus() == 5?"Đã hủy"
+                                                    :"Ngưng hoạt động"}
+                                            </td>
+                                        </tr>
                                     </c:forEach>
                                     </tbody>
                                 </table>
@@ -162,11 +159,11 @@
                     </div>
                 </div>
 
+<%--                Top User by order--%>
                 <div class="col-lg-4 col-md-5">
                     <div class="card">
                         <div class="card-block">
                             <h4 class="card-title">Top User order</h4>
-                            <h6 class="card-subtitle">Add class <code>.table</code></h6>
                             <div class="table-responsive">
 
                                 <table class="table">

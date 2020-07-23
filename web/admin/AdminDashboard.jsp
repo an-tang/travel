@@ -2,11 +2,12 @@
 <%@ page import="com.travel.viewmodel.ChartValue" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.travel.viewmodel.OrderDetail" %>
+<%@ page import="com.travel.bean.TourBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     ArrayList<ChartValue> chartValues = (ArrayList<ChartValue>) request.getAttribute("chartValues");
     ArrayList<ChartValue> chartValues1 = (ArrayList<ChartValue>) request.getAttribute("chartValues1");
-    ArrayList<OrderDetail> listNewOrders = (ArrayList<OrderDetail>) request.getAttribute("listNewOrders");
+    ArrayList<TourBean> listTopOrders = (ArrayList<TourBean>) request.getAttribute("listTopOrders");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +113,7 @@
                 <div class="col-lg-8 col-lg-7">
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">Orders mới nhất</h4>
+                            <h4 class="card-title">Top Tour By Order </h4>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -120,10 +121,6 @@
                                         <th>STT</th>
                                         <th>Tour</th>
                                         <th>Price</th>
-                                        <th>Passenger</th>
-                                        <th>Total</th>
-                                        <th>Payment</th>
-                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -132,7 +129,7 @@
                                         int i = 1;
 
                                     %>
-                                    <c:forEach items="${listNewOrders}" var="order">
+                                    <c:forEach items="${listTopOrders}" var="order">
                                         <tr>
                                             <%
                                                 out.println("<td>" + i + "</td>");
@@ -140,16 +137,6 @@
                                             %>
                                             <td>${order.getName()}</td>
                                             <td>${order.getPrice()}</td>
-                                            <td>${order.getPassenger()}</td>
-                                            <td>${order.getTotalAmount()}</td>
-                                            <td>${order.getPaymentMethod()}</td>
-                                            <td>${order.getStatus() == 1 ? "Mới"
-                                                    : order.getStatus() == 2? "Đã Thanh Toán"
-                                                    :order.getStatus() == 3?"Lỗi"
-                                                    :order.getStatus() == 4?"Hoàn tất"
-                                                    :order.getStatus() == 5?"Đã hủy"
-                                                    :"Ngưng hoạt động"}
-                                            </td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

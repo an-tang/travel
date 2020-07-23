@@ -7,6 +7,7 @@ import com.travel.helper.SessionHelpers;
 import com.travel.service.TourService;
 import com.travel.service.UserService;
 import com.travel.viewmodel.ChartValue;
+import com.travel.viewmodel.UserReport;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +33,9 @@ public class AdminDashboardServlet extends HttpServlet {
         boolean isAuthenticated = SessionHelpers.validateSession(currentSession);
         if (isAuthenticated) {
             try {
+                String username = (String) currentSession.getAttribute("authenticatedUser");
+                UserService userService = new UserService();
+
 //                get List Chart
                 AreaDAO areaDAO = new AreaDAO();
                 HomeProvinceDAO homeProvinceDAO = new HomeProvinceDAO();
@@ -40,13 +44,14 @@ public class AdminDashboardServlet extends HttpServlet {
                 request.setAttribute("chartValues", AreaChartValues);
                 request.setAttribute("chartValues1", provinceWithOrders);
 
-                //-------------get list Orders-----------------
+                //-------------get list Tours By Orders-----------------
                 TourService tourService = new TourService();
                 ArrayList<TourBean> listTopOrders = tourService.GetToursTopOrder(5);
                 request.setAttribute("listTopOrders", listTopOrders);
 
-                String username = (String) currentSession.getAttribute("authenticatedUser");
-                UserService userService = new UserService();
+                //-------------get list Users By Order-----------------
+                ArrayList<UserReport> topUsersByOrder = userService.TopUsersByOrder(5);
+                request.setAttribute("listTopUsers", topUsersByOrder);
 
                 if (userService.IsAdmin(username)) {
                     request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);

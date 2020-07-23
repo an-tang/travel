@@ -3,11 +3,13 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.travel.viewmodel.OrderDetail" %>
 <%@ page import="com.travel.bean.TourBean" %>
+<%@ page import="com.travel.viewmodel.UserReport" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     ArrayList<ChartValue> chartValues = (ArrayList<ChartValue>) request.getAttribute("chartValues");
     ArrayList<ChartValue> chartValues1 = (ArrayList<ChartValue>) request.getAttribute("chartValues1");
     ArrayList<TourBean> listTopOrders = (ArrayList<TourBean>) request.getAttribute("listTopOrders");
+    ArrayList<UserReport> listTopUsers = (ArrayList<UserReport>) request.getAttribute("listTopUsers");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -146,7 +148,7 @@
                     </div>
                 </div>
 
-<%--                Top User by order--%>
+                <%--                Top User by order--%>
                 <div class="col-lg-4 col-md-5">
                     <div class="card">
                         <div class="card-block">
@@ -168,24 +170,16 @@
                                         int i1 = 1;
 
                                     %>
-                                    <c:forEach items="${listUsers}" var="user">
-                                        <c:url var="userUrl" value="/profile">
-                                            <c:param name="id" value="${user.getId()}"/>
-                                        </c:url>
-                                        <form action="/admin/Users"
-                                              method="post">
-                                            <tr>
-                                                <%
-                                                    out.println("<td>" + i1 + "</td>");
-                                                    i1++;
-                                                %>
-                                                <td>${user.getUserName()}</td>
-                                                <td>${user.getName()}</td>
-                                                <td>${user.getEmail()}</td>
-                                                <td>${user.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
-
-                                            </tr>
-                                        </form>
+                                    <c:forEach items="${listTopUsers}" var="user">
+                                        <tr>
+                                            <%
+                                                out.println("<td>" + i1 + "</td>");
+                                                i1++;
+                                            %>
+                                            <td>${user.getUserName()}</td>
+                                            <td>${user.getOrders()}</td>
+                                            <td>${user.getTotalAmount()}</td>
+                                        </tr>
 
                                     </c:forEach>
 

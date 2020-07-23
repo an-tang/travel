@@ -89,9 +89,7 @@
                                                 <td>${tour.getTitle()}</td>
                                                 <td>${tour.getPrice()}</td>
                                                 <td>${tour.getProvince()}</td>
-                                                <td>Chờ API getStatus</td>
-                                                    <%--todo API getTourStatus--%>
-                                                    <%--<td>${tour.getStatus() == 0 ? "Đang hoạt động":"Ngưng hoạt động"}</td>--%>
+                                                <td>${tour.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
                                                 <td>
 
                                                     <button class="btn waves-effect waves-green btn-facebook hidden-md-down"

@@ -306,7 +306,7 @@ public class TourDAO extends BaseDAO {
     public boolean UpdateTourStatus(int tourID, Status status) {
         try {
             connection = DBConnection.getConnect();
-            String sql = "UPDATE tour_infos SET status = ?, updated_at = now() WHERE id = ?;";
+            String sql = "UPDATE tour_infos SET status = ?, updated_at = now() WHERE tour_id = ?;";
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, status.getValue());

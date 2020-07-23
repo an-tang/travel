@@ -158,8 +158,8 @@
                                     <tr>
                                         <th>STT</th>
                                         <th>Name</th>
-                                        <th>Email</th>
                                         <th>Orders</th>
+                                        <th>Total</th>
                                     </tr>
                                     </thead>
                                     <tbody>

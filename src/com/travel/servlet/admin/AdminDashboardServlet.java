@@ -1,12 +1,12 @@
 package com.travel.servlet.admin;
 
+import com.travel.bean.TourBean;
 import com.travel.dao.AreaDAO;
 import com.travel.dao.HomeProvinceDAO;
 import com.travel.helper.SessionHelpers;
-import com.travel.service.OrderService;
+import com.travel.service.TourService;
 import com.travel.service.UserService;
 import com.travel.viewmodel.ChartValue;
-import com.travel.viewmodel.OrderDetail;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,9 +41,9 @@ public class AdminDashboardServlet extends HttpServlet {
                 request.setAttribute("chartValues1", provinceWithOrders);
 
                 //-------------get list Orders-----------------
-                OrderService orderService = new OrderService();
-                ArrayList<OrderDetail> listNewOrders = orderService.GetOrdersHaveSorting("created_at", "desc", 0, 5);
-                request.setAttribute("listNewOrders", listNewOrders);
+                TourService tourService = new TourService();
+                ArrayList<TourBean> listTopOrders = tourService.GetToursTopOrder(5);
+                request.setAttribute("listTopOrders", listTopOrders);
 
                 String username = (String) currentSession.getAttribute("authenticatedUser");
                 UserService userService = new UserService();

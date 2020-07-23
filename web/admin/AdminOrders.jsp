@@ -54,19 +54,18 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">Orders</h4>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th>STT</th>
                                         <th>Tour</th>
-                                        <th >Giá/lượt</th>
-                                        <th>Số lượng khách</th>
-                                        <th>Tổng tiền</th>
-                                        <th>Phương thức thanh toán</th>
-                                        <th>Ghi chú</th>
-                                        <th>Trạng Thái</th>
+                                        <th >Price</th>
+                                        <th>Passenger</th>
+                                        <th>Total</th>
+                                        <th>Payment</th>
+                                        <th>Note</th>
+                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>

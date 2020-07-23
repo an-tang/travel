@@ -55,7 +55,6 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">Tours</h4>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -99,7 +98,7 @@
                                                             type="submit"
                                                             name="id_tour_active"
                                                             value="${tour.getId()}">
-                                                        Complete
+                                                        Active
                                                     </button>
                                                 </td>
                                                 <td>
@@ -107,7 +106,7 @@
                                                             type="submit"
                                                             name="id_tour_deactive"
                                                             value="${tour.getId()}">
-                                                        Cancel
+                                                        Deactive
                                                     </button>
                                                 </td>
                                             </tr>

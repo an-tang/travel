@@ -1,11 +1,12 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.travel.bean.UserBean" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.travel.viewmodel.OrderDetail" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%
-    ArrayList<UserBean> listUsers = (ArrayList<UserBean>) request.getAttribute("listUsers");
+    ArrayList<OrderDetail> listOrders = (ArrayList<OrderDetail>) request.getAttribute("listOrders");
+    String userName = (String) request.getAttribute("userName");
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +40,8 @@
                     <h3 class="text-themecolor m-b-0 m-t-0">Table</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item"><a href="/admin/Users">Users</a></li>
+                        <li class="breadcrumb-item active">${userName}</li>
                     </ol>
                 </div>
             </div>
@@ -55,15 +57,17 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="table-responsive">
-
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th readonly="">Tên đăng nhập</th>
-                                        <th>Họ và tên</th>
-                                        <th>Email</th>
-                                        <th>Trạng Thái</th>
+                                        <th>Tour</th>
+                                        <th>Price</th>
+                                        <th>Passenger</th>
+                                        <th>Total</th>
+                                        <th>Payment</th>
+                                        <th>Note</th>
+                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -72,9 +76,9 @@
                                         int i = 1;
 
                                     %>
-                                    <c:forEach items="${listUsers}" var="user">
-                                        <c:url var="userUrl" value="/profile">
-                                            <c:param name="id" value="${user.getId()}"/>
+                                    <c:forEach items="${listOrders}" var="order">
+                                        <c:url var="orderUrl" value="/orders">
+                                            <c:param name="id" value="${order.getId()}"/>
                                         </c:url>
                                         <form action="/admin/Users"
                                               method="post">
@@ -83,41 +87,21 @@
                                                     out.println("<td>" + i + "</td>");
                                                     i++;
                                                 %>
-                                                <td>${user.getUserName()}</td>
-                                                <td>${user.getName()}</td>
-                                                <td>${user.getEmail()}</td>
-                                                <td>${user.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
-                                                <td>
-
-                                                    <button class="btn waves-effect waves-green btn-google hidden-md-down"
-                                                            type="submit"
-                                                            name="id_user_history" value="${user.getUserName()}">
-                                                        History
-                                                    </button>
-                                                </td>
-                                                <td>
-
-                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                            type="submit"
-                                                            name="id_user_active" value="${user.getId()}">
-                                                        Active
-
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                            type="submit"
-                                                            name="id_user_deactive"
-                                                            value="${user.getId()}">
-                                                        Deactive
-
-                                                    </button>
-                                                </td>
+                                                <td>${order.getName()}</td>
+                                                <td>${order.getPrice()}</td>
+                                                <td>${order.getPassenger()}</td>
+                                                <td>${order.getTotalAmount()}</td>
+                                                <td>${order.getPaymentMethod()}</td>
+                                                <td>${order.getDescription()}</td>
+                                                <td>${order.getStatus() == 1 ? "Mới"
+                                                        : order.getStatus() == 2? "Đã Thanh Toán"
+                                                        :order.getStatus() == 3?"Lỗi"
+                                                        :order.getStatus() == 4?"Hoàn tất"
+                                                        :order.getStatus() == 5?"Đã hủy"
+                                                        :"Ngưng hoạt động"}</td>
                                             </tr>
                                         </form>
-
                                     </c:forEach>
-
                                     </tbody>
                                 </table>
                             </div>

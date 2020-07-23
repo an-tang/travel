@@ -2,7 +2,9 @@ package com.travel.servlet.admin;
 
 import com.travel.bean.UserBean;
 import com.travel.helper.SessionHelpers;
+import com.travel.service.OrderService;
 import com.travel.service.UserService;
+import com.travel.viewmodel.OrderDetail;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,16 +21,28 @@ public class AdminUsersServlet extends HttpServlet {
 
         String id_user_active = request.getParameter("id_user_active");
         String id_user_deactive = request.getParameter("id_user_deactive");
-        try {
-            UserService userService = new UserService();
-            if (id_user_active != null) {
-                userService.ActivateUser(Integer.parseInt(id_user_active));
-            } else userService.DeactivateUser(Integer.parseInt(id_user_deactive));
+        String id_user_history = request.getParameter("id_user_history");
 
-            //---------------Get List User-----------------
-            ArrayList<UserBean> list = userService.GetAllUsersHaveSorting("name", "asc", 2, 0, 20);
-            request.setAttribute("listUsers", list);
-            request.getRequestDispatcher("AdminUsers.jsp").forward(request, response);
+        try {
+            if (id_user_history == null) {
+                UserService userService = new UserService();
+                if (id_user_active != null) {
+                    userService.ActivateUser(Integer.parseInt(id_user_active));
+                } else userService.DeactivateUser(Integer.parseInt(id_user_deactive));
+
+                //---------------Get List User-----------------
+                ArrayList<UserBean> list = userService.GetAllUsersHaveSorting("name", "asc", 2, 0, 20);
+                request.setAttribute("listUsers", list);
+                request.getRequestDispatcher("AdminUsers.jsp").forward(request, response);
+            } else {
+
+                OrderService orderService = new OrderService();
+                ArrayList<OrderDetail> list = orderService.GetOrderHistoryByUserName(id_user_history);
+                request.setAttribute("listOrders", list);
+                request.setAttribute("userName", id_user_history);
+
+                request.getRequestDispatcher("AdminUserHistory.jsp").forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("/");

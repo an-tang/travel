@@ -6,13 +6,15 @@ public class TourDetail {
     String title;
     String province;
     long price;
+    int status;
 
-    public TourDetail(int id, String name, String title, String province, long price) {
+    public TourDetail(int id, String name, String title, String province, long price, int status) {
         this.id = id;
         this.name = name;
         this.title = title;
         this.province = province;
         this.price = price;
+        this.status = status;
     }
 
     public int getId() {
@@ -53,6 +55,14 @@ public class TourDetail {
 
     public void setPrice(long price) {
         this.price = price;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.travel.bean.UserBean;
 import com.travel.dao.UserDAO;
 import com.travel.enumerize.Role;
 import com.travel.enumerize.Status;
+import com.travel.viewmodel.UserReport;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
@@ -122,5 +123,24 @@ public class UserService {
         }
 
         return userDAO.GetUserByID(id);
+    }
+
+    public String UpdatePassword(String userName, String password){
+        UserBean existingUser = userDAO.GetUserByUserName(userName);
+        if (existingUser != null) {
+            return "Tài khoản không tồn tại";
+        }
+        String hashPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        if (userDAO.UpdatePassword(userName, hashPassword)){
+            return "success";
+        }
+
+        return "Cập nhật mật khẩu thất bại";
+    }
+
+    public ArrayList<UserReport> TopUsersByOrder(int limit){
+        limit = Math.max(limit, 10);
+
+        return userDAO.TopUsersByOrder(limit);
     }
 }

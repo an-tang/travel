@@ -21,8 +21,10 @@ public class ProvinceDAO extends BaseDAO {
         ArrayList<ProvinceBean> provinces = new ArrayList<>();
         try{
             connection = DBConnection.getConnect();
-            String sql = "";
+            String sql = "SELECT * FROM provinces ORDER BY name ASC;";
+
             preparedStatement = connection.prepareStatement(sql);
+
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
                 int id = rs.getInt("id");

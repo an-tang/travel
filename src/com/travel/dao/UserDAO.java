@@ -5,6 +5,7 @@ import com.travel.dbconnection.DBConnection;
 import com.travel.bean.UserBean;
 import com.travel.enumerize.Role;
 import com.travel.enumerize.Status;
+import com.travel.viewmodel.UserReport;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -144,7 +145,7 @@ public class UserDAO extends BaseDAO {
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Deactivate user failed, no rows affected.");
+                throw new SQLException("Update user status failed, no rows affected.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -241,6 +242,60 @@ public class UserDAO extends BaseDAO {
         }
 
         return listUsers;
+    }
+
+    public boolean UpdatePassword(String userName, String password) {
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "UPDATE users SET password = ? WHERE user_name = ?";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, password);
+            preparedStatement.setString(2, userName);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Update user password failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return true;
+    }
+
+    public ArrayList<UserReport> TopUsersByOrder(int limit) {
+        ArrayList<UserReport> users = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT u.user_name, COUNT(*) as order, SUM(o.passenger * t.price) as total_amount"
+                    + " FROM orders o INNER JOIN users u ON o.user_name = u.user_name"
+                    + " INNER JOIN tour_infos t ON o.tour_id = t.tour_id"
+                    + " GROUP BY u.user_name ORDER BY total_amount DESC LIMIT ?;";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, limit);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String userName = rs.getString("user_name");
+                int order = rs.getInt("order");
+                long totalAmount = rs.getLong("total_amount");
+                users.add(new UserReport(userName, order, totalAmount));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+        for(UserReport u : users){
+            System.out.println(u.toString());
+        }
+
+        return users;
     }
 
     private void createUserRole(int role, int id) throws SQLException {

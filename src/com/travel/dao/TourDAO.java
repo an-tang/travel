@@ -347,7 +347,8 @@ public class TourDAO extends BaseDAO {
                 String title = rs.getString("title");
                 String province = rs.getString("province");
                 long price = rs.getLong("price");
-                listTours.add(new TourDetail(id, tourName, title, province, price));
+                int status = rs.getInt("status");
+                listTours.add(new TourDetail(id, tourName, title, province, price, status));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -382,9 +383,6 @@ public class TourDAO extends BaseDAO {
             e.printStackTrace();
         }
 
-        for (TourBean t : tours) {
-            System.out.println(t.toString());
-        }
         return tours;
     }
 

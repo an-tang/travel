@@ -45,17 +45,15 @@
                     <div class="card">
                         <div class="card-block">
                             <h4 class="card-title">Reports</h4>
-                            <h6 class="card-subtitle">Add class <code>.table</code></h6>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Name</th>
-                                        <th>Title</th>
-                                        <th>Price</th>
+                                        <th>Area</th>
                                         <th>Province</th>
-                                        <th>Status</th>
+                                        <th>Tour</th>
+                                        <th>Grand Total</th>
                                         <%--                                        <th>Trạng Thái</th>--%>
                                     </tr>
                                     </thead>
@@ -80,7 +78,6 @@
                                                 <td>${tour.getTitle()}</td>
                                                 <td>${tour.getPrice()}</td>
                                                 <td>${tour.getProvince()}</td>
-                                                <td>Chờ API getStatus</td>
                                             </tr>
                                         </form>
                                     </c:forEach>

@@ -173,10 +173,9 @@
                                     <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th readonly="">Tên đăng nhập</th>
-                                        <th>Họ và tên</th>
+                                        <th>Name</th>
                                         <th>Email</th>
-                                        <th>Trạng Thái</th>
+                                        <th>Orders</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -200,24 +199,7 @@
                                                 <td>${user.getName()}</td>
                                                 <td>${user.getEmail()}</td>
                                                 <td>${user.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
-                                                <td>
 
-                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                            type="submit"
-                                                            name="id_user_active" value="${user.getId()}">
-                                                        Active
-
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                            type="submit"
-                                                            name="id_user_deactive"
-                                                            value="${user.getId()}">
-                                                        Deactive
-
-                                                    </button>
-                                                </td>
                                             </tr>
                                         </form>
 

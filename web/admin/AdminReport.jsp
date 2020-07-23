@@ -16,7 +16,98 @@
     <jsp:include page="../components/admin/adminHeader.jsp"/>
     <jsp:include page="../components/admin/slideBar.jsp"/>
 
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-5 col-8 align-self-center">
+                    <h3 class="text-themecolor m-b-0 m-t-0">Table</h3>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Reports</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <!-- column -->
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Reports</h4>
+                            <h6 class="card-subtitle">Add class <code>.table</code></h6>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Name</th>
+                                        <th>Title</th>
+                                        <th>Price</th>
+                                        <th>Province</th>
+                                        <th>Status</th>
+                                        <%--                                        <th>Trạng Thái</th>--%>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <%--STT--%>
+                                    <%
+                                        int i = 1;
 
+                                    %>
+                                    <c:forEach items="${listTours}" var="tour">
+                                        <c:url var="tourUrl" value="/tour">
+                                            <c:param name="id" value="${tour.getId()}"/>
+                                        </c:url>
+                                        <form action="/admin/Tours"
+                                              method="post">
+                                            <tr>
+                                                <%
+                                                    out.println("<td>" + i + "</td>");
+                                                    i++;
+                                                %>
+                                                <td>${tour.getName()}</td>
+                                                <td>${tour.getTitle()}</td>
+                                                <td>${tour.getPrice()}</td>
+                                                <td>${tour.getProvince()}</td>
+                                                <td>Chờ API getStatus</td>
+                                            </tr>
+                                        </form>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer">
+            © 2020 UIT Travel Admin
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
 
 
 </div>

@@ -1,6 +1,7 @@
 package com.travel.servlet.admin;
 
 import com.travel.bean.ProvinceBean;
+import com.travel.dao.ProvinceDAO;
 import com.travel.helper.SessionHelpers;
 import com.travel.service.ProvinceService;
 import com.travel.service.TourService;
@@ -25,6 +26,8 @@ public class AdminToursServlet extends HttpServlet {
         String id_tour_update = request.getParameter("id_tour_update");
         try {
             TourService tourService = new TourService();
+            ProvinceDAO provinceDAO = new ProvinceDAO();
+            ArrayList<ProvinceBean> listProvince = provinceDAO.GetAllProvinces();
 
             if (id_tour_update == null) {
                 if (id_tour_active != null) {
@@ -34,6 +37,7 @@ public class AdminToursServlet extends HttpServlet {
                 //---------------Get List User-----------------
                 ArrayList<TourDetail> list = tourService.GetAllTourHaveSorting("name", "asc", 2, 0, 10);
                 request.setAttribute("listTours", list);
+                request.setAttribute("listProvince", listProvince);
 
                 request.getRequestDispatcher("AdminTours.jsp").forward(request, response);
             } else {
@@ -43,7 +47,8 @@ public class AdminToursServlet extends HttpServlet {
                 CreateTourRequest tourUpdate = tourService.GetTourInfoByID(Integer.parseInt(id_tour_update));
                 ProvinceBean province = provinceService.GetProvinceByID(tourUpdate.getProvinceID());
                 request.setAttribute("tourUpdate", tourUpdate);
-                request.setAttribute("province", province.getName());
+                request.setAttribute("listProvince", listProvince);
+                request.setAttribute("province", province);
                 request.getRequestDispatcher("AdminUpdateTour.jsp").forward(request, response);
             }
         } catch (Exception e) {
@@ -60,9 +65,14 @@ public class AdminToursServlet extends HttpServlet {
             try {
                 String username = (String) currentSession.getAttribute("authenticatedUser");
 
-                //-------------get list Orders-----------------
                 TourService tourService = new TourService();
-                //todo API getAllTourInfo -> status
+                ProvinceDAO provinceDAO = new ProvinceDAO();
+
+                //-------------get list Orders-----------------
+                ArrayList<ProvinceBean> listProvince = provinceDAO.GetAllProvinces();
+                request.setAttribute("listProvince", listProvince);
+
+                //-------------get list Orders-----------------
                 ArrayList<TourDetail> list = tourService.GetAllTourHaveSorting("name", "asc", 2, 0, 10);
                 request.setAttribute("listTours", list);
 

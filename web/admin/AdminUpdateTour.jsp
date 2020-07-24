@@ -1,9 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.travel.viewmodel.CreateTourRequest" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.travel.bean.ProvinceBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     CreateTourRequest tourUpdate = (CreateTourRequest) request.getAttribute("tourUpdate");
-    String province = (String) request.getAttribute("province");
+    ArrayList<ProvinceBean> listProvince = (ArrayList<ProvinceBean>) request.getAttribute("listProvince");
+    ProvinceBean province = (ProvinceBean) request.getAttribute("province");
 %>
 
 <!DOCTYPE html>
@@ -57,7 +60,7 @@
                     <div class="card">
                         <div class="card-block">
                             <form
-                                    action="/admin/Tours"
+                                    action="/admin/UpdateTour"
                                     method="post">
                                 <div class="row">
                                     <div class="form-group col-md-6">
@@ -82,12 +85,11 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="example-email" class="col-md-12">Detail</label>
+                                        <label class="col-md-12">Detail</label>
                                         <div class="col-md-12">
-                                            <input type="email"
+                                            <input type="text"
                                                    class="form-control form-control-line"
                                                    name="tour_detail"
-                                                   id="example-email"
                                                    value="<%=tourUpdate.getDetail()%>"
                                             >
                                         </div>
@@ -106,12 +108,13 @@
                                     <div class="form-group col-md-6">
                                         <label class="col-sm-12">Province</label>
                                         <div class="col-sm-12">
-                                            <select class="form-control form-control-line">
-                                                <option>London</option>
-                                                <option>India</option>
-                                                <option>Usa</option>
-                                                <option>Canada</option>
-                                                <option>Thailand</option>
+                                            <select class="form-control form-control-line" name="province_id">
+                                                <option value="${province.getId()}">${province.getName()}</option>
+                                                <c:forEach items="${listProvince}" var="province">
+                                                    <option value="${province.getId()}">
+                                                            ${province.getName()}
+                                                    </option>
+                                                </c:forEach>
                                             </select>
                                         </div>
                                     </div>
@@ -133,7 +136,7 @@
                                             <label class="col-sm-5">List Image</label>
 
                                             <c:forEach items="${tourUpdate.getImages()}" var="image">
-                                            <div class="row col-md-12">
+                                                <div class="row col-md-12">
                                                     <div class="col-sm-5">
                                                         <div class="row-cols-sm-5">URL
                                                             <input type="text"
@@ -159,7 +162,7 @@
                                                         </button>
 
                                                     </div>
-                                            </div>
+                                                </div>
                                             </c:forEach>
 
 
@@ -178,7 +181,12 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <button type="submit"
+                                            class="btn btn-primary"
+                                            name="tour_id"
+                                            value="<%=tourUpdate.getTourInfoID()%>">
+                                        Save changes
+                                    </button>
                                 </div>
                             </form>
 

@@ -21,6 +21,7 @@ public class ImageDAO extends BaseDAO{
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO images (url, tour_info_id, description, created_at, updated_at) VALUES "
                     + params + " ;";
+
             preparedStatement = connection.prepareStatement(sql);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
@@ -74,4 +75,6 @@ public class ImageDAO extends BaseDAO{
 
         return true;
     }
+
+//    todo viet lai ham UpdateImage, hiện tại vô vòng lặp sẽ xóa cũ tạo mới => chỉ tạo giá trị cuối cùng
 }

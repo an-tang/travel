@@ -1,5 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.travel.bean.ProvinceBean" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%
+    ArrayList<ProvinceBean> listProvince = (ArrayList<ProvinceBean>) request.getAttribute("listProvince");
+%>
 <div id="tour_create" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width: 900px!important;">
         <div class="modal-content">
@@ -62,11 +67,9 @@
                                     <label class="col-sm-12">Province</label>
                                     <div class="col-sm-12">
                                         <select class="form-control form-control-line">
-                                            <option>London</option>
-                                            <option>India</option>
-                                            <option>Usa</option>
-                                            <option>Canada</option>
-                                            <option>Thailand</option>
+                                            <c:forEach items="${listProvince}" var="province">
+                                                <option name="province_name">${province.getName()}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>

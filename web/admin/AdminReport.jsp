@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,8 @@
 <body class="fix-header fix-sidebar card-no-border">
 <div class="preloader">
     <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
 </div>
 <div id="main-wrapper">
 
@@ -30,7 +32,16 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
                         <li class="breadcrumb-item active">Reports</li>
+
                     </ol>
+                </div>
+                <div class="nhan">
+                    <label for="start">Start date:</label>
+
+                    <input type="date" id="start" name="trip-start">
+
+                    <label for="start"> End date:</label>
+                    <input type="date" id="end" name="trip-start">
                 </div>
             </div>
             <!-- ============================================================== -->

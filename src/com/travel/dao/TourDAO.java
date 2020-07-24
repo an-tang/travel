@@ -42,6 +42,7 @@ public class TourDAO extends BaseDAO {
         } finally {
             BaseDAO.closeConnection(preparedStatement, connection);
         }
+
         return tours;
     }
 
@@ -101,7 +102,6 @@ public class TourDAO extends BaseDAO {
 
         return listTours;
     }
-
 
     public ArrayList<TourBean> GetToursInProvinceByID(int provinceID, String params, int start, int size) {
         ArrayList<TourBean> listTours = new ArrayList<>();
@@ -383,6 +383,8 @@ public class TourDAO extends BaseDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return tours;
@@ -438,11 +440,11 @@ public class TourDAO extends BaseDAO {
                 String detail = rs.getString("detail");
                 long price = rs.getLong("price");
                 tourInfoID = rs.getInt("ti_id");
-                tour = new CreateTourRequest(name, image,  provinceID, provinceName, title, detail, price, tourInfoID);
+                tour = new CreateTourRequest(name, image, provinceID, provinceName, title, detail, price, tourInfoID);
             }
 
-            if (tourInfoID > 0){
-                ArrayList<ImageBean>  images = new ImageDAO().GetImagesByTourInfoID(tourInfoID);
+            if (tourInfoID > 0) {
+                ArrayList<ImageBean> images = new ImageDAO().GetImagesByTourInfoID(tourInfoID);
                 tour.setImages(images);
             }
 
@@ -459,7 +461,7 @@ public class TourDAO extends BaseDAO {
         return tour;
     }
 
-    public boolean UpdateTour(CreateTourRequest tour, int tourID){
+    public boolean UpdateTour(CreateTourRequest tour, int tourID) {
         try {
             connection = DBConnection.getConnect();
             String sql = "UPDATE tours SET name = ?, image = ?, province_id = ?, updated_at = now() WHERE id = ?;";

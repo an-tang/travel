@@ -7,6 +7,7 @@ import com.travel.enumerize.OrderStatus;
 import com.travel.enumerize.PaymentStatus;
 import com.travel.viewmodel.Checkout;
 import com.travel.viewmodel.OrderDetail;
+import com.travel.viewmodel.OrderReport;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -18,7 +19,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class OrderService {
     OrderDAO orderDAO = null;
@@ -65,7 +70,7 @@ public class OrderService {
         return orderDAO.UpdateOrder(orderID, OrderStatus.COMPLETED);
     }
 
-    public ArrayList<OrderDetail> GetOrdersHaveSorting(String fieldName, String sortType, int page, int perPage){
+    public ArrayList<OrderDetail> GetOrdersHaveSorting(String fieldName, String sortType, int page, int perPage) {
         page = Math.max(page, 0);
         perPage = perPage < 0 ? 10 : perPage;
         fieldName = ((fieldName == null) || (fieldName == "")) ? "user_name" : fieldName;
@@ -149,5 +154,28 @@ public class OrderService {
             }
         }
         return checkout;
+    }
+
+    public ArrayList<OrderReport> GetReportOrder(int areaID, int provinceID, String from, String to) {
+        if ((from == null) || from == "") {
+            from = getFirstDayOfMonth();
+        }
+        if ((to == null) || to == "") {
+            to = getToDay();
+        }
+
+        return orderDAO.GetReportOrder(from, to);
+    }
+
+    private String getToDay(){
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    }
+
+    private String getFirstDayOfMonth(){
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+        return year + "-" + month + "-01";
     }
 }

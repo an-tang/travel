@@ -74,7 +74,7 @@ public class FeedbackDAO extends BaseDAO {
         return feedback;
     }
 
-    public boolean UpdateReadFeedback(int feedbackID){
+    public boolean UpdateReadFeedback(int feedbackID) {
         try {
             connection = DBConnection.getConnect();
             String sql = "UPDATE feedbacks SET status = ?, updated_at = now() WHERE id = ?;";
@@ -89,8 +89,8 @@ public class FeedbackDAO extends BaseDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            BaseDAO.closeConnection(preparedStatement,connection);
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return true;

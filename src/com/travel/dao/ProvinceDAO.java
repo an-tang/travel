@@ -17,16 +17,16 @@ public class ProvinceDAO extends BaseDAO {
         super();
     }
 
-    public ArrayList<ProvinceBean> GetAllProvinces(){
+    public ArrayList<ProvinceBean> GetAllProvinces() {
         ArrayList<ProvinceBean> provinces = new ArrayList<>();
-        try{
+        try {
             connection = DBConnection.getConnect();
             String sql = "SELECT * FROM provinces ORDER BY name ASC;";
 
             preparedStatement = connection.prepareStatement(sql);
 
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int areaID = rs.getInt("area_id");
@@ -34,6 +34,8 @@ public class ProvinceDAO extends BaseDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return provinces;

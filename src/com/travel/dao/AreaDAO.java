@@ -66,7 +66,7 @@ public class AreaDAO extends BaseDAO {
                 v.setValue(p);
                 percent += p;
             }
-            if (percent != 100){
+            if (percent != 100) {
                 values.get(0).setValue(values.get(0).getValue() + 100 - percent);
             }
 

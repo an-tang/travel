@@ -53,4 +53,25 @@ public class ImageDAO extends BaseDAO{
         }
         return listImages;
     }
+
+    public boolean UpdateImages(String params, int tourInfoID){
+        try{
+            connection = DBConnection.getConnect();
+            String sql = "DELETE FROM images WHERE tour_info_id = ?;"
+                    + " INSERT INTO images (url, tour_info_id, description, created_at, updated_at) VALUES "
+                    + params + " ;";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, tourInfoID);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating image failed, no rows affected.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
 }

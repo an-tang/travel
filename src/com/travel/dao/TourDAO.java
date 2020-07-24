@@ -458,4 +458,24 @@ public class TourDAO extends BaseDAO {
 
         return tour;
     }
+
+    public boolean UpdateTour(CreateTourRequest tour, int tourID){
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "UPDATE tours SET name = ?, image = ?, province_id = ?, updated_at = now() WHERE id = ?;";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, tour.getName());
+            preparedStatement.setString(2, tour.getImage());
+            preparedStatement.setInt(3, tour.getProvinceID());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return true;
+    }
 }

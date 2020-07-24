@@ -131,6 +131,37 @@ public class TourService {
         return true;
     }
 
+    public boolean UpdateTour(CreateTourRequest request, int tourID) {
+        boolean success = tourDAO.UpdateTour(request, tourID);
+        if (!success) {
+            return false;
+        }
+
+        try {
+            success = new TourInfoDAO().UpdateTourInfoByTourID(request, tourID);
+            if (!success) {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        ArrayList<ImageBean> images = request.getImages();
+        String paramsInsertImages = parseInsertImage(images);
+        try {
+            success = new ImageDAO().UpdateImages(paramsInsertImages, request.getTourInfoID());
+            if (!success){
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return true;
+        }
+
+        return true;
+    }
+
     // Sample: GetAllTourHaveSorting("name", "ASC", 1, 0, 5)
     public ArrayList<TourDetail> GetAllTourHaveSorting(String fieldName, String sortType, int status, int page, int perPage) {
         page = Math.max(page, 0);

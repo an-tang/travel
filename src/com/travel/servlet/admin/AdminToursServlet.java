@@ -1,8 +1,11 @@
 package com.travel.servlet.admin;
 
+import com.travel.bean.ProvinceBean;
 import com.travel.helper.SessionHelpers;
+import com.travel.service.ProvinceService;
 import com.travel.service.TourService;
 import com.travel.service.UserService;
+import com.travel.viewmodel.CreateTourRequest;
 import com.travel.viewmodel.TourDetail;
 
 import javax.servlet.ServletException;
@@ -26,17 +29,23 @@ public class AdminToursServlet extends HttpServlet {
             if (id_tour_update == null) {
                 if (id_tour_active != null) {
                     tourService.ActiveTour(Integer.parseInt(id_tour_active));
-                }
-                else tourService.DeactivateTour(Integer.parseInt(id_tour_deactive));
+                } else tourService.DeactivateTour(Integer.parseInt(id_tour_deactive));
+
+                //---------------Get List User-----------------
+                ArrayList<TourDetail> list = tourService.GetAllTourHaveSorting("name", "asc", 2, 0, 10);
+                request.setAttribute("listTours", list);
+
+                request.getRequestDispatcher("AdminTours.jsp").forward(request, response);
             } else {
+
+                ProvinceService provinceService = new ProvinceService();
+
+                CreateTourRequest tourUpdate = tourService.GetTourInfoByID(Integer.parseInt(id_tour_update));
+                ProvinceBean province = provinceService.GetProvinceByID(tourUpdate.getProvinceID());
+                request.setAttribute("tourUpdate", tourUpdate);
+                request.setAttribute("province", province.getName());
                 request.getRequestDispatcher("AdminUpdateTour.jsp").forward(request, response);
             }
-
-            //---------------Get List User-----------------
-            ArrayList<TourDetail> list = tourService.GetAllTourHaveSorting("name", "asc", 2, 0, 10);
-            request.setAttribute("listTours", list);
-
-            request.getRequestDispatcher("AdminTours.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("/");

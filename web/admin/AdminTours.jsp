@@ -41,7 +41,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
                         <li class="breadcrumb-item active">Tours</li>
-                        <button class="btn waves-effect waves-green btn-facebook hidden-md-down btn-show-update"
+                        <button class="btn waves-effect waves-green btn-facebook hidden-md-down btn-show-create"
                                 type="button">
                             Create
                         </button>
@@ -79,9 +79,7 @@
 
                                     %>
                                     <c:forEach items="${listTours}" var="tour">
-                                        <c:url var="tourUrl" value="/tour">
-                                            <c:param name="id" value="${tour.getId()}"/>
-                                        </c:url>
+
                                         <form action="/admin/Tours"
                                               method="post">
                                             <tr>
@@ -96,8 +94,10 @@
                                                 <td>${tour.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
                                                 <td>
 
-                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down btn-show-update"
-                                                            type="button">
+                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
+                                                            type="submit"
+                                                            name="id_tour_update"
+                                                            value="${tour.getId()}">
                                                         Update
                                                     </button>
                                                 </td>
@@ -152,202 +152,11 @@
 
 </div>
 <jsp:include page="../components/admin/adminScipts.jsp"/>
-<div id="modal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document" style="max-width: 900px!important;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Create Tour</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card">
-                    <div class="card-block">
-                        <form
-                                action="/admin/Tours"
-                                method="post">
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label class="col-md-12">Name</label>
-                                    <div class="col-md-12">
-                                        <input type="text"
-                                               name="tour_name"
-                                               class="form-control form-control-line"
-                                        <%--                                           value="<%=admin.getUserName()%>"--%>
-                                        >
-                                    </div>
-                                </div>
 
-                                <div class="form-group col-md-6">
-                                    <label class="col-md-12">Title</label>
-                                    <div class="col-md-12">
-                                        <input type="text"
-                                               name="tour_title"
-                                               class="form-control form-control-line"
-                                        <%--                                           value="<%=admin.getName()%>"--%>
-                                        >
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="example-email" class="col-md-12">Detail</label>
-                                    <div class="col-md-12">
-                                        <input type="email"
-                                               class="form-control form-control-line"
-                                               name="tour_detail"
-                                               id="example-email"
-                                        <%--                                           value="<%=admin.getEmail()%>"--%>
-                                        >
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="col-md-12">Price</label>
-                                    <div class="col-md-12">
-                                        <input type="text"
-                                               class="form-control form-control-line"
-                                               name="tour_price"
-                                        <%--                                           value="<%=admin.getPhone()%>"--%>
-                                        >
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="col-sm-12">Province</label>
-                                    <div class="col-sm-12">
-                                        <select class="form-control form-control-line">
-                                            <option>London</option>
-                                            <option>India</option>
-                                            <option>Usa</option>
-                                            <option>Canada</option>
-                                            <option>Thailand</option>
-                                        </select>
-                                    </div>
-                                </div>
+<%--popup--%>
+<jsp:include page="../admin/popupTour/TourCreate.jsp"/>
+<jsp:include page="../admin/popupTour/TourScript.jsp"/>
 
-
-                                <div class="col-md-12">
-                                    <div class="form-group" id="form-group-image">
-                                        <label class="col-sm-5">Image</label>
-                                        <div class="row col-md-12">
-                                            <div class="col-sm-5">
-                                                <div class="row-cols-sm-5">URL
-                                                    <input type="text"
-                                                           class="form-control form-control-line"
-                                                           name="image_URL"
-                                                    <%--                                           value="<%=admin.getPhone()%>"--%>
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <div class="row-cols-sm-5">Description
-                                                    <input type="text"
-                                                           class="form-control form-control-line"
-                                                           name="image_description"
-                                                    <%--                                           value="<%=admin.getPhone()%>"--%>
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2"
-                                                 style="display: flex; align-items: flex-end; margin-bottom: 5px">
-                                                <button class="removeItem btn btn-primary" type="button">
-                                                    Remove
-                                                </button>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="col-sm-12"
-                                         style="display: flex; align-items: flex-end; margin-bottom: 5px">
-                                        <button class="addItem btn btn-red" type="button">
-                                            Add
-                                        </button>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close
-                                </button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-    </div>
-</div>
-<script>
-    var html = ' <div class="row col-md-12">\n' +
-        '                                            <div class="col-sm-5">\n' +
-        '                                                <div class="row-cols-sm-5">URL\n' +
-        '                                                    <input type="text"\n' +
-        '                                                           class="form-control form-control-line"\n' +
-        '                                                           name="image_URL"\n' +
-        '                                                    <%--                                           value="<%=admin.getPhone()%>"--%>\n' +
-        '                                                    >\n' +
-        '                                                </div>\n' +
-        '                                            </div>\n' +
-        '                                            <div class="col-sm-5">\n' +
-        '                                                <div class="row-cols-sm-5">Description\n' +
-        '                                                    <input type="text"\n' +
-        '                                                           class="form-control form-control-line"\n' +
-        '                                                           name="image_description"\n' +
-        '                                                    <%--                                           value="<%=admin.getPhone()%>"--%>\n' +
-        '                                                    >\n' +
-        '                                                </div>\n' +
-        '                                            </div>\n' +
-        '                                            <div class="col-sm-2"\n' +
-        '                                                 style="display: flex; align-items: flex-end; margin-bottom: 5px">\n' +
-        '                                                <button class="removeItem btn btn-primary" type="button">\n' +
-        '                                                    Remove\n' +
-        '                                                </button>\n' +
-        '\n' +
-        '                                            </div>\n' +
-        '\n' +
-        '                                        </div>'
-    $(document).ready(function () {
-        $(document).on('click', '.btn-show-update', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-            console.log('click')
-            $('#modal').addClass('show');
-        })
-        $(document).on('click', '.close', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-            console.log('click')
-            $('#modal').removeClass('show');
-        })
-
-        $(document).on('click', '.addItem', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-            console.log('click')
-            $('#form-group-image').append(html)
-        })
-
-        $(document).on('click', '.removeItem', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-            console.log('click remove')
-            $($($(e.target).parent()).parent()).remove()
-        })
-
-    });
-    $(document).ready(function () {
-
-    })
-</script>
 
 </body>
 </html>

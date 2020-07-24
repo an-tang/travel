@@ -35,21 +35,26 @@
 
                     </ol>
                 </div>
-                <div class="nhan">
-                    <label for="start">Start date:</label>
+                <form action="/admin/Report"
+                method="post">
+                    <div class="nhan">
+                        <label for="start">Start date:</label>
 
-                    <input type="date" id="start" name="trip-start">
+                        <input type="date" id="start"
+                               name="trip-start">
 
-                    <label for="start"> End date:</label>
-                    <input type="date" id="end" name="trip-start">
-                </div>
+                        <label for="start"> End date:</label>
+                        <input type="date" id="end"
+                               name="trip-start">
+
+                        <button type="submit">
+                            filter
+                        </button>
+                    </div>
+                </form>
             </div>
-            <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
             <!-- Start Page Content -->
-            <!-- ============================================================== -->
             <div class="row">
                 <!-- column -->
                 <div class="col-lg-12">
@@ -99,16 +104,10 @@
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
             <!-- End PAge Content -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
         <!-- End Container fluid  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
         <!-- footer -->
-        <!-- ============================================================== -->
         <footer class="footer">
             © 2020 UIT Travel Admin
         </footer>
@@ -123,4 +122,7 @@
 
 </body>
 
+<script>
+
+</script>
 </html>

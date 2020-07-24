@@ -9,15 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ImageDAO extends BaseDAO{
+public class ImageDAO extends BaseDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
+
     public ImageDAO() throws Exception {
         super();
     }
 
-    public boolean CreateImage(String params){
-        try{
+    public boolean CreateImage(String params) {
+        try {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO images (url, tour_info_id, description, created_at, updated_at) VALUES "
                     + params + " ;";
@@ -30,12 +31,14 @@ public class ImageDAO extends BaseDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return true;
     }
 
-    public ArrayList<ImageBean> GetImagesByTourInfoID(int tourInfoID){
+    public ArrayList<ImageBean> GetImagesByTourInfoID(int tourInfoID) {
         ArrayList<ImageBean> listImages = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
@@ -43,7 +46,7 @@ public class ImageDAO extends BaseDAO{
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, tourInfoID);
             ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String url = rs.getString("url");
                 String description = rs.getString("description");
@@ -55,8 +58,8 @@ public class ImageDAO extends BaseDAO{
         return listImages;
     }
 
-    public boolean UpdateImages(String params, int tourInfoID){
-        try{
+    public boolean UpdateImages(String params, int tourInfoID) {
+        try {
             connection = DBConnection.getConnect();
             String sql = "DELETE FROM images WHERE tour_info_id = ?;"
                     + " INSERT INTO images (url, tour_info_id, description, created_at, updated_at) VALUES "
@@ -71,6 +74,8 @@ public class ImageDAO extends BaseDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return true;

@@ -37,4 +37,21 @@ public class OrderReport {
     public void setGrandAmount(long grandAmount) {
         this.grandAmount = grandAmount;
     }
+
+    public OrderReport(String area, String province, String tourName, long grandAmount) {
+        this.area = area;
+        this.province = province;
+        this.tourName = tourName;
+        this.grandAmount = grandAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderReport{" +
+                "area='" + area + '\'' +
+                ", province='" + province + '\'' +
+                ", tourName='" + tourName + '\'' +
+                ", grandAmount=" + grandAmount +
+                '}';
+    }
 }

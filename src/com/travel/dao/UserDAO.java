@@ -131,6 +131,7 @@ public class UserDAO extends BaseDAO {
         } finally {
             BaseDAO.closeConnection(preparedStatement, connection);
         }
+
         return count;
     }
 

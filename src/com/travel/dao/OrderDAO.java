@@ -4,6 +4,7 @@ import com.travel.bean.OrderBean;
 import com.travel.dbconnection.DBConnection;
 import com.travel.enumerize.OrderStatus;
 import com.travel.viewmodel.OrderDetail;
+import com.travel.viewmodel.OrderReport;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -147,6 +148,8 @@ public class OrderDAO extends BaseDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return orderDetails;
@@ -182,6 +185,8 @@ public class OrderDAO extends BaseDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return orderDetails;
@@ -234,10 +239,45 @@ public class OrderDAO extends BaseDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
         }
 
         return order;
     }
 
+    public ArrayList<OrderReport> GetReportOrder(String from, String to) {
+        ArrayList<OrderReport> orders = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT a.id, a.name AS area, p.name AS province, t.id, t.name AS tour, sum(o.passenger * ti.price) AS total_amount"
+                    + " FROM orders o INNER JOIN tours t on o.tour_id = t.id"
+                    + " INNER JOIN tour_infos ti ON t.id = ti.tour_id"
+                    + " INNER JOIN provinces p ON t.province_id = p.id"
+                    + " INNER JOIN areas a ON p.area_id = a.id"
+                    + " WHERE (DATE(o.created_at) BETWEEN ? AND ?)"
+                    + " GROUP BY a.id, a.name, p.name, t.id, t.name"
+                    + " ORDER BY a.id ASC, p.name ASC, total_amount DESC;";
 
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, from);
+            preparedStatement.setString(2, to);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String area = rs.getString("area");
+                String province = rs.getString("province");
+                String tour = rs.getString("tour");
+                long totalAmount = rs.getLong("total_amount");
+
+                orders.add(new OrderReport(area, province, tour, totalAmount));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return orders;
+    }
 }

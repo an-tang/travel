@@ -19,11 +19,18 @@ public class AdminToursServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id_tour_active = request.getParameter("id_tour_active");
         String id_tour_deactive = request.getParameter("id_tour_deactive");
+        String id_tour_update = request.getParameter("id_tour_update");
         try {
             TourService tourService = new TourService();
-            if (id_tour_active != null) {
-                tourService.ActiveTour(Integer.parseInt(id_tour_active));
-            } else tourService.DeactivateTour(Integer.parseInt(id_tour_deactive));
+
+            if (id_tour_update == null) {
+                if (id_tour_active != null) {
+                    tourService.ActiveTour(Integer.parseInt(id_tour_active));
+                }
+                else tourService.DeactivateTour(Integer.parseInt(id_tour_deactive));
+            } else {
+                request.getRequestDispatcher("AdminUpdateTour.jsp").forward(request, response);
+            }
 
             //---------------Get List User-----------------
             ArrayList<TourDetail> list = tourService.GetAllTourHaveSorting("name", "asc", 2, 0, 10);

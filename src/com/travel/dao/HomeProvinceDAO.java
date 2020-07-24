@@ -65,9 +65,6 @@ public class HomeProvinceDAO extends BaseDAO {
             BaseDAO.closeConnection(preparedStatement, connection);
         }
 
-        for(ChartValue v : values){
-            System.out.println(v.toString());
-        }
         return values;
     }
 }

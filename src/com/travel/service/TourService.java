@@ -3,6 +3,7 @@ package com.travel.service;
 import com.travel.bean.ImageBean;
 import com.travel.bean.TourBean;
 import com.travel.bean.TourInfoBean;
+import com.travel.dao.ImageDAO;
 import com.travel.dao.TourDAO;
 import com.travel.dao.TourInfoDAO;
 import com.travel.enumerize.Status;
@@ -107,7 +108,7 @@ public class TourService {
             return false;
         }
 
-        TourInfoBean tourInfo = new TourInfoBean(request.getTile(), request.getDetail(), request.getPrice(), Status.ACTIVE.getValue(), tourID);
+        TourInfoBean tourInfo = new TourInfoBean(request.getTitle(), request.getDetail(), request.getPrice(), Status.ACTIVE.getValue(), tourID);
         int tourInfoID;
         try {
             tourInfoID = new TourInfoDAO().CreateTourInfo(tourInfo);
@@ -120,8 +121,11 @@ public class TourService {
         }
 
         ArrayList<ImageBean> images = request.getImages();
-        for (ImageBean image : images) {
-            image.setTourInfoID(tourInfoID);
+        String paramsInsertImages = parseInsertImage(images);
+        try {
+            new ImageDAO().CreateImage(paramsInsertImages);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return true;
@@ -157,6 +161,14 @@ public class TourService {
         return tourDAO.UpdateTourStatus(tourID, Status.ACTIVE);
     }
 
+    public CreateTourRequest GetTourInfoByID(int tourID) {
+        if (tourID <= 0) {
+            return null;
+        }
+
+        return tourDAO.GetTourDetailByID(tourID);
+    }
+
     private String parseTourIDToString(ArrayList<TourBean> tours) {
         StringBuilder builder = new StringBuilder();
         for (TourBean tour : tours) {
@@ -171,6 +183,16 @@ public class TourService {
         StringBuilder builder = new StringBuilder();
         for (int id : ids) {
             builder.append(id + ",");
+        }
+        builder.deleteCharAt(builder.length() - 1);
+
+        return builder.toString();
+    }
+
+    public String parseInsertImage(ArrayList<ImageBean> images) {
+        StringBuilder builder = new StringBuilder();
+        for (ImageBean image : images) {
+            builder.append(" (\'" + image.getUrl() + "\', " + image.getTourInfoID() + ", \'" + image.getDescription() + "\', now(), now()),");
         }
         builder.deleteCharAt(builder.length() - 1);
 

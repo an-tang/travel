@@ -1,8 +1,10 @@
 package com.travel.dao;
 
+import com.travel.bean.ImageBean;
 import com.travel.dbconnection.DBConnection;
 import com.travel.bean.TourBean;
 import com.travel.enumerize.Status;
+import com.travel.viewmodel.CreateTourRequest;
 import com.travel.viewmodel.TourDetail;
 
 import java.sql.*;
@@ -412,5 +414,48 @@ public class TourDAO extends BaseDAO {
         }
 
         return id;
+    }
+
+    public CreateTourRequest GetTourDetailByID(int tourID) {
+        CreateTourRequest tour = null;
+        int tourInfoID = -1;
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT t.name, t.image, p.id as province_id, p.name as province_name, ti.title, ti.detail, ti.price, ti.id as ti_id"
+                    + " FROM tours t INNER JOIN tour_infos ti ON t.id = ti.tour_id"
+                    + " INNER JOIN provinces p on t.province_id = p.id WHERE t.id = ?;";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, tourID);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String image = rs.getString("image");
+                int provinceID = rs.getInt("province_id");
+                String provinceName = rs.getString("province_name");
+                String title = rs.getString("title");
+                String detail = rs.getString("detail");
+                long price = rs.getLong("price");
+                tourInfoID = rs.getInt("ti_id");
+                tour = new CreateTourRequest(name, image,  provinceID, provinceName, title, detail, price, tourInfoID);
+            }
+
+            if (tourInfoID > 0){
+                ArrayList<ImageBean>  images = new ImageDAO().GetImagesByTourInfoID(tourInfoID);
+                tour.setImages(images);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        System.out.println(tour.toString());
+
+        return tour;
     }
 }

@@ -19,12 +19,12 @@ public class ImageDAO extends BaseDAO{
     public boolean CreateImage(String params){
         try{
             connection = DBConnection.getConnect();
-            String sql = "INSERT INTO images (url, tour_info_id, description) VALUES ("
-                    + params + " );";
+            String sql = "INSERT INTO images (url, tour_info_id, description, created_at, updated_at) VALUES "
+                    + params + " ;";
             preparedStatement = connection.prepareStatement(sql);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
+                throw new SQLException("Creating image failed, no rows affected.");
             }
 
         } catch (SQLException e) {

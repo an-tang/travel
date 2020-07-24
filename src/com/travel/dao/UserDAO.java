@@ -291,9 +291,6 @@ public class UserDAO extends BaseDAO {
         } finally {
             BaseDAO.closeConnection(preparedStatement, connection);
         }
-        for(UserReport u : users){
-            System.out.println(u.toString());
-        }
 
         return users;
     }

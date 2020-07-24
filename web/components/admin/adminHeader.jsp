@@ -21,8 +21,7 @@
                 <!-- Light Logo icon -->
                 <img src="/assets/images/logo.png" alt="homepage" aria-valuetext="asd" class="light-logo"/>
                 UIT
-                travel
-
+                Travel
             </b>
                 <!--End Logo icon -->
                 <!-- Logo text --><span>

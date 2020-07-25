@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-block">
                         <form
-                                action="/admin/Tours"
+                                action="/admin/createTour"
                                 method="post">
                             <div class="row">
                                 <div class="form-group col-md-6">
@@ -27,7 +27,6 @@
                                         <input type="text"
                                                name="tour_name"
                                                class="form-control form-control-line"
-                                        <%--                                           value="<%=admin.getUserName()%>"--%>
                                         >
                                     </div>
                                 </div>
@@ -38,18 +37,15 @@
                                         <input type="text"
                                                name="tour_title"
                                                class="form-control form-control-line"
-                                        <%--                                           value="<%=admin.getName()%>"--%>
                                         >
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="example-email" class="col-md-12">Detail</label>
+                                    <label class="col-md-12">Detail</label>
                                     <div class="col-md-12">
-                                        <input type="email"
+                                        <input type="text"
                                                class="form-control form-control-line"
                                                name="tour_detail"
-                                               id="example-email"
-                                        <%--                                           value="<%=admin.getEmail()%>"--%>
                                         >
                                     </div>
                                 </div>
@@ -59,16 +55,19 @@
                                         <input type="text"
                                                class="form-control form-control-line"
                                                name="tour_price"
-                                        <%--                                           value="<%=admin.getPhone()%>"--%>
                                         >
                                     </div>
                                 </div>
+
                                 <div class="form-group col-md-6">
                                     <label class="col-sm-12">Province</label>
                                     <div class="col-sm-12">
-                                        <select class="form-control form-control-line">
+                                        <select class="form-control form-control-line" name="province_id">
+                                            <option value="${province.getId()}">${province.getName()}</option>
                                             <c:forEach items="${listProvince}" var="province">
-                                                <option name="province_name">${province.getName()}</option>
+                                                <option value="${province.getId()}">
+                                                        ${province.getName()}
+                                                </option>
                                             </c:forEach>
                                         </select>
                                     </div>
@@ -84,37 +83,36 @@
                                     </div>
                                 </div>
 
+                                <%--List images--%>
                                 <div class="col-md-12">
                                     <div class="form-group" id="form-group-image">
-                                        <label class="col-sm-5">Image</label>
-                                        <div class="row col-md-12">
-                                            <div class="col-sm-5">
-                                                <div class="row-cols-sm-5">URL
-                                                    <input type="text"
-                                                           class="form-control form-control-line"
-                                                           name="image_URL"
-                                                    <%--                                           value="<%=admin.getPhone()%>"--%>
-                                                    >
+                                        <label class="col-sm-5">List Image</label>
+
+                                            <div class="row col-md-12">
+                                                <div class="col-sm-5">
+                                                    <div class="row-cols-sm-5">URL
+                                                        <input type="text"
+                                                               class="form-control form-control-line"
+                                                               name="image_URL"
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="row-cols-sm-5">Description
+                                                        <input type="text"
+                                                               class="form-control form-control-line"
+                                                               name="image_description"
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2"
+                                                     style="display: flex; align-items: flex-end; margin-bottom: 5px">
+                                                    <button class="removeItem btn btn-primary" type="button">
+                                                        Remove
+                                                    </button>
+
                                                 </div>
                                             </div>
-                                            <div class="col-sm-5">
-                                                <div class="row-cols-sm-5">Description
-                                                    <input type="text"
-                                                           class="form-control form-control-line"
-                                                           name="image_description"
-                                                    <%--                                           value="<%=admin.getPhone()%>"--%>
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2"
-                                                 style="display: flex; align-items: flex-end; margin-bottom: 5px">
-                                                <button class="removeItem btn btn-primary" type="button">
-                                                    Remove
-                                                </button>
-
-                                            </div>
-
-                                        </div>
 
                                     </div>
 
@@ -131,8 +129,11 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close
+                                <button type="submit"
+                                        class="btn btn-primary"
+                                        name="tour_id"
+                                        >
+                                    Save changes
                                 </button>
                             </div>
                         </form>

@@ -470,6 +470,7 @@ public class TourDAO extends BaseDAO {
             preparedStatement.setString(1, tour.getName());
             preparedStatement.setString(2, tour.getImage());
             preparedStatement.setInt(3, tour.getProvinceID());
+            preparedStatement.setInt(4, tourID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

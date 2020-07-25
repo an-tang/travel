@@ -4,7 +4,6 @@ import com.travel.bean.ImageBean;
 import com.travel.bean.ProvinceBean;
 import com.travel.dao.ImageDAO;
 import com.travel.dao.ProvinceDAO;
-import com.travel.dao.TourInfoDAO;
 import com.travel.service.ProvinceService;
 import com.travel.service.TourService;
 import com.travel.viewmodel.CreateTourRequest;
@@ -17,10 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(urlPatterns = "/admin/UpdateTour")
-public class AdminUpdateTourServlet extends HttpServlet {
-
+@WebServlet(urlPatterns = "/admin/createTour")
+public class AdminCreateTourServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String[] image_URLs = request.getParameterValues("image_URL");
         String[] image_DESs = request.getParameterValues("image_description");
         String tour_name = request.getParameter("tour_name");
@@ -40,7 +39,7 @@ public class AdminUpdateTourServlet extends HttpServlet {
                 ImageDAO imageDAO = new ImageDAO();
 
                 ImageBean imageBean = new ImageBean(image_URLs[i], image_DESs[i]);
-
+//
 //                String param = "(" + "'" + image_URLs[i] + "'" + "," + tour_id + "," + "'" + image_DESs[i] + "'" + "," + "now()" + "," + "now()" + ")";
 //                imageDAO.UpdateImages(param, Integer.parseInt(tour_id));
                 images.add(imageBean);
@@ -51,13 +50,11 @@ public class AdminUpdateTourServlet extends HttpServlet {
 
         try {
             ProvinceDAO provinceDAO = new ProvinceDAO();
-            TourService tourService = new TourService();
-            TourInfoDAO tourInfoDAO = new TourInfoDAO();
-
+            TourService tourService = new  TourService();
             ArrayList<ProvinceBean> listProvince = provinceDAO.GetAllProvinces();
             CreateTourRequest createTourRequest = new CreateTourRequest(tour_name, tour_image, Integer.parseInt(province_id), tour_title, tour_detail, Long.parseLong(tour_price), images);
 
-            boolean updateTour = tourService.UpdateTour(createTourRequest, Integer.parseInt(tour_id));
+            boolean updateTour = tourService.CreateTour(createTourRequest);
 
             if (updateTour) {
                 ProvinceService provinceService = new ProvinceService();
@@ -74,7 +71,6 @@ public class AdminUpdateTourServlet extends HttpServlet {
         }
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

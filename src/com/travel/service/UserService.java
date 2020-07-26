@@ -143,4 +143,12 @@ public class UserService {
 
         return userDAO.TopUsersByOrder(limit);
     }
+
+    public ArrayList<UserBean> GetUserInAdminPageByKeyword(String keyword, int page, int perPage){
+        keyword = keyword.replace(" ", "&");
+        page = Math.max(page, 0);
+        perPage = perPage < 0 ? 10 : perPage;
+
+        return userDAO.GetUserInAdminPageByKeyword(keyword, page, perPage);
+    }
 }

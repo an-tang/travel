@@ -132,7 +132,6 @@ public class TourService {
     }
 
     public boolean UpdateTour(CreateTourRequest request, int tourID) {
-        System.out.println(tourID);
         boolean success = tourDAO.UpdateTour(request, tourID);
         if (!success) {
             return false;
@@ -158,7 +157,7 @@ public class TourService {
         String paramsInsertImages = parseInsertImage(images, tourInfo.getId());
         try {
             success = new ImageDAO().UpdateImages(paramsInsertImages, tourInfo.getId());
-            if (!success){
+            if (!success) {
                 return false;
             }
         } catch (Exception e) {
@@ -238,4 +237,13 @@ public class TourService {
 
         return builder.toString();
     }
+
+    public ArrayList<TourDetail> GetTourInAdminPageByKeyword(String keyword, int page, int perPage) {
+        keyword = keyword.replace(" ", "&");
+        page = Math.max(page, 0);
+        perPage = perPage < 0 ? 10 : perPage;
+
+        return tourDAO.GetTourInAdminPageByKeyword(keyword, page, perPage);
+    }
+
 }

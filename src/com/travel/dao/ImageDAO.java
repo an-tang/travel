@@ -68,7 +68,6 @@ public class ImageDAO extends BaseDAO {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, tourInfoID);
 
-            System.out.println(preparedStatement);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating image failed, no rows affected.");

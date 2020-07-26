@@ -1,11 +1,9 @@
 package com.travel.dao;
 
-import com.travel.bean.TourBean;
 import com.travel.bean.TourInfoBean;
 import com.travel.dbconnection.DBConnection;
 import com.travel.enumerize.Status;
 import com.travel.viewmodel.CreateTourRequest;
-import org.postgresql.ds.common.BaseDataSource;
 
 import java.sql.*;
 
@@ -51,10 +49,10 @@ public class TourInfoDAO extends BaseDAO {
 
     public TourInfoBean GetTourInfoByTourID(int tourID) {
         TourInfoBean tourInfo = null;
-        System.out.println(tourID);
         try {
             this.connection = DBConnection.getConnect();
             String sql = "SELECT * FROM tour_infos WHERE tour_id = ? AND status = ?;";
+
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, tourID);
             preparedStatement.setInt(2, Status.ACTIVE.getValue());
@@ -80,6 +78,7 @@ public class TourInfoDAO extends BaseDAO {
         try {
             connection = DBConnection.getConnect();
             String sql = "UPDATE tour_infos SET title = ?, detail = ?, price = ?, updated_at = now() WHERE tour_id = ?;";
+
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, tourInfo.getTitle());
             preparedStatement.setString(2, tourInfo.getDetail());

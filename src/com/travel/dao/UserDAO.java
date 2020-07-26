@@ -296,6 +296,43 @@ public class UserDAO extends BaseDAO {
         return users;
     }
 
+    public ArrayList<UserBean> GetUserInAdminPageByKeyword(String keyword, int page, int perPage) {
+        ArrayList<UserBean> listUsers = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM users u INNER JOIN user_roles ur ON u.id = ur.user_id "
+                    + " WHERE to_tsvector(convertnonunicode(u.user_name) || ' ' || convertnonunicode(u.name)) @@ to_tsquery(convertnonunicode(?))"
+                    + " AND ur.role_id = ? ORDER BY u.user_name ASC LIMIT ? OFFSET ?;";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, keyword);
+            preparedStatement.setInt(2, Role.CUSTOMER.getValue());
+            preparedStatement.setInt(3, page * perPage + perPage);
+            preparedStatement.setInt(4, page * perPage);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String userName = rs.getString("user_name");
+                String email = rs.getString("email");
+                String name = rs.getString("name");
+                String phone = rs.getString("phone");
+                int status = rs.getInt("status");
+                listUsers.add(new UserBean(id, userName, name, email, phone, status));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        for(UserBean u :listUsers){
+            System.out.println(u.toString());
+        }
+
+        return listUsers;
+    }
+
     private void createUserRole(int role, int id) throws SQLException {
         String sql = "INSERT INTO user_roles (user_id, role_id, created_at, updated_at) VALUES " + "( ?, ?, now(), now());";
         preparedStatement = connection.prepareStatement(sql);

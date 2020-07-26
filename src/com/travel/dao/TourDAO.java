@@ -7,7 +7,6 @@ import com.travel.enumerize.Status;
 import com.travel.viewmodel.CreateTourRequest;
 import com.travel.viewmodel.TourDetail;
 
-import javax.annotation.processing.Generated;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -459,8 +458,6 @@ public class TourDAO extends BaseDAO {
             BaseDAO.closeConnection(preparedStatement, connection);
         }
 
-        System.out.println(tour.toString());
-
         return tour;
     }
 
@@ -483,5 +480,39 @@ public class TourDAO extends BaseDAO {
         }
 
         return true;
+    }
+
+    public ArrayList<TourDetail> GetTourInAdminPageByKeyword(String keyword, int page, int perPage) {
+        ArrayList<TourDetail> listTours = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT t.id, t.name, ti.title, ti.price, ti.status, p.name as province FROM tours t "
+                    + " INNER JOIN tour_infos ti ON t.id = ti.tour_id "
+                    + " INNER JOIN provinces p on t.province_id = p.id "
+                    + " WHERE to_tsvector(convertnonunicode(t.name)) @@ to_tsquery(convertnonunicode(?))"
+                    + " ORDER BY t.name ASC LIMIT ? OFFSET ?;";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, keyword);
+            preparedStatement.setInt(2, page * perPage + perPage);
+            preparedStatement.setInt(3, page * perPage);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String tourName = rs.getString("name");
+                String title = rs.getString("title");
+                String province = rs.getString("province");
+                long price = rs.getLong("price");
+                int status = rs.getInt("status");
+                listTours.add(new TourDetail(id, tourName, title, province, price, status));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return listTours;
     }
 }

@@ -6,3 +6,4 @@
 <script src="assets/js/global.js"></script>
 <script src="assets/js/components/clientSideValidation.js"></script>
 <script src="assets/js/components/feedback.js"></script>
+<script src="assets/js/components/spinner.js"></script>

@@ -2,7 +2,6 @@ package com.travel.service;
 
 import com.sun.mail.smtp.SMTPMessage;
 import com.travel.bean.UserBean;
-import com.travel.helper.TokenHelpers;
 import com.travel.helper.URLHelpers;
 
 import javax.mail.*;
@@ -13,9 +12,8 @@ public class EmailService {
     private final String sender = "uittravel.cs@gmail.com";
     private final String password = "nsqptbthfftvebcn";
 
-    public void SendEmail(UserBean user) {
+    public void SendEmail(UserBean user, String token) {
         Properties properties = System.getProperties();
-
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.socketFactory.port", "465");
         properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -28,6 +26,7 @@ public class EmailService {
                         return new PasswordAuthentication(sender, password);
                     }
                 });
+
         try {
             SMTPMessage message = new SMTPMessage(session);
             message.setFrom(new InternetAddress(sender));
@@ -39,11 +38,7 @@ public class EmailService {
             }
 
             String baseURL = host + "/reset-password";
-            String endpoint = URLHelpers.buildRelativeURL(
-                    baseURL,
-                    "user_name", user.getUserName(),
-                    "t", TokenHelpers.generateToken("rpw_")
-            );
+            String endpoint = URLHelpers.buildRelativeURL(baseURL, "t", token);
             message.setSubject("UIT Travel - Reset password");
             message.setText("Dear " + user.getName() + ",\n\nClick the link bellow to reset password:\n" + endpoint + "\n\nRegards!");
 

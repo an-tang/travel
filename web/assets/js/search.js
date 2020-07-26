@@ -108,12 +108,14 @@ function initIsotope() {
 }
 
 function fetchResults(url, isReload) {
+    startSpinner();
     $.ajax({
         url: url,
         type: 'get',
         dataType: 'html'
     })
         .done(response => {
+            stopSpinner();
             if (typeof response === 'string' && response) {
                 if (isReload) {
                     $('.tour-listing-row').empty().append(response);

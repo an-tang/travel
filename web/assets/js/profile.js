@@ -13,6 +13,7 @@ function handleProfileFormSubmit() {
         const valid = validateForm.call(this, e);
 
         if (valid) {
+            startSpinner();
             let form = $(this);
             $.ajax({
                 url: form.attr('action'),
@@ -21,9 +22,11 @@ function handleProfileFormSubmit() {
                 data: form.serialize()
             })
                 .done(data => {
+                    stopSpinner();
                     alert(data.message);
                 })
                 .fail(error => {
+                    stopSpinner();
                     if (error.responseJSON) {
                         const responseObj = JSON.parse(error.responseJSON);
                         alert(responseObj.errorMessage);
@@ -41,6 +44,7 @@ function handleChangePwdFormSubmit() {
         const valid = validateForm.call(this, e);
 
         if (valid) {
+            startSpinner();
             let form = $(this);
             $.ajax({
                 url: form.attr('action'),
@@ -49,12 +53,14 @@ function handleChangePwdFormSubmit() {
                 data: form.serialize()
             })
                 .done(data => {
+                    stopSpinner();
                     alert(data.message);
                     if (data.redirectUrl) {
                         window.location.href = data.redirectUrl;
                     }
                 })
                 .fail(error => {
+                    stopSpinner();
                     if (error.responseJSON) {
                         const responseObj = JSON.parse(error.responseJSON);
                         alert(responseObj.errorMessage);

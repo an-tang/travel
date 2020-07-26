@@ -5,6 +5,7 @@ $(document).ready(function () {
 });
 
 function prepareWishlistTours() {
+    startSpinner();
     const jsonTourIDs = window.localStorage.getItem('tourIDs');
     const tourIDs = jsonTourIDs ? JSON.parse(jsonTourIDs) : [];
 
@@ -15,6 +16,7 @@ function prepareWishlistTours() {
         data: { tourIDs: tourIDs }
     })
         .done(response => {
+            stopSpinner();
             if (response) {
                 $('#wishlistTours').append(response);
             }

@@ -4,7 +4,7 @@
 
 <head>
     <jsp:include page="components/globalHeadTags.jsp" />
-    <%--    <link rel="stylesheet" type="text/css" href="assets/css/forgotPassword.css">--%>
+    <link rel="stylesheet" type="text/css" href="assets/css/forgotPassword.css">
     <title>Quên mật khẩu</title>
 </head>
 
@@ -16,7 +16,7 @@
     <!-- Menu -->
     <jsp:include page="components/menu.jsp" />
 
-    <section class="forgot-password-form-section py-5">
+    <section class="forgot-password-form-section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -25,7 +25,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <p>Vui lòng nhập tên đăng nhập của tài khoản mà bạn muốn đặt lại mật khẩu. Chúng tôi sẽ gửi một email đến địa chỉ email đă đăng ký với tài khoản của bạn.</p>
+                    <p>Vui lòng nhập tên đăng nhập của tài khoản mà bạn muốn đặt lại mật khẩu. Chúng tôi sẽ gửi một đường link reset mật khẩu đến địa chỉ email đă đăng ký với tài khoản của bạn.</p>
                 </div>
             </div>
             <div class="row">

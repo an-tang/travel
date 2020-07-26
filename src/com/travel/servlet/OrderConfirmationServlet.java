@@ -27,10 +27,7 @@ public class OrderConfirmationServlet extends HttpServlet {
                 request.setAttribute("order", order);
                 request.getRequestDispatcher("orderConfirmation.jsp").forward(request, response);
             } else {
-                // request.getRequestDispatcher("error.jsp").forward(request, response);
-
-                PrintWriter out = response.getWriter();
-                out.println("<h1>" + "Sorry, the requested page no longer exists." + "</h1>");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -90,12 +90,13 @@ function handleAddToWishlist() {
 }
 
 function fetchComments(url) {
+    startSpinner();
     let getCommentsURLString = url;
     let isReloadComments = false;
 
     if (!url) {
         let getCommentsURL = new URL('/comment', location.origin);
-        getCommentsURL.searchParams.append('tour_info', new URL(location.href).searchParams.get('id'));
+        getCommentsURL.searchParams.append('tour_info', $('form.comment input[name="tour_info"]').val());
         getCommentsURL.searchParams.append('start', COMMENTS_DEFAULT_START.toString());
         getCommentsURL.searchParams.append('size', COMMENTS_PER_PAGE.toString());
         getCommentsURLString = getCommentsURL.toString();
@@ -108,6 +109,7 @@ function fetchComments(url) {
         dataType: 'html'
     })
         .done(response => {
+            stopSpinner();
             if (typeof response === 'string' && response) {
                 if (isReloadComments) {
                     $('.comments').empty().append(response);
@@ -128,6 +130,7 @@ function handleCommentFormSubmit() {
         const valid = validateForm.call(this, e);
 
         if (valid) {
+            startSpinner();
             let form = $(this);
             $.ajax({
                 url: form.attr('action'),
@@ -136,6 +139,7 @@ function handleCommentFormSubmit() {
                 data: form.serialize()
             })
                 .done(data => {
+                    stopSpinner();
                     alert(data.message);
                     if (data.success) {
                         fetchComments(null);
@@ -144,6 +148,7 @@ function handleCommentFormSubmit() {
                     }
                 })
                 .fail(error => {
+                    stopSpinner();
                     if (error.responseJSON) {
                         const responseObj = JSON.parse(error.responseJSON);
                         alert(responseObj.errorMessage);

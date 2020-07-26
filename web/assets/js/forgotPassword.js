@@ -12,6 +12,7 @@ function handleForgotPasswordFormSubmit() {
         const valid = validateForm.call(this, e);
 
         if (valid) {
+            startSpinner();
             let form = $(this);
             $.ajax({
                 url: form.attr('action'),
@@ -20,11 +21,13 @@ function handleForgotPasswordFormSubmit() {
                 data: form.serialize()
             })
                 .done(data => {
+                    stopSpinner();
                     if (data.success) {
                         alert(data.message);
                     }
                 })
                 .fail(error => {
+                    stopSpinner();
                     if (error.responseJSON) {
                         const responseObj = JSON.parse(error.responseJSON);
                         alert(responseObj.errorMessage);

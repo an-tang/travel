@@ -22,6 +22,7 @@ function handleChangePassengers() {
 }
 
 function placeOrder() {
+    startSpinner();
     let form = $(this);
     $.ajax({
         url: form.attr('action'),
@@ -30,6 +31,7 @@ function placeOrder() {
         data: form.serialize()
     })
         .done(data => {
+            stopSpinner();
             if (data.success) {
                 window.location.href = data.redirectUrl;
             } else {
@@ -40,6 +42,7 @@ function placeOrder() {
             }
         })
         .fail(error => {
+            stopSpinner();
             if (error.responseJSON) {
                 const responseObj = JSON.parse(error.responseJSON);
                 alert(responseObj.errorMessage);

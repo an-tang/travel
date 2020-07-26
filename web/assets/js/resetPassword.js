@@ -3,11 +3,11 @@
 $(document).ready(function () {
     handleFieldInvalid();
     clearInvalid();
-    handleRegisterFormSubmit();
+    handleResetPwdFormSubmit();
 });
 
-function handleRegisterFormSubmit() {
-    $('form.register').on('submit', function (e) {
+function handleResetPwdFormSubmit() {
+    $('form.reset-password').on('submit', function (e) {
         e.preventDefault();
         const valid = validateForm.call(this, e);
 
@@ -23,7 +23,7 @@ function handleRegisterFormSubmit() {
                 .done(data => {
                     stopSpinner();
                     alert(data.message);
-                    if (data.success) {
+                    if (data.success && data.redirectUrl) {
                         window.location.href = data.redirectUrl;
                     }
                 })
@@ -37,5 +37,5 @@ function handleRegisterFormSubmit() {
                     }
                 });
         }
-    });
+    })
 }

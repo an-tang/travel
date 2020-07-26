@@ -53,9 +53,9 @@
                             name="feedback_content"
                             placeholder="Nội dung"
                             rows="5"
-                            required maxlength="600"
+                            required maxlength="300"
                             data-missing-error="Vui lòng nhập nội dung feedback"
-                            data-range-error="Bình luận không dài quá 600 ký tự"></textarea>
+                            data-range-error="Feedback không dài quá 300 ký tự"></textarea>
                         <div class="invalid-msg"></div>
                     </div>
                 </div>

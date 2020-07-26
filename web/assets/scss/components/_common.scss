@@ -19,6 +19,11 @@ body {
     color: #131a2f;
 }
 
+body {
+    padding-right: 0 !important;
+    overflow-y: scroll !important;
+}
+
 div {
     display: block;
     position: relative;
@@ -216,4 +221,13 @@ section {
 
 .section-title {
     font-weight: 200;
+}
+
+.standard-link {
+    color: $lightCardinal;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: $cardinal;
+    }
 }

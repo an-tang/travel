@@ -97,7 +97,7 @@
                             <div class="invalid-msg"></div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="form-control-label" for="registerEmail">Email</label>
                             <input
                                     type="email"
@@ -125,7 +125,6 @@
 </div>
 
 <jsp:include page="components/globalScripts.jsp" />
-<script src="assets/js/components/clientSideValidation.js"></script>
 <script src="assets/js/register.js"></script>
 
 </body>

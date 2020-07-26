@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = {"/orderconfirmation"})
+@WebServlet(urlPatterns = {"/order-confirmation"})
 public class OrderConfirmationServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            if (TokenHelpers.verifyRequestToken(request)) {
+            if (TokenHelpers.verifyRequestToken(request, "orderConfirmationToken")) {
                 request.getSession().removeAttribute("orderConfirmationToken");
                 int orderId = Integer.parseInt(request.getParameter("order"));
 

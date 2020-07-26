@@ -2,10 +2,12 @@ package com.travel.service;
 
 import com.sun.mail.smtp.SMTPMessage;
 import com.travel.bean.UserBean;
+import com.travel.helper.TokenHelpers;
+import com.travel.helper.URLHelpers;
 
-import java.util.*;
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.internet.InternetAddress;
+import java.util.Properties;
 
 public class EmailService {
     private final String sender = "uittravel.cs@gmail.com";
@@ -31,12 +33,17 @@ public class EmailService {
             message.setFrom(new InternetAddress(sender));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
 
-            String baseURL = System.getenv("BASE_URL");
-            if ((baseURL == null) || (baseURL == "")) {
-                baseURL = "http://localhost:8080";
+            String host = System.getenv("BASE_URL");
+            if (host == null || host.equals("")) {
+                host = "http://localhost:8080";
             }
 
-            String endpoint = baseURL + "/reset-password?user_name=" + user.getUserName();
+            String baseURL = host + "/reset-password";
+            String endpoint = URLHelpers.buildRelativeURL(
+                    baseURL,
+                    "user_name", user.getUserName(),
+                    "t", TokenHelpers.generateToken("rpw_")
+            );
             message.setSubject("UIT Travel - Reset password");
             message.setText("Dear " + user.getName() + ",\n\nClick the link bellow to reset password:\n" + endpoint + "\n\nRegards!");
 

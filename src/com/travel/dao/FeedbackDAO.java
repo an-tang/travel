@@ -22,7 +22,7 @@ public class FeedbackDAO extends BaseDAO {
         try {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO feedbacks (user_name, email, title, content, status, created_at, updated_at)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?);";
+                    + " VALUES (?, ?, ?, ?, ?, now(), now());";
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, feedback.getUsername());
@@ -30,7 +30,6 @@ public class FeedbackDAO extends BaseDAO {
             preparedStatement.setString(3, feedback.getTitle());
             preparedStatement.setString(4, feedback.getContent());
             preparedStatement.setInt(5, State.NEW.getValue());
-            preparedStatement.execute();
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {

@@ -105,7 +105,6 @@
     <script src="assets/vendor/greensock/animation.gsap.min.js"></script>
     <script src="assets/vendor/greensock/ScrollToPlugin.min.js"></script>
     <script src="assets/vendor/slick/slick.min.js"></script>
-    <script src="assets/js/components/clientSideValidation.js"></script>
     <script src="assets/js/tourDetail.js"></script>
 </body>
 

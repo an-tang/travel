@@ -109,13 +109,13 @@ public class CheckoutServlet extends HttpServlet {
                     int orderId = orderService.CreateOrder(order);
 
                     // Generate one-time token
-                    String token = TokenHelpers.generateToken();
+                    String token = TokenHelpers.generateToken("ocf_");
                     currentSession.setAttribute("orderConfirmationToken", token);
                     ajaxResponse = new AjaxResponse(
                             true,
                             "Giao dịch thành công",
                             URLHelpers.buildRelativeURL(
-                                    "/orderconfirmation",
+                                    "/order-confirmation",
                                     "order", String.valueOf(orderId),
                                     "t", token
                             )

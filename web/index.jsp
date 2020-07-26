@@ -25,6 +25,8 @@
 </head>
 
 <body>
+    <!-- Feedback -->
+    <jsp:include page="components/feedback.jsp"/>
 
     <div class="super_container">
         <!-- Header -->

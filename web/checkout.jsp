@@ -226,7 +226,6 @@
 </div>
 
 <jsp:include page="components/globalScripts.jsp" />
-<script src="assets/js/components/clientSideValidation.js"></script>
 <script src="assets/js/checkout.js"></script>
 
 </body>

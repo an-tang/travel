@@ -4,3 +4,5 @@
 <script src="assets/vendor/parallax-js-master/parallax.min.js"></script>
 <script src="assets/vendor/easing/easing.js"></script>
 <script src="assets/js/global.js"></script>
+<script src="assets/js/components/clientSideValidation.js"></script>
+<script src="assets/js/components/feedback.js"></script>

@@ -63,6 +63,13 @@
 				</div>
 				<div class="col-md-3 col-xl-4"></div>
 			</div>
+			<div class="row mt-3">
+				<div class="col-md-3 col-xl-4"></div>
+				<div class="col-md-6 col-xl-4 text-center">
+					<a class="standard-link" href="/forgot-password">Quên mật khẩu?</a>
+				</div>
+				<div class="col-md-3 col-xl-4"></div>
+			</div>
 		</div>
 	</section>
 
@@ -71,7 +78,6 @@
 </div>
 
 <jsp:include page="components/globalScripts.jsp" />
-<script src="assets/js/components/clientSideValidation.js"></script>
 <script src="assets/js/login.js"></script>
 
 </body>

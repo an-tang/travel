@@ -47,7 +47,7 @@
                             rows="5"
                             required maxlength="600"
                             data-missing-error="Vui lòng nhập nội dung bình luận"
-                            data-range-error="Bình luận không dài quá 600 tự"></textarea>
+                            data-range-error="Bình luận không dài quá 600 ký tự"></textarea>
                         <div class="invalid-msg"></div>
                     </div>
 

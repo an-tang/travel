@@ -184,7 +184,7 @@
                                     <button type="submit"
                                             class="btn btn-primary"
                                             name="tour_id"
-                                            value="<%=tourUpdate.getTourInfoID()%>">
+                                            value="<%=tourUpdate.getId()%>">
                                         Save changes
                                     </button>
                                 </div>

@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CreateTourRequest implements Serializable {
+    int id;
     String name;
     String image;
     int provinceID;
@@ -15,6 +16,14 @@ public class CreateTourRequest implements Serializable {
     long price;
     int tourInfoID;
     ArrayList<ImageBean> images;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -88,6 +97,29 @@ public class CreateTourRequest implements Serializable {
         this.tourInfoID = tourInfoID;
     }
 
+    public CreateTourRequest(int id, String name, String image, int provinceID, String title, String detail, long price, ArrayList<ImageBean> images) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.provinceID = provinceID;
+        this.title = title;
+        this.detail = detail;
+        this.price = price;
+        this.images = images;
+    }
+
+    public CreateTourRequest(int id, String name, String image, int provinceID, String province, String title, String detail, long price, int tourInfoID) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.provinceID = provinceID;
+        this.province = province;
+        this.title = title;
+        this.detail = detail;
+        this.price = price;
+        this.tourInfoID = tourInfoID;
+    }
+
     public CreateTourRequest(String name, String image, int provinceID, String title, String detail, long price, ArrayList<ImageBean> images) {
         this.name = name;
         this.image = image;
@@ -98,40 +130,18 @@ public class CreateTourRequest implements Serializable {
         this.images = images;
     }
 
-    public CreateTourRequest(String name, String image, int provinceID, String province, String title, String detail, long price, int tourInfoID) {
-        this.name = name;
-        this.image = image;
-        this.provinceID = provinceID;
-        this.province = province;
-        this.title = title;
-        this.detail = detail;
-        this.price = price;
-        this.tourInfoID = tourInfoID;
-    }
-
-    public CreateTourRequest(String name, String image, int provinceID, String province, String title, String detail, long price, int tourInfoID, ArrayList<ImageBean> images) {
-        this.name = name;
-        this.image = image;
-        this.provinceID = provinceID;
-        this.province = province;
-        this.title = title;
-        this.detail = detail;
-        this.price = price;
-        this.tourInfoID = tourInfoID;
-        this.images = images;
-    }
-
     @Override
     public String toString() {
         return "CreateTourRequest{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", image='" + image + '\'' +
                 ", provinceID=" + provinceID +
                 ", province='" + province + '\'' +
                 ", title='" + title + '\'' +
                 ", detail='" + detail + '\'' +
                 ", price=" + price +
-                ", images=" + images +
+                ", tourInfoID=" + tourInfoID +
                 '}';
     }
 }

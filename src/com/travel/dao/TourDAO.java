@@ -7,6 +7,7 @@ import com.travel.enumerize.Status;
 import com.travel.viewmodel.CreateTourRequest;
 import com.travel.viewmodel.TourDetail;
 
+import javax.annotation.processing.Generated;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -395,7 +396,8 @@ public class TourDAO extends BaseDAO {
         try {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO tours (name, image, province_id, created_at, updated_at) VALUES (?, ?, ?, now(), now());";
-            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, tour.getName());
             preparedStatement.setString(2, tour.getImage());
             preparedStatement.setInt(3, tour.getProvinceID());
@@ -423,7 +425,7 @@ public class TourDAO extends BaseDAO {
         int tourInfoID = -1;
         try {
             connection = DBConnection.getConnect();
-            String sql = "SELECT t.name, t.image, p.id as province_id, p.name as province_name, ti.title, ti.detail, ti.price, ti.id as ti_id"
+            String sql = "SELECT t.id, t.name, t.image, p.id as province_id, p.name as province_name, ti.title, ti.detail, ti.price, ti.id as ti_id"
                     + " FROM tours t INNER JOIN tour_infos ti ON t.id = ti.tour_id"
                     + " INNER JOIN provinces p on t.province_id = p.id WHERE t.id = ?;";
 
@@ -432,6 +434,7 @@ public class TourDAO extends BaseDAO {
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String image = rs.getString("image");
                 int provinceID = rs.getInt("province_id");
@@ -440,7 +443,7 @@ public class TourDAO extends BaseDAO {
                 String detail = rs.getString("detail");
                 long price = rs.getLong("price");
                 tourInfoID = rs.getInt("ti_id");
-                tour = new CreateTourRequest(name, image, provinceID, provinceName, title, detail, price, tourInfoID);
+                tour = new CreateTourRequest(id, name, image, provinceID, provinceName, title, detail, price, tourInfoID);
             }
 
             if (tourInfoID > 0) {

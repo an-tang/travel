@@ -7,10 +7,7 @@ import com.travel.enumerize.Status;
 import com.travel.viewmodel.CreateTourRequest;
 import org.postgresql.ds.common.BaseDataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class TourInfoDAO extends BaseDAO {
     Connection connection = null;
@@ -20,18 +17,20 @@ public class TourInfoDAO extends BaseDAO {
         super();
     }
 
-    public int CreateTourInfo(TourInfoBean tourInfo){
+    public int CreateTourInfo(TourInfoBean tourInfo) {
         int id = 0;
         try {
             connection = DBConnection.getConnect();
             String sql = "INSERT INTO tour_infos (title, detail, price, status, tour_id, created_at, updated_at)"
-                   + " VALUES (?, ?, ?, ?, ?, now(), now();)";
-            preparedStatement = connection.prepareStatement(sql);
+                    + " VALUES (?, ?, ?, ?, ?, now(), now());";
+
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, tourInfo.getTitle());
             preparedStatement.setString(2, tourInfo.getDetail());
             preparedStatement.setLong(3, tourInfo.getPrice());
             preparedStatement.setInt(4, tourInfo.getStatus());
             preparedStatement.setInt(5, tourInfo.getTourID());
+            preparedStatement.executeUpdate();
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -52,6 +51,7 @@ public class TourInfoDAO extends BaseDAO {
 
     public TourInfoBean GetTourInfoByTourID(int tourID) {
         TourInfoBean tourInfo = null;
+        System.out.println(tourID);
         try {
             this.connection = DBConnection.getConnect();
             String sql = "SELECT * FROM tour_infos WHERE tour_id = ? AND status = ?;";
@@ -76,7 +76,7 @@ public class TourInfoDAO extends BaseDAO {
         return tourInfo;
     }
 
-    public boolean UpdateTourInfoByTourID(CreateTourRequest tourInfo, int tourID){
+    public boolean UpdateTourInfoByTourID(CreateTourRequest tourInfo, int tourID) {
         try {
             connection = DBConnection.getConnect();
             String sql = "UPDATE tour_infos SET title = ?, detail = ?, price = ?, updated_at = now() WHERE tour_id = ?;";

@@ -121,7 +121,7 @@ public class TourService {
         }
 
         ArrayList<ImageBean> images = request.getImages();
-        String paramsInsertImages = parseInsertImage(images);
+        String paramsInsertImages = parseInsertImage(images, tourInfoID);
         try {
             new ImageDAO().CreateImage(paramsInsertImages);
         } catch (Exception e) {
@@ -132,6 +132,7 @@ public class TourService {
     }
 
     public boolean UpdateTour(CreateTourRequest request, int tourID) {
+        System.out.println(tourID);
         boolean success = tourDAO.UpdateTour(request, tourID);
         if (!success) {
             return false;
@@ -148,9 +149,15 @@ public class TourService {
         }
 
         ArrayList<ImageBean> images = request.getImages();
-        String paramsInsertImages = parseInsertImage(images);
+        TourInfoBean tourInfo = null;
         try {
-            success = new ImageDAO().UpdateImages(paramsInsertImages, request.getTourInfoID());
+            tourInfo = new TourInfoDAO().GetTourInfoByTourID(tourID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String paramsInsertImages = parseInsertImage(images, tourInfo.getId());
+        try {
+            success = new ImageDAO().UpdateImages(paramsInsertImages, tourInfo.getId());
             if (!success){
                 return false;
             }
@@ -220,9 +227,11 @@ public class TourService {
         return builder.toString();
     }
 
-    public String parseInsertImage(ArrayList<ImageBean> images) {
+    public String parseInsertImage(ArrayList<ImageBean> images, int tourInfoID) {
         StringBuilder builder = new StringBuilder();
         for (ImageBean image : images) {
+            image.setTourInfoID(tourInfoID);
+            image.setDescription(image.getDescription().replace("'", ""));
             builder.append(" (\'" + image.getUrl() + "\', " + image.getTourInfoID() + ", \'" + image.getDescription() + "\', now(), now()),");
         }
         builder.deleteCharAt(builder.length() - 1);

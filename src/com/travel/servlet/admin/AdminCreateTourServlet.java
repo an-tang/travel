@@ -19,6 +19,7 @@ import java.util.ArrayList;
 @WebServlet(urlPatterns = "/admin/createTour")
 public class AdminCreateTourServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
 
         String[] image_URLs = request.getParameterValues("image_URL");
         String[] image_DESs = request.getParameterValues("image_description");
@@ -31,32 +32,20 @@ public class AdminCreateTourServlet extends HttpServlet {
         String tour_image = request.getParameter("tour_image");
 
         ArrayList<ImageBean> images = new ArrayList<>();
-
-
-        try {
-
-            for (int i = 0; i < image_URLs.length; i++) {
-                ImageDAO imageDAO = new ImageDAO();
-
-                ImageBean imageBean = new ImageBean(image_URLs[i], image_DESs[i]);
-//
-//                String param = "(" + "'" + image_URLs[i] + "'" + "," + tour_id + "," + "'" + image_DESs[i] + "'" + "," + "now()" + "," + "now()" + ")";
-//                imageDAO.UpdateImages(param, Integer.parseInt(tour_id));
-                images.add(imageBean);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (int i = 0; i < image_URLs.length; i++) {
+            ImageBean imageBean = new ImageBean(image_URLs[i], image_DESs[i]);
+            images.add(imageBean);
         }
 
         try {
             ProvinceDAO provinceDAO = new ProvinceDAO();
-            TourService tourService = new  TourService();
+            TourService tourService = new TourService();
             ArrayList<ProvinceBean> listProvince = provinceDAO.GetAllProvinces();
             CreateTourRequest createTourRequest = new CreateTourRequest(tour_name, tour_image, Integer.parseInt(province_id), tour_title, tour_detail, Long.parseLong(tour_price), images);
 
-            boolean updateTour = tourService.CreateTour(createTourRequest);
+            boolean savedTour = tourService.CreateTour(createTourRequest);
 
-            if (updateTour) {
+            if (savedTour) {
                 ProvinceService provinceService = new ProvinceService();
                 ProvinceBean province = provinceService.GetProvinceByID(Integer.parseInt(province_id));
 

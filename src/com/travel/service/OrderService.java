@@ -163,15 +163,22 @@ public class OrderService {
         if ((to == null) || to == "") {
             to = getToDay();
         }
+        String params = "";
+        if (areaID > 0) {
+            params += " AND a.id = " + areaID;
+        }
+        if (provinceID >0){
+            params += " AND p.id = " + provinceID;
+        }
 
-        return orderDAO.GetReportOrder(from, to);
+        return orderDAO.GetReportOrder(params, from, to);
     }
 
-    private String getToDay(){
+    private String getToDay() {
         return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
 
-    private String getFirstDayOfMonth(){
+    private String getFirstDayOfMonth() {
         Date date = new Date();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int month = localDate.getMonthValue();

@@ -246,7 +246,7 @@ public class OrderDAO extends BaseDAO {
         return order;
     }
 
-    public ArrayList<OrderReport> GetReportOrder(String from, String to) {
+    public ArrayList<OrderReport> GetReportOrder(String params, String from, String to) {
         ArrayList<OrderReport> orders = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
@@ -256,6 +256,7 @@ public class OrderDAO extends BaseDAO {
                     + " INNER JOIN provinces p ON t.province_id = p.id"
                     + " INNER JOIN areas a ON p.area_id = a.id"
                     + " WHERE (DATE(o.created_at) BETWEEN DATE (?) AND DATE (?))"
+                    + params
                     + " GROUP BY a.id, a.name, p.name, t.id, t.name"
                     + " ORDER BY a.id ASC, p.name ASC, total_amount DESC;";
 

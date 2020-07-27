@@ -482,7 +482,7 @@ public class TourDAO extends BaseDAO {
         return true;
     }
 
-    public ArrayList<TourDetail> GetTourInAdminPageByKeyword(String keyword, int page, int perPage) {
+    public ArrayList<TourDetail> GetTourInAdminPageByKeyword(String keyword, int start, int size) {
         ArrayList<TourDetail> listTours = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
@@ -494,8 +494,8 @@ public class TourDAO extends BaseDAO {
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, keyword);
-            preparedStatement.setInt(2, page * perPage + perPage);
-            preparedStatement.setInt(3, page * perPage);
+            preparedStatement.setInt(2, size);
+            preparedStatement.setInt(3, start);
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {

@@ -296,7 +296,7 @@ public class UserDAO extends BaseDAO {
         return users;
     }
 
-    public ArrayList<UserBean> GetUserInAdminPageByKeyword(String keyword, int page, int perPage) {
+    public ArrayList<UserBean> GetUserInAdminPageByKeyword(String keyword, int start, int size) {
         ArrayList<UserBean> listUsers = new ArrayList<>();
         try {
             connection = DBConnection.getConnect();
@@ -307,8 +307,8 @@ public class UserDAO extends BaseDAO {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, keyword);
             preparedStatement.setInt(2, Role.CUSTOMER.getValue());
-            preparedStatement.setInt(3, page * perPage + perPage);
-            preparedStatement.setInt(4, page * perPage);
+            preparedStatement.setInt(3, size);
+            preparedStatement.setInt(4, start);
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -326,7 +326,7 @@ public class UserDAO extends BaseDAO {
             BaseDAO.closeConnection(preparedStatement, connection);
         }
 
-        for(UserBean u :listUsers){
+        for (UserBean u : listUsers) {
             System.out.println(u.toString());
         }
 

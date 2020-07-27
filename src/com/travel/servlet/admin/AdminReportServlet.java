@@ -43,7 +43,6 @@ public class AdminReportServlet extends HttpServlet {
                 request.setAttribute("listArea", listArea);
 
                 String area = request.getParameter("area_id");
-                System.out.println(area);
                 int area_id = (area == null || area.equals("")) ? 0 : Integer.parseInt(area);
 
                 if (area_id != 0) {

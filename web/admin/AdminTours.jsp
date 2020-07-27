@@ -1,17 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.travel.bean.OrderBean" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.travel.bean.TourBean" %>
-<%@ page import="com.travel.viewmodel.TourDetail" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    ArrayList<TourDetail> listTours = (ArrayList<TourDetail>) request.getAttribute("listTours");
-%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <jsp:include page="/components/admin/adminHeadTags.jsp"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/admin/adminQuickSearch.css">
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -55,73 +49,41 @@
             <!-- ============================================================== -->
             <!-- Start Page Content -->
             <!-- ============================================================== -->
+
+            <div class="admin-quick-search-wrapper row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <form action="/admin-tour-search" method="POST" class="admin-quick-search d-flex align-items-start">
+                                <input type="search" class="form-control" name="q" required="required" placeholder="Từ khóa">
+                                <button class="btn btn-success" type="submit">
+                                    <i class="ti-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <!-- column -->
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-block">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table id="tourDetailTable" class="table mb-0">
                                     <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Name</th>
-                                        <th>Title</th>
-                                        <th>Price</th>
-                                        <th>Province</th>
-                                        <th>Status</th>
-                                        <%--                                        <th>Trạng Thái</th>--%>
-                                    </tr>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Name</th>
+                                            <th>Title</th>
+                                            <th>Price</th>
+                                            <th>Province</th>
+                                            <th>Status</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <%--STT--%>
-                                    <%
-                                        int i = 1;
-
-                                    %>
-                                    <c:forEach items="${listTours}" var="tour">
-
-                                        <form action="/admin/Tours"
-                                              method="post">
-                                            <tr>
-                                                <%
-                                                    out.println("<td>" + i + "</td>");
-                                                    i++;
-                                                %>
-                                                <td>${tour.getName()}</td>
-                                                <td>${tour.getTitle()}</td>
-                                                <td>${tour.getPrice()}</td>
-                                                <td>${tour.getProvince()}</td>
-                                                <td>${tour.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
-                                                <td>
-
-                                                    <button class="btn waves-effect waves-green btn-instagram hidden-md-down"
-                                                            type="submit"
-                                                            name="id_tour_update"
-                                                            value="${tour.getId()}">
-                                                        Update
-                                                    </button>
-                                                </td>
-                                                <td>
-
-                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                            type="submit"
-                                                            name="id_tour_active"
-                                                            value="${tour.getId()}">
-                                                        Active
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                            type="submit"
-                                                            name="id_tour_deactive"
-                                                            value="${tour.getId()}">
-                                                        Deactive
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </form>
-                                    </c:forEach>
+                                        <jsp:include page="../components/admin/adminTourList.jsp"/>
                                     </tbody>
                                 </table>
                             </div>
@@ -157,6 +119,8 @@
 <%--popup--%>
 <jsp:include page="../admin/popupTour/TourCreate.jsp"/>
 <jsp:include page="../admin/popupTour/TourScript.jsp"/>
+<script src="../assets/js/admin/components/adminQuickSearch.js"></script>
+<script src="../assets/js/admin/adminTourSearch.js"></script>
 
 
 </body>

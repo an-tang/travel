@@ -1,0 +1,24 @@
+.admin-quick-search-wrapper {
+    form.admin-quick-search {
+        input {
+            width: 48%;
+            height: 35px;
+            margin-right: 0.5rem;
+            font-family: Poppins, sans-serif;
+
+            &::placeholder {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 300;
+                color: #67757c;
+            }
+        }
+
+        button {
+            height: 37px;
+
+            i {
+                line-height: unset;
+            }
+        }
+    }
+}

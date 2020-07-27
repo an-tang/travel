@@ -5,7 +5,7 @@
 <%
     ArrayList<ProvinceBean> listProvince = (ArrayList<ProvinceBean>) request.getAttribute("listProvince");
 %>
-<div id="tour_create" class="modal" tabindex="-1" role="dialog">
+<div id="tour_create" class="modal" tabindex="-1" role="dialog" style="overflow: auto">
     <div class="modal-dialog" role="document" style="max-width: 900px!important;">
         <div class="modal-content">
             <div class="modal-header">

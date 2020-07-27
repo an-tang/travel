@@ -41,7 +41,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
                         <li class="breadcrumb-item active">Tours</li>
-                        <button class="btn waves-effect waves-green btn-facebook hidden-md-down btn-show-create"
+                        <button class="btn waves-effect waves-green btn-twitter hidden-md-down btn-show-create"
                                 type="button"
                                 style="float: right">
                             Create
@@ -95,7 +95,7 @@
                                                 <td>${tour.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
                                                 <td>
 
-                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
+                                                    <button class="btn waves-effect waves-green btn-instagram hidden-md-down"
                                                             type="submit"
                                                             name="id_tour_update"
                                                             value="${tour.getId()}">

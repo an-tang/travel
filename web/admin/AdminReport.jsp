@@ -1,5 +1,12 @@
+<%@ page import="com.travel.viewmodel.OrderReport" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    ArrayList<OrderReport> orderReports = (ArrayList<OrderReport>) request.getAttribute("orderReports");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,16 +43,16 @@
                     </ol>
                 </div>
                 <form action="/admin/Report"
-                method="post">
+                      method="post">
                     <div class="nhan">
                         <label for="start">Start date:</label>
 
                         <input type="date" id="start"
-                               name="trip-start">
+                               name="dateFrom">
 
                         <label for="start"> End date:</label>
                         <input type="date" id="end"
-                               name="trip-start">
+                               name="dateTo">
 
                         <button type="submit">
                             filter
@@ -79,21 +86,18 @@
                                         int i = 1;
 
                                     %>
-                                    <c:forEach items="${listTours}" var="tour">
-                                        <c:url var="tourUrl" value="/tour">
-                                            <c:param name="id" value="${tour.getId()}"/>
-                                        </c:url>
-                                        <form action="/admin/Tours"
+                                    <c:forEach items="${orderReports}" var="order">
+                                        <form action="/admin/Report"
                                               method="post">
                                             <tr>
                                                 <%
                                                     out.println("<td>" + i + "</td>");
                                                     i++;
                                                 %>
-                                                <td>${tour.getName()}</td>
-                                                <td>${tour.getTitle()}</td>
-                                                <td>${tour.getPrice()}</td>
-                                                <td>${tour.getProvince()}</td>
+                                                <td>${order.getArea()}</td>
+                                                <td>${order.getProvince()}</td>
+                                                <td>${order.getTourName()}</td>
+                                                <td>${order.getGrandAmount()}</td>
                                             </tr>
                                         </form>
                                     </c:forEach>

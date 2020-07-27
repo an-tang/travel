@@ -1,16 +1,11 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.travel.bean.UserBean" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<%
-    ArrayList<UserBean> listUsers = (ArrayList<UserBean>) request.getAttribute("listUsers");
-%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <jsp:include page="/components/admin/adminHeadTags.jsp"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/admin/adminQuickSearch.css">
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -49,75 +44,40 @@
             <!-- ============================================================== -->
             <!-- Start Page Content -->
             <!-- ============================================================== -->
+
+            <div class="admin-quick-search-wrapper row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <form action="/admin-user-search" method="POST" class="admin-quick-search d-flex align-items-start">
+                                <input type="search" class="form-control" name="q" required="required" placeholder="Tìm kiếm">
+                                <button class="btn btn-success" type="submit">
+                                    <i class="ti-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <!-- column -->
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-block">
                             <div class="table-responsive">
-
-                                <table class="table">
+                                <table id="userDetailTable" class="table m-0">
                                     <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th readonly="">Tên đăng nhập</th>
-                                        <th>Họ và tên</th>
-                                        <th>Email</th>
-                                        <th>Trạng Thái</th>
-                                    </tr>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th readonly>Tên đăng nhập</th>
+                                            <th>Họ và tên</th>
+                                            <th>Email</th>
+                                            <th>Trạng Thái</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <%--STT--%>
-                                    <%
-                                        int i = 1;
-
-                                    %>
-                                    <c:forEach items="${listUsers}" var="user">
-                                        <c:url var="userUrl" value="/profile">
-                                            <c:param name="id" value="${user.getId()}"/>
-                                        </c:url>
-                                        <form action="/admin/Users"
-                                              method="post">
-                                            <tr>
-                                                <%
-                                                    out.println("<td>" + i + "</td>");
-                                                    i++;
-                                                %>
-                                                <td>${user.getUserName()}</td>
-                                                <td>${user.getName()}</td>
-                                                <td>${user.getEmail()}</td>
-                                                <td>${user.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
-                                                <td>
-
-                                                    <button class="btn waves-effect waves-green btn-google hidden-md-down"
-                                                            type="submit"
-                                                            name="id_user_history" value="${user.getUserName()}">
-                                                        History
-                                                    </button>
-                                                </td>
-                                                <td>
-
-                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                            type="submit"
-                                                            name="id_user_active" value="${user.getId()}">
-                                                        Active
-
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                            type="submit"
-                                                            name="id_user_deactive"
-                                                            value="${user.getId()}">
-                                                        Deactive
-
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </form>
-
-                                    </c:forEach>
-
+                                        <jsp:include page="../components/admin/adminUserList.jsp"/>
                                     </tbody>
                                 </table>
                             </div>
@@ -148,7 +108,9 @@
 
 
 </div>
+
 <jsp:include page="../components/admin/adminScipts.jsp"/>
+<script src="../assets/js/components/adminQuickSearch.js"></script>
 
 </body>
 

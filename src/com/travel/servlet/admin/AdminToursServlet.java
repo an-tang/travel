@@ -2,6 +2,7 @@ package com.travel.servlet.admin;
 
 import com.travel.bean.ProvinceBean;
 import com.travel.dao.ProvinceDAO;
+import com.travel.enumerize.PagingSize;
 import com.travel.helper.SessionHelpers;
 import com.travel.service.ProvinceService;
 import com.travel.service.TourService;
@@ -73,7 +74,7 @@ public class AdminToursServlet extends HttpServlet {
                 request.setAttribute("listProvince", listProvince);
 
                 //-------------get list Orders-----------------
-                ArrayList<TourDetail> list = tourService.GetAllTourHaveSorting("name", "asc", 2, 0, 10);
+                ArrayList<TourDetail> list = tourService.GetAllTourHaveSorting("name", "asc", 2, 0, PagingSize.ADMIN_TOURS.getValue());
                 request.setAttribute("listTours", list);
 
                 UserService userService = new UserService();

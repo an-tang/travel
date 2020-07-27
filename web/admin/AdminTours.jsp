@@ -55,7 +55,7 @@
                     <div class="card">
                         <div class="card-block">
                             <form action="/admin-tour-search" method="POST" class="admin-quick-search d-flex align-items-start">
-                                <input type="search" class="form-control" name="q" required="required" placeholder="Từ khóa">
+                                <input type="search" class="form-control" name="q" required="required" placeholder="Tìm kiếm">
                                 <button class="btn btn-success" type="submit">
                                     <i class="ti-search"></i>
                                 </button>
@@ -119,9 +119,7 @@
 <%--popup--%>
 <jsp:include page="../admin/popupTour/TourCreate.jsp"/>
 <jsp:include page="../admin/popupTour/TourScript.jsp"/>
-<script src="../assets/js/admin/components/adminQuickSearch.js"></script>
-<script src="../assets/js/admin/adminTourSearch.js"></script>
-
+<script src="../assets/js/components/adminQuickSearch.js"></script>
 
 </body>
 </html>

@@ -68,7 +68,7 @@ public class AdminToursServlet extends HttpServlet {
                 TourService tourService = new TourService();
                 ProvinceDAO provinceDAO = new ProvinceDAO();
 
-                //-------------get list Orders-----------------
+                //-------------get list Provinces-----------------
                 ArrayList<ProvinceBean> listProvince = provinceDAO.GetAllProvinces();
                 request.setAttribute("listProvince", listProvince);
 

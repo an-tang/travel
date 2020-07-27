@@ -78,4 +78,27 @@ public class AreaDAO extends BaseDAO {
 
         return values;
     }
+
+    public AreaBean GetAreaByID(int id) {
+        AreaBean areaBean = null;
+        try {
+            connection = DBConnection.getConnect();
+            String sql = "SELECT * FROM areas WHERE id = ? LIMIT 1";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                areaBean = new AreaBean(id, name);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            BaseDAO.closeConnection(preparedStatement, connection);
+        }
+
+        return areaBean;
+    }
 }

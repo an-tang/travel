@@ -50,7 +50,7 @@
                     <div class="card">
                         <div class="card-block">
                             <form action="/admin-user-search" method="POST" class="admin-quick-search d-flex align-items-start">
-                                <input type="search" class="form-control" name="q" required="required" placeholder="Tìm kiếm">
+                                <input type="search" class="form-control" name="q" required="required" placeholder="Search...">
                                 <button class="btn btn-success" type="submit">
                                     <i class="ti-search"></i>
                                 </button>
@@ -70,10 +70,10 @@
                                     <thead>
                                         <tr>
                                             <th>STT</th>
-                                            <th readonly>Tên đăng nhập</th>
-                                            <th>Họ và tên</th>
+                                            <th readonly>Username</th>
+                                            <th>Full name</th>
                                             <th>Email</th>
-                                            <th>Trạng Thái</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -91,12 +91,12 @@
                                                 <td>${order.getTotalAmount()}</td>
                                                 <td>${order.getPaymentMethod()}</td>
                                                 <td>${order.getDescription()}</td>
-                                                <td>${order.getStatus() == 1 ? "Mới"
-                                                        : order.getStatus() == 2? "Đã Thanh Toán"
-                                                        :order.getStatus() == 3?"Lỗi"
-                                                        :order.getStatus() == 4?"Hoàn tất"
-                                                        :order.getStatus() == 5?"Đã hủy"
-                                                        :"Ngưng hoạt động"}</td>
+                                                <td>${order.getStatus() == 1 ? "New"
+                                                        :order.getStatus() == 2? "Paid"
+                                                        :order.getStatus() == 3?"Failed"
+                                                        :order.getStatus() == 4?"Completed"
+                                                        :order.getStatus() == 5?"Cancelled"
+                                                        : "Inactive"}</td>
                                                 <td>
 
                                                     <button class="btn waves-effect waves-green btn-facebook hidden-md-down"

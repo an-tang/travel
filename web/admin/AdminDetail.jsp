@@ -58,7 +58,7 @@
                                     action="/admin/Detail"
                                     method="post">
                                 <div class="form-group">
-                                    <label class="col-md-12">Tên đăng nhập</label>
+                                    <label class="col-md-12">Username</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="userName"
                                                name="admin_user_name"
@@ -70,7 +70,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-12">Họ và tên</label>
+                                    <label class="col-md-12">Full name</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="name"
                                                name="admin_name"
@@ -98,18 +98,6 @@
                                                name="admin_phone"
                                                value="<%=admin.getPhone()%>"
                                         >
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-12">Select Country</label>
-                                    <div class="col-sm-12">
-                                        <select class="form-control form-control-line">
-                                            <option>London</option>
-                                            <option>India</option>
-                                            <option>Usa</option>
-                                            <option>Canada</option>
-                                            <option>Thailand</option>
-                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">

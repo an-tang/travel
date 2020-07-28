@@ -14,7 +14,7 @@
                 <td>${tour.getTitle()}</td>
                 <td>${tour.getPrice()}</td>
                 <td>${tour.getProvince()}</td>
-                <td>${tour.getStatus() == 1 ? "Đang hoạt động" : "Ngưng hoạt động"}</td>
+                <td>${tour.getStatus() == 1 ? "Active" : "Inactive"}</td>
                 <td>
                     <form class="d-flex" action="/admin/Tours" method="post">
                         <button class="btn waves-effect waves-green btn-instagram hidden-md-down mr-2"

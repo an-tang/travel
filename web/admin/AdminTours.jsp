@@ -55,7 +55,7 @@
                     <div class="card">
                         <div class="card-block">
                             <form action="/admin-tour-search" method="POST" class="admin-quick-search d-flex align-items-start">
-                                <input type="search" class="form-control" name="q" required="required" placeholder="Tìm kiếm">
+                                <input type="search" class="form-control" name="q" required="required" placeholder="Search...">
                                 <button class="btn btn-success" type="submit">
                                     <i class="ti-search"></i>
                                 </button>

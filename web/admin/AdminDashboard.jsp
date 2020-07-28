@@ -65,7 +65,7 @@
                                 <div class="col-12">
                                     <div class="d-flex flex-wrap">
                                         <div>
-                                            <h3 class="card-title">Biểu đồ Order theo tỉnh</h3>
+                                            <h3 class="card-title">Orders by Province</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
                 <div class="col-lg-4 col-md-5">
                     <div class="card">
                         <div class="card-block">
-                            <h3 class="card-title">Biểu đồ Order theo Khu vực </h3>
+                            <h3 class="card-title">Orders by Region</h3>
                             <div id="visitor" style="height:290px; width:100%;"></div>
                         </div>
                         <div>

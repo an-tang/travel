@@ -60,55 +60,35 @@
                                         <th>STT</th>
                                         <th>Feedback</th>
                                         <th>Title</th>
-                                        <th>Khách hàng</th>
+                                        <th>Customer</th>
                                         <th>Email</th>
-                                        <th>Trạng thái</th>
+                                        <th>Status</th>
                                     </tr>
 
                                     </thead>
                                     <tbody>
-                                    <%--STT--%>
-                                    <%
-                                        int i = 1;
-
-                                    %>
-                                    <c:forEach items="${listFeedback}" var="feedback">
+                                    <c:forEach items="${listFeedback}" var="feedback" varStatus="status">
                                         <c:url var="feedbackUrl" value="/admin/Feedback">
                                             <c:param name="id" value="${feedback.getId()}"/>
                                         </c:url>
-                                        <form action="/admin/Comment"
-                                              method="post">
                                             <tr>
-                                                <%
-                                                    out.println("<td>" + i + "</td>");
-                                                    i++;
-                                                %>
+                                                <td>${status.index + 1}</td>
                                                 <td>${feedback.getContent()}</td>
                                                 <td>${feedback.getTitle()}</td>
                                                 <td>${feedback.getUsername()}</td>
                                                 <td>${feedback.getEmail()}</td>
-                                                <td>${feedback.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                                <td>${feedback.getStatus() == 1 ? "Read" : "New"}</td>
                                                 <td>
-
-                                                    <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
-                                                            type="submit"
-                                                            name="id_feedback_active"
-                                                            value="${feedback.getId()}">
-                                                        Active
-
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn waves-effect waves-red btn-red hidden-md-down"
-                                                            type="submit"
-                                                            name="id_feedback_deactive"
-                                                            value="${feedback.getId()}">
-                                                        Deactive
-
-                                                    </button>
+                                                    <form action="/admin/Feedback" method="post">
+                                                        <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
+                                                                type="submit"
+                                                                name="id_feedback_new"
+                                                                value="${feedback.getId()}">
+                                                            Mark as read
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
-                                        </form>
                                     </c:forEach>
                                     </tbody>
                                 </table>

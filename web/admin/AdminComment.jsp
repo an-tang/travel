@@ -58,10 +58,10 @@
                                     <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Bình luận</th>
+                                        <th>Comment content</th>
                                         <th>Tour</th>
-                                        <th>Khách hàng</th>
-                                        <th>Trạng thái</th>
+                                        <th>Customer</th>
+                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -84,14 +84,14 @@
                                                 <td>${comment.getContent()}</td>
                                                 <td>${comment.getTourInfoID()}</td>
                                                 <td>${comment.getUserName()}</td>
-                                                <td>${comment.getStatus() == 1 ? "Đang hoạt động":"Ngưng hoạt động"}</td>
+                                                <td>${comment.getStatus() == 1 ? "Active" : "Inactive"}</td>
                                                 <td>
 
                                                     <button class="btn waves-effect waves-green btn-facebook hidden-md-down"
                                                             type="submit"
                                                             name="id_comment_active"
                                                             value="${comment.getId()}">
-                                                        Active
+                                                        Activate
 
                                                     </button>
                                                 </td>
@@ -100,7 +100,7 @@
                                                             type="submit"
                                                             name="id_comment_deactive"
                                                             value="${comment.getId()}">
-                                                        Deactive
+                                                        Deactivate
 
                                                     </button>
                                                 </td>

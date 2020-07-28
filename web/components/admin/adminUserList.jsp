@@ -13,7 +13,7 @@
                 <td>${user.getUserName()}</td>
                 <td>${user.getName()}</td>
                 <td>${user.getEmail()}</td>
-                <td>${user.getStatus() == 1 ? "Đang hoạt động" : "Ngưng hoạt động"}</td>
+                <td>${user.getStatus() == 1 ? "Active" : "Inactive"}</td>
                 <td>
                     <form class="d-flex" action="/admin/Users" method="post">
                         <button class="btn waves-effect waves-green btn-google hidden-md-down mr-2"

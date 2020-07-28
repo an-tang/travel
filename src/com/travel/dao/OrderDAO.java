@@ -126,7 +126,7 @@ public class OrderDAO extends BaseDAO {
             connection = DBConnection.getConnect();
             String sql = "SELECT t.id, t.name, t.image, ti.price , o.created_at, o.passenger, o.user_name, o.status, o.description, p.name as payment_name"
                     + " FROM orders o INNER JOIN tours t ON o.tour_id = t.id INNER JOIN payments p ON o.payment_id = p.id"
-                    + " INNER JOIN tour_infos ti ON t.id = ti.tour_id WHERE user_name = ?;";
+                    + " INNER JOIN tour_infos ti ON t.id = ti.tour_id WHERE user_name = ? ORDER BY created_at DESC;";
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userName);

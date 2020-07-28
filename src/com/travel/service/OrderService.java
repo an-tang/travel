@@ -109,7 +109,7 @@ public class OrderService {
             }
             System.out.println(String.valueOf(orderID));
             //Create connection
-            URL url = new URL("https://630efc75676c.ngrok.io/v1/payments");
+            URL url = new URL("https://e3266e3403e1.ngrok.io/v1/payments");
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
@@ -119,7 +119,7 @@ public class OrderService {
             JSONObject request = new JSONObject();
             request.put("transaction_id", String.valueOf(orderID));
             request.put("tour_name", tourInfo.getTitle());
-            request.put("amount", tourInfo.getPrice());
+            request.put("amount", tourInfo.getPrice() * orderBean.getPassenger());
 
             //Send request
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8);

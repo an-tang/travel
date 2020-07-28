@@ -2,6 +2,7 @@ package com.travel.service;
 
 import com.travel.bean.UserBean;
 import com.travel.dao.UserDAO;
+import com.travel.enumerize.PagingSize;
 import com.travel.enumerize.Role;
 import com.travel.enumerize.Status;
 import com.travel.viewmodel.UserReport;
@@ -145,6 +146,10 @@ public class UserService {
     }
 
     public ArrayList<UserBean> GetUserInAdminPageByKeyword(String keyword, int start, int size){
+        if (keyword.equals("")) {
+            return GetAllUsersHaveSorting("name", "asc", 2, 0, PagingSize.ADMIN_USERS.getValue());
+        }
+
         keyword = keyword.replace(" ", "&");
         start = Math.max(start, 0);
         size = size < 0 ? 10 : size;

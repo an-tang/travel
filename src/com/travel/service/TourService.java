@@ -6,6 +6,7 @@ import com.travel.bean.TourInfoBean;
 import com.travel.dao.ImageDAO;
 import com.travel.dao.TourDAO;
 import com.travel.dao.TourInfoDAO;
+import com.travel.enumerize.PagingSize;
 import com.travel.enumerize.Status;
 import com.travel.viewmodel.CreateTourRequest;
 import com.travel.viewmodel.TourDetail;
@@ -239,6 +240,10 @@ public class TourService {
     }
 
     public ArrayList<TourDetail> GetTourInAdminPageByKeyword(String keyword, int start, int size) {
+        if (keyword.equals("")) {
+            return GetAllTourHaveSorting("name", "asc", 2, 0, PagingSize.ADMIN_TOURS.getValue());
+        }
+
         keyword = keyword.replace(" ", "&");
         start = Math.max(start, 0);
         size = size < 0 ? 10 : size;

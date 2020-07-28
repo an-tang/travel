@@ -10,7 +10,7 @@
     String loginReplacementURL = (String) request.getAttribute("loginReplacementURL");
     TourInfoBean tourInfo = (TourInfoBean) request.getAttribute("tourInfo");
 %>
-<div class="card comment-form-card">
+<div class="card comment-form-card" data-tour-id="<%=tourInfo.getId()%>">
     <h5 class="card-header">Bình luận</h5>
     <div class="card-body">
         <c:choose>

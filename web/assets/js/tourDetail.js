@@ -96,7 +96,7 @@ function fetchComments(url) {
 
     if (!url) {
         let getCommentsURL = new URL('/comment', location.origin);
-        getCommentsURL.searchParams.append('tour_info', $('form.comment input[name="tour_info"]').val());
+        getCommentsURL.searchParams.append('tour_info', $('.comment-form-card').data('tour-id'));
         getCommentsURL.searchParams.append('start', COMMENTS_DEFAULT_START.toString());
         getCommentsURL.searchParams.append('size', COMMENTS_PER_PAGE.toString());
         getCommentsURLString = getCommentsURL.toString();

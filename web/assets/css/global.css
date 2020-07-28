@@ -1377,12 +1377,9 @@ Newsletter
   display: block;
   position: fixed;
   right: 0;
-  top: 50%;
+  bottom: 25px;
   z-index: 98;
   background-color: transparent;
-}
-.feedback-button .btn {
-  font-size: 0.75rem;
 }
 
 .spinner-container {

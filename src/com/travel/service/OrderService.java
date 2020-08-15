@@ -94,7 +94,7 @@ public class OrderService {
         return orderDAO.GetOrderByID(orderID);
     }
 
-    public Checkout RequestPayment(TourInfoBean tourInfo, OrderBean orderBean) {
+    public Checkout RequestPayment(TourInfoBean tourInfo, OrderBean orderBean, String token) {
         HttpURLConnection connection = null;
         Checkout checkout = null;
         int orderID = 0;
@@ -120,6 +120,7 @@ public class OrderService {
             request.put("transaction_id", String.valueOf(orderID));
             request.put("tour_name", tourInfo.getTitle());
             request.put("amount", tourInfo.getPrice() * orderBean.getPassenger());
+            request.put("token", token);
 
             //Send request
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8);

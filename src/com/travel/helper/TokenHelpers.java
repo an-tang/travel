@@ -19,7 +19,7 @@ public class TokenHelpers {
         if (session == null) return false;
 
         String sessionToken = (String) session.getAttribute(sessionAttrName);
-        String clientToken = request.getParameter("t");
+        String clientToken = request.getParameter("token");
 
         if (sessionToken == null) return false;
         if (clientToken == null) return false;

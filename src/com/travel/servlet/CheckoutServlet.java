@@ -93,11 +93,15 @@ public class CheckoutServlet extends HttpServlet {
                 );
                 order.setStatus(OrderStatus.NEW.getValue());
 
+                // Generate one-time token
+                String token = TokenHelpers.generateToken("ocf_");
+                currentSession.setAttribute("orderConfirmationToken", token);
+
                 // Handle payment cases
                 if (paymentMethod == PaymentMethod.MOMO.getValue()) {
                     order.setPaymentMethod(PaymentMethod.MOMO);
                     TourInfoBean tourInfo = tourInfoService.GetTourInfoByTourID(orderTourId);
-                    Checkout checkout = orderService.RequestPayment(tourInfo, order);
+                    Checkout checkout = orderService.RequestPayment(tourInfo, order, token);
                     ajaxResponse = new CheckoutResponse(
                             true,
                             "Giao dịch thành công",
@@ -108,16 +112,13 @@ public class CheckoutServlet extends HttpServlet {
                     order.setPaymentMethod(PaymentMethod.BANK_TRANSFER);
                     int orderId = orderService.CreateOrder(order);
 
-                    // Generate one-time token
-                    String token = TokenHelpers.generateToken("ocf_");
-                    currentSession.setAttribute("orderConfirmationToken", token);
                     ajaxResponse = new AjaxResponse(
                             true,
                             "Giao dịch thành công",
                             URLHelpers.buildRelativeURL(
                                     "/order-confirmation",
                                     "order", String.valueOf(orderId),
-                                    "t", token
+                                    "token", token
                             )
                     );
                 }

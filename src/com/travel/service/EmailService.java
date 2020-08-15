@@ -38,7 +38,7 @@ public class EmailService {
             }
 
             String baseURL = host + "/reset-password";
-            String endpoint = URLHelpers.buildRelativeURL(baseURL, "t", token);
+            String endpoint = URLHelpers.buildRelativeURL(baseURL, "token", token);
             message.setSubject("UIT Travel - Reset password");
             message.setText("Dear " + user.getName() + ",\n\nClick the link bellow to reset password:\n" + endpoint + "\n\nRegards!");
 
